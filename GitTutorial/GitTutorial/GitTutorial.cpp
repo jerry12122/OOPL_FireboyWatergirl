@@ -18,6 +18,7 @@ int main()
     do {
             std::cin>> guess;
     }while(!Guess(guess));
+    int i;
     return 0;
 }
 
