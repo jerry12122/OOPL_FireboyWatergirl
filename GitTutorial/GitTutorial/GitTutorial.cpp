@@ -9,15 +9,31 @@ using namespace System;
 
 bool Guess(int number)
 {
-
+    static int target = -1;
+    if (target == -1) {
+        Random r;
+        target = r.Next() % 100 + 1;
+    }
+    if (number > target) {
+        std::cout << "Smaller" << std::endl;
+        return false;
+    }
+    else if (number < target) {
+        std::cout << "Bigger" << std::endl;
+        return false;
+    }
+    return false;
 }
 
 int main()
 {
-	int gress;
-	do {
-		std::cout << "Choose a number beteeen 1 - 100 :";
-	} while (!Guess(guess));
+
+    int guess ;
+    do {
+            std::cin>> guess;
+    }while(!Guess(guess));
+    return 0;
+
 }
 
 
