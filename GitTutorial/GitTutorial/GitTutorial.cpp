@@ -9,18 +9,34 @@ using namespace System;
 
 bool Guess(int number)
 {
-
+    static int target = -1;
+    if (target == -1) {
+        Random r;
+        target = r.Next() % 100 + 1;
+    }
+    if (number > target) {
+        std::cout << "Smaller" << std::endl;
+        return false;
+    }
+    else if (number < target) {
+        std::cout << "Bigger" << std::endl;
+        return false;
+    }
+    return false;
 }
 
 int main()
 {
+
     int guess ;
     do {
             std::cin>> guess;
     }while(!Guess(guess));
     int i;
     return 0;
+
 }
+
 
 // 執行程式: Ctrl + F5 或 [偵錯] > [啟動但不偵錯] 功能表
 // 偵錯程式: F5 或 [偵錯] > [啟動偵錯] 功能表
