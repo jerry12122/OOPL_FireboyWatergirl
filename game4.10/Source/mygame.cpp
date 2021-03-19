@@ -187,6 +187,132 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 /////////////////////////////////////////////////////////////////////////////
+CPractice::CPractice()
+{
+	x = y = 0;
+}
+void CPractice::OnMove() {
+	if (y <= SIZE_Y) {
+		x += 3;
+		y += 3;
+
+	}
+	else {
+		x = y = 0;
+	}
+}
+void CPractice::LoadBitmap() {
+	pic.LoadBitmap(IDB_PRACTICE);
+}
+void CPractice::OnShow() {
+	pic.SetTopLeft(x, y);
+	pic.ShowBitmap();
+}
+
+CGameMap::CGameMap()
+	:X(20),Y(40),MW(120),MH(100)
+{
+	int map_init[4][5] = {
+		{0,0,1,0,0},
+		{0,1,2,1,0},
+		{1,2,1,2,1},
+		{2,1,2,1,2}
+	};
+	for (int i = 0; i < 4;i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			map[i][j] = map_init[i][j];
+		}
+	}
+	random_num = 0;
+	bballs = NULL;
+}
+void CGameMap::LoadBitmap() {
+	blue.LoadBitmap(IDB_BLUE);
+	green.LoadBitmap(IDB_GREEN);
+}
+void CGameMap::OnShow() {
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			switch (map[j][i])
+			{
+				case 0:
+					break;
+				case 1:
+					blue.SetTopLeft(X + (MW*i), Y + (MH*j));
+					blue.ShowBitmap();
+					break;
+
+				case 2:
+					green.SetTopLeft(X + (MW*i), Y + (MH*j));
+					green.ShowBitmap();
+					break;
+				default:
+					ASSERT(0);
+
+			}
+		}
+	}
+	for (int i = 0; i < random_num; i++) {
+		bballs[i].OnShow();
+	}
+}
+void CGameMap::InitalizeBouncingBall(int ini_index, int row, int col) {
+	const int VELOCITY = 10;
+	const int BALL_PIC_HIGHT = 15;
+	int floor = Y + (row + 1)*MH - BALL_PIC_HIGHT;
+
+	bballs[ini_index].LoadBitmap();
+	bballs[ini_index].SetFloor(floor);
+	bballs[ini_index].SetVelocity(VELOCITY + col);
+	bballs[ini_index].SetXY(X + col * MW + MW / 2, floor);
+}
+void CGameMap::RandonBouncingBall() {
+	const int MAX_RAND_NUM = 10;
+	random_num = (rand() % MAX_RAND_NUM) + 1;
+	delete [] bballs;
+	bballs = new CBouncingBall[random_num];
+	int ini_index = 0;
+	for (int row = 0; row < 4; row++) {
+		for (int col = 0; col < 5; col++) {
+			if (map[row][col] != 0 && ini_index < random_num) {
+				InitalizeBouncingBall(ini_index, row, col);
+				ini_index++;
+			}
+		}
+
+	}
+}
+void CGameMap::OnKeyDown(UINT nChar) {
+	const int KEY_SPACE = 0x20;
+	if (nChar == KEY_SPACE)
+		RandonBouncingBall();
+}
+void CGameMap::OnMove() {
+	for (int i = 0; i < random_num; i++) {
+		bballs[i].OnMove();
+	}
+}
+CGameMap::~CGameMap() {
+	delete [] bballs;
+}
+
+void CBouncingBall::SetXY(int x, int y) {
+	this->x = x;
+	this->y = y;
+}
+void CBouncingBall::SetFloor(int floor)
+{
+	this->floor = floor;
+}
+void CBouncingBall::SetVelocity(int velocity) {
+	this->velocity = velocity;
+	this->initial_velocity = velocity;
+}
+
 
 CGameStateRun::CGameStateRun(CGame *g)
 : CGameState(g), NUMBALLS(28)
@@ -278,6 +404,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		picX = picY = 0;
 	}
 	practice.SetTopLeft(picX, picY);
+	c_practice.OnMove();
+	gamemap.OnMove();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -315,6 +443,8 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 	//
 	practice.LoadBitmap(IDB_PRACTICE);
+	c_practice.LoadBitmap();
+	gamemap.LoadBitmap();
 
 }
 
@@ -333,6 +463,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		eraser.SetMovingUp(true);
 	if (nChar == KEY_DOWN)
 		eraser.SetMovingDown(true);
+	gamemap.OnKeyDown(nChar);
 }
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -401,5 +532,8 @@ void CGameStateRun::OnShow()
 	corner.SetTopLeft(SIZE_X-corner.Width(), SIZE_Y-corner.Height());
 	corner.ShowBitmap();
 	practice.ShowBitmap();
+	c_practice.OnShow();
+	gamemap.OnShow();
+
 }
 }
