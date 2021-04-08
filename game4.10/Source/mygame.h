@@ -106,18 +106,20 @@ namespace game_framework {
 		CGameMap();
 		void LoadBitmap();
 		void OnShow();
-		void OnMove();
-		void OnKeyDown(UINT);
-		void RandonBouncingBall();
-		void InitalizeBouncingBall(int, int, int);
+		//void OnMove();
+		//void OnKeyDown(UINT);
+		//void RandonBouncingBall();
+		//void InitalizeBouncingBall(int, int, int);
 		~CGameMap();
 	protected:
-		CMovingBitmap blue, green;
-		int map[4][5];
+		CMovingBitmap background;
+		int map[6][11];
+		int x_block[6];
+		int y_block[11];
 		const int X, Y;
 		const int MW, MH;
-		CBouncingBall* bballs;
-		int random_num;
+		//CBouncingBall* bballs;
+		//int random_num;
 
 
 	};

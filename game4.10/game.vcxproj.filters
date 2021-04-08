@@ -189,5 +189,8 @@
     <Image Include="..\res\GAME_MENU.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\res\demo_map.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
