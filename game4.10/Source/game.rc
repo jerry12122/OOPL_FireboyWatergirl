@@ -110,6 +110,8 @@ IDB_BLUE                BITMAP                  "..\\res\\bitmap3.bmp"
 
 IDB_GREEN               BITMAP                  "..\\res\\bitmap5.bmp"
 
+IDB_GAME_MENU           BITMAP                  "C:\\Users\\myzzzz\\Desktop\\1092project\\game\\res\\GAME_MENU.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
