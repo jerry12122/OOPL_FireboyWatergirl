@@ -11,9 +11,9 @@ namespace game_framework {
 	// Player: Player class
 	/////////////////////////////////////////////////////////////////////////////
 
-	Player::Player(int color)
+	Player::Player()
 	{
-		Initialize(color);
+		Initialize();
 	}
 
 	int Player::GetX1()
@@ -36,19 +36,11 @@ namespace game_framework {
 		return y + animation.Height();
 	}
 
-	void Player::Initialize(int color)
+	void Player::Initialize()
 	{
 		int tmpx, tmpy;
-		if (color == 0)
-		{
-			tmpx = 19;
-			tmpy = 343;
-		}
-		else if (color == 1)
-		{
-			tmpx = 19;
-			tmpy = 520;
-		}
+		tmpx = 19;
+		tmpy = 520;
 		const int X_POS = tmpx;
 		const int Y_POS = tmpy;
 		x = X_POS;
@@ -58,15 +50,15 @@ namespace game_framework {
 
 	void Player::LoadBitmap()
 	{
-		animation.AddBitmap(IDB_ERASER1, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_ERASER2, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_ERASER3, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_ERASER2, RGB(255, 255, 255));
+		animation.AddBitmap(ICE_FRONT, RGB(255, 255, 255));
+		animation.AddBitmap(ICE_RIGHT_RUN_1, RGB(255, 255, 255));
+		animation.AddBitmap(ICE_RIGHT_RUN_2, RGB(255, 255, 255));
+		animation.AddBitmap(ICE_RIGHT_RUN_3, RGB(255, 255, 255));
 	}
 
 	void Player::OnMove()
 	{
-		const int STEP_SIZE = 2;
+		const int STEP_SIZE = 5;
 		animation.OnMove();
 		if (isMovingLeft)
 			x -= STEP_SIZE;
@@ -105,6 +97,7 @@ namespace game_framework {
 
 	void Player::OnShow()
 	{
+
 		animation.SetTopLeft(x, y);
 		animation.OnShow();
 	}

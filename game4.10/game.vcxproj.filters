@@ -204,5 +204,29 @@
     <Image Include="..\res\demo_map.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\res\ICE_DIAMOND.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\ICE_FRONT.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\ICE_LEFT_RUN_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\ICE_LEFT_RUN_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\ICE_LEFT_RUN_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\ICE_RIGHT_RUN_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\ICE_RIGHT_RUN_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\ICE_RIGHT_RUN_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

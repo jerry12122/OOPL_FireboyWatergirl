@@ -11,18 +11,24 @@ namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// RedDiamond: Ball class
 	/////////////////////////////////////////////////////////////////////////////
-
 	RedDiamond::RedDiamond()
 	{
+		diamond_color = 1;
 		is_alive = true;
 		x = y = dx = dy = index = delay_counter = 0;
 	}
+	/*RedDiamond::RedDiamond(int color)
+	{
+		diamond_color = color;
+		is_alive = true;
+		x = y = dx = dy = index = delay_counter = 0;
+	}*/
 
-	bool RedDiamond::HitPlayer(Player *eraser)
+	bool RedDiamond::HitPlayer(Player *player)
 	{
 		// 檢測擦子所構成的矩形是否碰到球
-		return HitRectangle(eraser->GetX1(), eraser->GetY1(),
-			eraser->GetX2(), eraser->GetY2());
+		return HitRectangle(player->GetX1(), player->GetY1(),
+			player->GetX2(), player->GetY2());
 	}
 
 	bool RedDiamond::HitRectangle(int tx1, int ty1, int tx2, int ty2)
@@ -44,30 +50,10 @@ namespace game_framework {
 
 	void RedDiamond::LoadBitmap()
 	{
-		bmp.LoadBitmap(IDB_BALL, RGB(0, 0, 0));			// 載入球的圖形
-		bmp_center.LoadBitmap(IDB_CENTER, RGB(0, 0, 0));	// 載入球圓心的圖形
+		bmp.LoadBitmap(ICE_DIAMOND, RGB(0, 0, 0));			// 載入球的圖形
 	}
-
-	void RedDiamond::OnMove()
-	{
-		if (!is_alive)
-			return;
-		delay_counter--;
-		if (delay_counter < 0) {
-			delay_counter = delay;
-			//
-			// 計算球向對於圓心的位移量dx, dy
-			//
-			const int STEPS = 18;
-			static const int DIFFX[] = { 35, 32, 26, 17, 6, -6, -17, -26, -32, -34, -32, -26, -17, -6, 6, 17, 26, 32, };
-			static const int DIFFY[] = { 0, 11, 22, 30, 34, 34, 30, 22, 11, 0, -11, -22, -30, -34, -34, -30, -22, -11, };
-			index++;
-			if (index >= STEPS)
-				index = 0;
-			dx = DIFFX[index];
-			dy = DIFFY[index];
-		}
-	}
+	
+	
 
 	void RedDiamond::SetDelay(int d)
 	{
@@ -75,7 +61,7 @@ namespace game_framework {
 	}
 	void RedDiamond::SetColor(int a)
 	{
-		color = a;
+		diamond_color = a;
 	}
 	void RedDiamond::SetIsAlive(bool alive)
 	{

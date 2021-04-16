@@ -41,6 +41,8 @@
 #include "CEraser.h"
 #include "CBall.h"
 #include "CBouncingBall.h"
+#include "RedDiamond.h"
+#include "Player.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -75,16 +77,7 @@ namespace game_framework {
 	// 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 	// 每個Member function的Implementation都要弄懂
 	/////////////////////////////////////////////////////////////////////////////
-	class CPractice {
-	public:
-		CPractice();
-		void LoadBitmap();
-		void OnMove();
-		void OnShow();
-	private:
-		CMovingBitmap pic;
-		int x, y;
-	};/*
+;/*
 	class CBouncingBall {
 	public:
 		void LoadBitmap();
@@ -144,13 +137,14 @@ namespace game_framework {
 		CMovingBitmap	background;	// 背景圖
 		CMovingBitmap	help;		// 說明圖
 		CBall			*ball;		// 球的陣列
+		RedDiamond		diamond;
 		CMovingBitmap	corner;		// 角落圖
 		CEraser			eraser;		// 拍子
 		CInteger		hits_left;	// 剩下的撞擊數
 		CBouncingBall   bball;		// 反覆彈跳的球
 		CMovingBitmap	practice;
+		Player			player1;
 		int picX, picY;
-		CPractice c_practice;
 		CGameMap gamemap;
 	};
 

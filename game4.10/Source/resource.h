@@ -42,6 +42,15 @@
 #define IDB_GAME_MENU                   164
 #define IDB_BITMAP3                     165
 #define IDB_MAP1                        165
+#define ICE_DIAMOND                     167
+#define ICE_FRONT                       168
+#define ICE_LEFT_RUN_1                  169
+#define ICE_LEFT_RUN_2                  170
+#define IDB_BITMAP8                     171
+#define ICE_LEFT_RUN_3                  171
+#define ICE_RIGHT_RUN_1                 172
+#define ICE_RIGHT_RUN_2                 173
+#define ICE_RIGHT_RUN_3                 174
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -54,7 +63,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        166
+#define _APS_NEXT_RESOURCE_VALUE        175
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101
