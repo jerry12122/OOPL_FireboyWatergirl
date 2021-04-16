@@ -360,7 +360,8 @@ void CMovingBitmap::LoadBitmap(char *filename, COLORREF color)
 	CBitmap *bmp = CBitmap::FromHandle(hbitmap ); // memory will be deleted automatically
 	BITMAP bitmapSize;
 	bmp->GetBitmap(&bitmapSize);
-	location.left = nx; location.top = ny;
+	location.left = nx;
+	location.top = ny;
 	location.right = nx+bitmapSize.bmWidth;
 	location.bottom = ny+bitmapSize.bmHeight;
 	SurfaceID = CDDraw::RegisterBitmap(filename, color);
