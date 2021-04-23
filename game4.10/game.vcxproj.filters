@@ -210,15 +210,6 @@
     <Image Include="..\res\ICE_FRONT.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\res\ICE_LEFT_RUN_1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\ICE_LEFT_RUN_2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\ICE_LEFT_RUN_3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="..\res\ICE_RIGHT_RUN_1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -226,6 +217,15 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\res\ICE_RIGHT_RUN_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\ICE_LEFT_RUN_11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\ICE_LEFT_RUN_22.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\ICE_LEFT_RUN_33.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
