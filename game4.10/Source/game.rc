@@ -118,11 +118,11 @@ ICE_DIAMOND             BITMAP                  "..\\..\\res\\ICE_DIAMOND.bmp"
 
 ICE_FRONT               BITMAP                  "..\\..\\res\\ICE_FRONT.bmp"
 
-ICE_LEFT_RUN_1          BITMAP                  "..\\..\\res\\ICE_LEFT_RUN_11.bmp"
+ICE_LEFT_RUN_1          BITMAP                  "..\\..\\res\\ICE_LEFT_RUN_1.bmp"
 
-ICE_LEFT_RUN_2          BITMAP                  "..\\..\\res\\ICE_LEFT_RUN_22.bmp"
+ICE_LEFT_RUN_2          BITMAP                  "..\\..\\res\\ICE_LEFT_RUN_2.bmp"
 
-ICE_LEFT_RUN_3          BITMAP                  "..\\..\\res\\ICE_LEFT_RUN_33.bmp"
+ICE_LEFT_RUN_3          BITMAP                  "..\\..\\res\\ICE_LEFT_RUN_3.bmp"
 
 ICE_RIGHT_RUN_1         BITMAP                  "..\\..\\res\\ICE_RIGHT_RUN_1.bmp"
 
