@@ -38,7 +38,7 @@ namespace game_framework {
 
 	void Player::Initialize()
 	{
-		const int INITIAL_VELOCITY = 5;	// 初始上升速度
+		const int INITIAL_VELOCITY = 7;	// 初始上升速度
 		const int FLOOR = 519;				// 地板座標
 		const int X_POS = 19;
 		const int Y_POS = 520;
@@ -53,14 +53,15 @@ namespace game_framework {
 
 	void Player::LoadBitmap()
 	{
-		animation.AddBitmap(ICE_FRONT, RGB(255, 255, 255));
+		//animation.AddBitmap(ICE_FRONT, RGB(255, 255, 255));
 		animation.AddBitmap(ICE_RIGHT_RUN_1, RGB(255, 255, 255));
 		animation.AddBitmap(ICE_RIGHT_RUN_2, RGB(255, 255, 255));
 		animation.AddBitmap(ICE_RIGHT_RUN_3, RGB(255, 255, 255));
-		animation1.AddBitmap(ICE_FRONT, RGB(255, 255, 255));
+		//animation1.AddBitmap(ICE_FRONT, RGB(255, 255, 255));
 		animation1.AddBitmap(ICE_LEFT_RUN_1, RGB(255, 255, 255));
 		animation1.AddBitmap(ICE_LEFT_RUN_2, RGB(255, 255, 255));
 		animation1.AddBitmap(ICE_LEFT_RUN_3, RGB(255, 255, 255));
+		bit.LoadBitmap(ICE_FRONT, RGB(255, 255, 255));
 	}
 
 	void Player::OnMove()
@@ -73,6 +74,7 @@ namespace game_framework {
 			x += STEP_SIZE;
 		if (isMovingUp)
 			rising = true;
+			
 			if (rising) {			// 上升狀態
 				if (velocity > 0) {
 					
@@ -93,6 +95,7 @@ namespace game_framework {
 					y = floor - 1;  // 當y座標低於地板，更正為地板上
 					
 					rising = false;	// 探底反彈，下次改為上升
+					velocity = initial_velocity;
 					 // 重設上升初始速度
 				}
 				isMovingUp = false;
@@ -137,13 +140,20 @@ namespace game_framework {
 	}
 	void Player::OnShow()
 	{
-		animation.SetTopLeft(x, y);
+		if (isMovingLeft) {
+			animation1.SetTopLeft(x, y);
+			animation1.OnShow();
+		}
 		if (isMovingRight)
 		{
+			animation.SetTopLeft(x, y);
 			animation.OnShow();
 		}
-		if (isMovingLeft) {
-			animation1.OnShow();
+
+		if (!isMovingRight && !isMovingLeft)
+		{
+			bit.SetTopLeft(x, y);
+			bit.ShowBitmap();
 		}
 
 	}
