@@ -22,13 +22,21 @@ namespace game_framework {
 		void SetMovingRight(bool flag); // 設定是否正在往右移動
 		void SetMovingUp(bool flag);	// 設定是否正在往上移動
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
+		void SetFloor(int);
+		void SetVelocity(int);
 	protected:
 		CAnimation animation;		// 擦子的動畫
 		CAnimation animation1;		// 擦子的動畫2
+		CMovingBitmap bit;
 		int x, y;					// 擦子左上角座標
 		bool isMovingDown;			// 是否正在往下移動
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動
 		bool isMovingUp;			// 是否正在往上移動
+
+		int floor;				// 地板的Y座標
+		bool rising;			// true表上升、false表下降
+		int initial_velocity;	// 初始速度
+		int velocity;			// 目前的速度(點/次)
 	};
 }

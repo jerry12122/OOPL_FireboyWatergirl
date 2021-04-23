@@ -38,14 +38,17 @@ namespace game_framework {
 
 	void Player::Initialize()
 	{
-		int tmpx, tmpy;
-		tmpx = 19;
-		tmpy = 520;
-		const int X_POS = tmpx;
-		const int Y_POS = tmpy;
+		const int INITIAL_VELOCITY = 5;	// 初始上升速度
+		const int FLOOR = 519;				// 地板座標
+		const int X_POS = 19;
+		const int Y_POS = 520;
+		floor = FLOOR;
 		x = X_POS;
 		y = Y_POS;
 		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
+		rising = false;
+		initial_velocity = INITIAL_VELOCITY;
+		velocity = initial_velocity;
 	}
 
 	void Player::LoadBitmap()
@@ -54,6 +57,10 @@ namespace game_framework {
 		animation.AddBitmap(ICE_RIGHT_RUN_1, RGB(255, 255, 255));
 		animation.AddBitmap(ICE_RIGHT_RUN_2, RGB(255, 255, 255));
 		animation.AddBitmap(ICE_RIGHT_RUN_3, RGB(255, 255, 255));
+		animation1.AddBitmap(ICE_FRONT, RGB(255, 255, 255));
+		animation1.AddBitmap(ICE_LEFT_RUN_1, RGB(255, 255, 255));
+		animation1.AddBitmap(ICE_LEFT_RUN_2, RGB(255, 255, 255));
+		animation1.AddBitmap(ICE_LEFT_RUN_3, RGB(255, 255, 255));
 	}
 
 	void Player::OnMove()
@@ -65,7 +72,32 @@ namespace game_framework {
 		if (isMovingRight)
 			x += STEP_SIZE;
 		if (isMovingUp)
-			y -= STEP_SIZE;
+			rising = true;
+			if (rising) {			// 上升狀態
+				if (velocity > 0) {
+					
+					y -= velocity;	// 當速度 > 0時，y軸上升(移動velocity個點，velocity的單位為 點/次)
+					velocity--;		// 受重力影響，下次的上升速度降低
+				}
+				else {
+					rising = false; // 當速度 <= 0，上升終止，下次改為下降
+					velocity = 1;	// 下降的初速(velocity)為1
+				}
+			}
+			else {				// 下降狀態
+				if (y < floor - 1) {  // 當y座標還沒碰到地板
+					y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
+					velocity++;		// 受重力影響，下次的下降速度增加
+				}
+				else {
+					y = floor - 1;  // 當y座標低於地板，更正為地板上
+					
+					rising = false;	// 探底反彈，下次改為上升
+					 // 重設上升初始速度
+				}
+				isMovingUp = false;
+			};
+
 		if (isMovingDown)
 			y += STEP_SIZE;
 	}
@@ -95,10 +127,24 @@ namespace game_framework {
 		x = nx; y = ny;
 	}
 
+	void Player::SetFloor(int floor)
+	{
+		this->floor = floor;
+	}
+	void Player::SetVelocity(int velocity) {
+		this->velocity = velocity;
+		this->initial_velocity = velocity;
+	}
 	void Player::OnShow()
 	{
-
 		animation.SetTopLeft(x, y);
-		animation.OnShow();
+		if (isMovingRight)
+		{
+			animation.OnShow();
+		}
+		if (isMovingLeft) {
+			animation1.OnShow();
+		}
+
 	}
 }

@@ -302,18 +302,7 @@ CGameMap::~CGameMap() {
 	//delete [] bballs;
 }
 
-void CBouncingBall::SetXY(int x, int y) {
-	this->x = x;
-	this->y = y;
-}
-void CBouncingBall::SetFloor(int floor)
-{
-	this->floor = floor;
-}
-void CBouncingBall::SetVelocity(int velocity) {
-	this->velocity = velocity;
-	this->initial_velocity = velocity;
-}
+
 
 
 CGameStateRun::CGameStateRun(CGame *g)
