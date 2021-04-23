@@ -68,6 +68,8 @@ namespace game_framework {
 	{
 		const int STEP_SIZE = 5;
 		animation.OnMove();
+		animation1.OnMove();
+
 		if (isMovingLeft)
 			x -= STEP_SIZE;
 		if (isMovingRight)
@@ -144,13 +146,13 @@ namespace game_framework {
 			animation1.SetTopLeft(x, y);
 			animation1.OnShow();
 		}
-		if (isMovingRight)
+		else if (isMovingRight)
 		{
 			animation.SetTopLeft(x, y);
 			animation.OnShow();
 		}
 
-		if (!isMovingRight && !isMovingLeft)
+		else if (!isMovingRight && !isMovingLeft)
 		{
 			bit.SetTopLeft(x, y);
 			bit.ShowBitmap();
