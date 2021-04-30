@@ -40,7 +40,7 @@ namespace game_framework {
 	{
 		const int INITIAL_VELOCITY = 12;	// 初始上升速度
 		const int FLOOR = 578 - 52;				// 地板座標
-		const int X_POS = 19;
+		const int X_POS = 42;
 		const int Y_POS = 520;
 		floor = FLOOR;
 		x = X_POS;

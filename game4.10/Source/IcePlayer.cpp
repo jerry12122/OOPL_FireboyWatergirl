@@ -39,9 +39,9 @@ namespace game_framework {
 	void IcePlayer::Initialize()
 	{
 		const int INITIAL_VELOCITY = 12;	// 初始上升速度
-		const int FLOOR = 578 - 52;				// 地板座標
-		const int X_POS = 19;
-		const int Y_POS = 520;
+		const int FLOOR = 496 - 52;				// 地板座標
+		const int X_POS = 42;
+		const int Y_POS = 446;
 		floor = FLOOR;
 		x = X_POS;
 		y = Y_POS;
