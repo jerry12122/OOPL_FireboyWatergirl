@@ -132,7 +132,13 @@
     <ClCompile Include="Source\RedDiamond.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
+    <ClCompile Include="Source\IceDiamond.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RedPlayer.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IcePlayer.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
   </ItemGroup>
@@ -176,7 +182,13 @@
     <ClInclude Include="Source\RedDiamond.h">
       <Filter>MyGame</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Player.h">
+    <ClInclude Include="Source\IceDiamond.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\RedPlayer.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IcePlayer.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,20 +4,20 @@
 #include <ddraw.h>
 #include "audio.h"
 #include "gamelib.h"
-#include "RedPlayer.h"
-#include "RedDiamond.h"
+#include "IcePlayer.h"
+#include "IceDiamond.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
-	// RedDiamond: Ball class
+	// IceDiamond: Ball class
 	/////////////////////////////////////////////////////////////////////////////
-	RedDiamond::RedDiamond()
+	IceDiamond::IceDiamond()
 	{
 		is_alive = true;
 		x = y = 0;
 	}
 
-	bool RedDiamond::HitPlayer(RedPlayer *player)
+	bool IceDiamond::HitPlayer(IcePlayer *player)
 	{
 
 		// 檢測擦子所構成的矩形是否碰到球
@@ -25,10 +25,10 @@ namespace game_framework {
 			player->GetX2(), player->GetY2());
 	}
 
-	bool RedDiamond::HitRectangle(int tx1, int ty1, int tx2, int ty2)
+	bool IceDiamond::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
-		int x1 = x ;				// 球的左上角x座標
-		int y1 = y ;				// 球的左上角y座標
+		int x1 = x;				// 球的左上角x座標
+		int y1 = y;				// 球的左上角y座標
 		int x2 = x1 + bmp.Width();	// 球的右下角x座標
 		int y2 = y1 + bmp.Height();	// 球的右下角y座標
 									//
@@ -37,37 +37,35 @@ namespace game_framework {
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 
-	bool RedDiamond::IsAlive()
+	bool IceDiamond::IsAlive()
 	{
 		return is_alive;
 	}
 
-	void RedDiamond::LoadBitmap()
+	void IceDiamond::LoadBitmap()
 	{
-
-			bmp.LoadBitmap(FIRE_DIAMOND, RGB(255, 255, 255));			// 載入球的圖形
-
+		bmp.LoadBitmap(ICE_DIAMOND, RGB(255, 255, 255));			// 載入球的圖形
 	}
-	void RedDiamond::OnMove()
+	void IceDiamond::OnMove()
 	{
 		if (!is_alive)
 			return;
 	}
-
-	void RedDiamond::SetIsAlive(bool alive)
+	
+	void IceDiamond::SetIsAlive(bool alive)
 	{
 		is_alive = alive;
 	}
 
-	void RedDiamond::SetXY(int nx, int ny)
+	void IceDiamond::SetXY(int nx, int ny)
 	{
 		x = nx; y = ny;
 	}
 
-	void RedDiamond::OnShow()
+	void IceDiamond::OnShow()
 	{
 		if (is_alive) {
-			bmp.SetTopLeft(x , y );
+			bmp.SetTopLeft(x, y);
 			bmp.ShowBitmap();
 		}
 	}
