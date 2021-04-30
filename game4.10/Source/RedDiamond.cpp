@@ -46,9 +46,9 @@ namespace game_framework {
 	void RedDiamond::LoadBitmap()
 	{
 		if (diamond_color == 0)
-			bmp.LoadBitmap(ICE_DIAMOND, RGB(255, 255, 255));			// 載入球的圖形
-		else
 			bmp.LoadBitmap(FIRE_DIAMOND, RGB(255, 255, 255));			// 載入球的圖形
+		else
+			bmp.LoadBitmap(ICE_DIAMOND, RGB(255, 255, 255));			// 載入球的圖形
 	}
 	void RedDiamond::OnMove()
 	{

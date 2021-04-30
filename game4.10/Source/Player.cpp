@@ -62,7 +62,7 @@ namespace game_framework {
 	}
 	void Player::LoadBitmap()
 	{
-		if (color == 0)
+		if (color == 1)
 		{
 			animation.AddBitmap(ICE_RIGHT_RUN_1, RGB(255, 255, 255));
 			animation.AddBitmap(ICE_RIGHT_RUN_2, RGB(255, 255, 255));
@@ -71,6 +71,16 @@ namespace game_framework {
 			animation1.AddBitmap(ICE_LEFT_RUN_2, RGB(255, 255, 255));
 			animation1.AddBitmap(ICE_LEFT_RUN_3, RGB(255, 255, 255));
 			bit.LoadBitmap(ICE_FRONT, RGB(255, 255, 255));
+		}
+		else
+		{
+			animation.AddBitmap(FIRE_RIGHT_RUN_1, RGB(255, 255, 255));
+			animation.AddBitmap(FIRE_RIGHT_RUN_2, RGB(255, 255, 255));
+			animation.AddBitmap(FIRE_RIGHT_RUN_3, RGB(255, 255, 255));
+			animation1.AddBitmap(FIRE_LEFT_RUN_1, RGB(255, 255, 255));
+			animation1.AddBitmap(FIRE_LEFT_RUN_2, RGB(255, 255, 255));
+			animation1.AddBitmap(FIRE_LEFT_RUN_3, RGB(255, 255, 255));
+			bit.LoadBitmap(FIRE_FRONT, RGB(255, 255, 255));
 		}
 
 	}

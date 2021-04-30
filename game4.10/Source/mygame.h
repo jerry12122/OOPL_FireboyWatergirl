@@ -137,12 +137,12 @@ namespace game_framework {
 		CMovingBitmap	background;	// 背景圖
 		CMovingBitmap	help;		// 說明圖
 		//CBall			*ball;		// 球的陣列
-		RedDiamond		*diamond;	// 鑽石的陣列
+		RedDiamond		*diamond1,*diamond2;	// 鑽石的陣列
 		CEraser			eraser;		// 拍子
 		CInteger		hits_left;	// 剩下的撞擊數
 		CBouncingBall   bball;		// 反覆彈跳的球
 		
-		Player			player1;
+		Player			player1,player2;
 		int picX, picY;
 		CGameMap gamemap;
 	};
