@@ -11,11 +11,11 @@ namespace game_framework {
 	// Player: Player class
 	/////////////////////////////////////////////////////////////////////////////
 
+
 	Player::Player()
 	{
 		Initialize();
 	}
-
 	int Player::GetX1()
 	{
 		return x;
@@ -49,19 +49,30 @@ namespace game_framework {
 		rising = false;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
+		this->color = 0;
 	}
 
+	void Player::SetColor(int a)
+	{
+		this->color = a;
+	}
+	int	 Player::GetColor()
+	{
+		return this->color;
+	}
 	void Player::LoadBitmap()
 	{
-		//animation.AddBitmap(ICE_FRONT, RGB(255, 255, 255));
-		animation.AddBitmap(ICE_RIGHT_RUN_1, RGB(255, 255, 255));
-		animation.AddBitmap(ICE_RIGHT_RUN_2, RGB(255, 255, 255));
-		animation.AddBitmap(ICE_RIGHT_RUN_3, RGB(255, 255, 255));
-		//animation1.AddBitmap(ICE_FRONT, RGB(255, 255, 255));
-		animation1.AddBitmap(ICE_LEFT_RUN_1, RGB(255, 255, 255));
-		animation1.AddBitmap(ICE_LEFT_RUN_2, RGB(255, 255, 255));
-		animation1.AddBitmap(ICE_LEFT_RUN_3, RGB(255, 255, 255));
-		bit.LoadBitmap(ICE_FRONT, RGB(255, 255, 255));
+		if (color == 0)
+		{
+			animation.AddBitmap(ICE_RIGHT_RUN_1, RGB(255, 255, 255));
+			animation.AddBitmap(ICE_RIGHT_RUN_2, RGB(255, 255, 255));
+			animation.AddBitmap(ICE_RIGHT_RUN_3, RGB(255, 255, 255));
+			animation1.AddBitmap(ICE_LEFT_RUN_1, RGB(255, 255, 255));
+			animation1.AddBitmap(ICE_LEFT_RUN_2, RGB(255, 255, 255));
+			animation1.AddBitmap(ICE_LEFT_RUN_3, RGB(255, 255, 255));
+			bit.LoadBitmap(ICE_FRONT, RGB(255, 255, 255));
+		}
+
 	}
 
 	void Player::OnMove()

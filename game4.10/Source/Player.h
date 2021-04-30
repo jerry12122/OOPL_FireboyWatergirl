@@ -24,6 +24,8 @@ namespace game_framework {
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
 		void SetFloor(int);
 		void SetVelocity(int);
+		void SetColor(int);
+		int	 GetColor();
 	protected:
 		CAnimation animation;		// 擦子的動畫
 		CAnimation animation1;		// 擦子的動畫2
@@ -33,7 +35,7 @@ namespace game_framework {
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動
 		bool isMovingUp;			// 是否正在往上移動
-
+		int color;
 		int floor;				// 地板的Y座標
 		bool rising;			// true表上升、false表下降
 		int initial_velocity;	// 初始速度

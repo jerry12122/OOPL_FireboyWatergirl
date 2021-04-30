@@ -306,16 +306,14 @@ CGameMap::~CGameMap() {
 
 
 CGameStateRun::CGameStateRun(CGame *g)
-: CGameState(g), NUMBALLS(28)
+: CGameState(g), NUMBALLS(3)
 {
-	ball = new CBall [NUMBALLS];
-	
-	picX = picY = 0;
+	diamond = new RedDiamond[NUMBALLS];
 }
 
 CGameStateRun::~CGameStateRun()
 {
-	delete [] ball;
+	delete [] diamond;
 }
 
 void CGameStateRun::OnBeginState()
@@ -328,15 +326,14 @@ void CGameStateRun::OnBeginState()
 	const int HITS_LEFT_Y = 0;
 	const int BACKGROUND_X = 60;
 	const int ANIMATION_SPEED = 15;
+	const int diamond_position[3][2] = { {405,535},{140,260},{223,41} };
 	for (int i = 0; i < NUMBALLS; i++) {				// 設定球的起始座標
-		int x_pos = i % BALL_PER_ROW;
-		int y_pos = i / BALL_PER_ROW;
-		ball[i].SetXY(x_pos * BALL_GAP + BALL_XY_OFFSET, y_pos * BALL_GAP + BALL_XY_OFFSET);
-		ball[i].SetDelay(x_pos);
-		ball[i].SetIsAlive(true);
+		diamond[i].SetXY(diamond_position[i][0], diamond_position[i][1]);
+		diamond[i].SetIsAlive(true);
+		diamond[i].SetColor(0);
 	}
 	player1.Initialize();
-
+	player1.SetColor(0);
 	background.SetTopLeft(0,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
 	hits_left.SetInteger(HITS_LEFT);					// 指定剩下的撞擊數
@@ -366,7 +363,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	int i;
 	for (i=0; i < NUMBALLS; i++)
-		ball[i].OnMove();
+		diamond[i].OnMove();
 	//
 	// 移動擦子
 	//
@@ -375,10 +372,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	// 判斷擦子是否碰到球
 	//
-	/*
+	
 	for (i=0; i < NUMBALLS; i++)
-		if (ball[i].IsAlive() && ball[i].HitEraser(&eraser)) {
-			ball[i].SetIsAlive(false);
+		if (diamond[i].IsAlive() && diamond[i].HitPlayer(&player1)) {
+			diamond[i].SetIsAlive(false);
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_left.Add(-1);
 			//
@@ -389,19 +386,13 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
 				GotoGameState(GAME_STATE_OVER);
 			}
-		}*/
+		}
 	//
 	// 移動彈跳的球
 	//
 	bball.OnMove();
-	if (picX <= SIZE_Y) {
-		picX += 5;
-		picY += 5;
-	}
-	else {
-		picX = picY = 0;
-	}
-	practice.SetTopLeft(picX, picY);
+
+
 
 	//gamemap.OnMove();
 }
@@ -418,7 +409,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 	int i;
 	for (i = 0; i < NUMBALLS; i++)	
-		ball[i].LoadBitmap();								// 載入第i個球的圖形
+		diamond[i].LoadBitmap();								// 載入第i個球的圖形
 
 	player1.LoadBitmap();
 	background.LoadBitmap(IDB_MAP1);					// 載入背景的圖形
@@ -432,14 +423,14 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 	help.LoadBitmap(IDB_HELP,RGB(255,255,255));				// 載入說明的圖形
 	bball.LoadBitmap();										// 載入圖形
-	hits_left.LoadBitmap();									
+	hits_left.LoadBitmap();
 	CAudio::Instance()->Load(AUDIO_DING,  ".\\sounds\\ding.wav");	// 載入編號0的聲音ding.wav
 	CAudio::Instance()->Load(AUDIO_LAKE,  ".\\sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
 	CAudio::Instance()->Load(AUDIO_NTUT,  ".\\sounds\\ntut.mid");	// 載入編號2的聲音ntut.mid
 	//
 	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 	//
-	practice.LoadBitmap(IDB_PRACTICE);
+
 
 	gamemap.LoadBitmap();
 
@@ -540,7 +531,7 @@ void CGameStateRun::OnShow()
 	help.ShowBitmap();					// 貼上說明圖
 	hits_left.ShowBitmap();
 	for (int i=0; i < NUMBALLS; i++)
-		ball[i].OnShow();				// 貼上第i號球
+		diamond[i].OnShow();				// 貼上第i號球
 	bball.OnShow();						// 貼上彈跳的球
 	//eraser.OnShow();					// 貼上擦子
 	player1.OnShow();
@@ -548,10 +539,6 @@ void CGameStateRun::OnShow()
 	//  貼上左上及右下角落的圖
 	//
 
-
-	practice.ShowBitmap();
-
-	//gamemap.OnShow();
 
 }
 }

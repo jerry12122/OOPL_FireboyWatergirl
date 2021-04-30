@@ -130,6 +130,8 @@ ICE_RIGHT_RUN_2         BITMAP                  "..\\..\\res\\ICE_RIGHT_RUN_2.bm
 
 ICE_RIGHT_RUN_3         BITMAP                  "..\\..\\res\\ICE_RIGHT_RUN_3.bmp"
 
+FIRE_DIAMOND            BITMAP                  "..\\..\\res\\FIRE_DIAMOND.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
