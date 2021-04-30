@@ -4,39 +4,39 @@
 #include <ddraw.h>
 #include "audio.h"
 #include "gamelib.h"
-#include "Player.h"
+#include "IcePlayer.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
-	// Player: Player class
+	// IcePlayer: IcePlayer class
 	/////////////////////////////////////////////////////////////////////////////
 
 
-	Player::Player()
+	IcePlayer::IcePlayer()
 	{
 		Initialize();
 	}
-	int Player::GetX1()
+	int IcePlayer::GetX1()
 	{
 		return x;
 	}
 
-	int Player::GetY1()
+	int IcePlayer::GetY1()
 	{
 		return y;
 	}
 
-	int Player::GetX2()
+	int IcePlayer::GetX2()
 	{
 		return x + animation.Width();
 	}
 
-	int Player::GetY2()
+	int IcePlayer::GetY2()
 	{
 		return y + animation.Height();
 	}
 
-	void Player::Initialize()
+	void IcePlayer::Initialize()
 	{
 		const int INITIAL_VELOCITY = 12;	// 初始上升速度
 		const int FLOOR = 578 - 52;				// 地板座標
@@ -52,7 +52,7 @@ namespace game_framework {
 
 	}
 
-	void Player::LoadBitmap()
+	void IcePlayer::LoadBitmap()
 	{
 
 		animation.AddBitmap(ICE_RIGHT_RUN_1, RGB(255, 255, 255));
@@ -66,7 +66,7 @@ namespace game_framework {
 
 	}
 
-	void Player::OnMove()
+	void IcePlayer::OnMove()
 	{
 		const int STEP_SIZE = 5;
 		animation.OnMove();
@@ -78,71 +78,71 @@ namespace game_framework {
 			x += STEP_SIZE;
 		if (isMovingUp)
 			rising = true;
-			
-			if (rising) {			// 上升狀態
-				if (velocity > 0) {
-					
-					y -= velocity;	// 當速度 > 0時，y軸上升(移動velocity個點，velocity的單位為 點/次)
-					velocity--;		// 受重力影響，下次的上升速度降低
-				}
-				else {
-					rising = false; // 當速度 <= 0，上升終止，下次改為下降
-					velocity = 1;	// 下降的初速(velocity)為1
-				}
+
+		if (rising) {			// 上升狀態
+			if (velocity > 0) {
+
+				y -= velocity;	// 當速度 > 0時，y軸上升(移動velocity個點，velocity的單位為 點/次)
+				velocity--;		// 受重力影響，下次的上升速度降低
 			}
-			else {				// 下降狀態
-				if (y < floor - 1) {  // 當y座標還沒碰到地板
-					y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
-					velocity++;		// 受重力影響，下次的下降速度增加
-				}
-				else {
-					y = floor - 1;  // 當y座標低於地板，更正為地板上
-					
-					rising = false;	// 探底反彈，下次改為上升
-					velocity = initial_velocity;
-					 // 重設上升初始速度
-				}
-				isMovingUp = false;
-			};
+			else {
+				rising = false; // 當速度 <= 0，上升終止，下次改為下降
+				velocity = 1;	// 下降的初速(velocity)為1
+			}
+		}
+		else {				// 下降狀態
+			if (y < floor - 1) {  // 當y座標還沒碰到地板
+				y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
+				velocity++;		// 受重力影響，下次的下降速度增加
+			}
+			else {
+				y = floor - 1;  // 當y座標低於地板，更正為地板上
+
+				rising = false;	// 探底反彈，下次改為上升
+				velocity = initial_velocity;
+				// 重設上升初始速度
+			}
+			isMovingUp = false;
+		};
 
 		if (isMovingDown)
 			y += STEP_SIZE;
 	}
 
-	void Player::SetMovingDown(bool flag)
+	void IcePlayer::SetMovingDown(bool flag)
 	{
 		isMovingDown = flag;
 	}
 
-	void Player::SetMovingLeft(bool flag)
+	void IcePlayer::SetMovingLeft(bool flag)
 	{
 		isMovingLeft = flag;
 	}
 
-	void Player::SetMovingRight(bool flag)
+	void IcePlayer::SetMovingRight(bool flag)
 	{
 		isMovingRight = flag;
 	}
 
-	void Player::SetMovingUp(bool flag)
+	void IcePlayer::SetMovingUp(bool flag)
 	{
 		isMovingUp = flag;
 	}
 
-	void Player::SetXY(int nx, int ny)
+	void IcePlayer::SetXY(int nx, int ny)
 	{
 		x = nx; y = ny;
 	}
 
-	void Player::SetFloor(int floor)
+	void IcePlayer::SetFloor(int floor)
 	{
 		this->floor = floor;
 	}
-	void Player::SetVelocity(int velocity) {
+	void IcePlayer::SetVelocity(int velocity) {
 		this->velocity = velocity;
 		this->initial_velocity = velocity;
 	}
-	void Player::OnShow()
+	void IcePlayer::OnShow()
 	{
 		if (isMovingLeft) {
 			animation1.SetTopLeft(x, y);

@@ -306,14 +306,17 @@ CGameMap::~CGameMap() {
 
 
 CGameStateRun::CGameStateRun(CGame *g)
-: CGameState(g), NUMBALLS(3)
+: CGameState(g), NUMRED(3),NUMICE(4)
 {
-	diamond = new RedDiamond[NUMBALLS];
+	diamond1 = new RedDiamond[NUMRED];
+	diamond2 = new IceDiamond[NUMICE];
 }
 
 CGameStateRun::~CGameStateRun()
 {
-	delete [] diamond;
+	delete [] diamond1;
+	delete[] diamond2;
+
 }
 
 void CGameStateRun::OnBeginState()
@@ -326,14 +329,18 @@ void CGameStateRun::OnBeginState()
 	const int HITS_LEFT_Y = 0;
 	const int BACKGROUND_X = 60;
 	const int ANIMATION_SPEED = 15;
-	const int diamond_position[3][2] = { {405,535},{140,260},{223,41} };
-	for (int i = 0; i < NUMBALLS; i++) {				// 設定球的起始座標
-		diamond[i].SetXY(diamond_position[i][0], diamond_position[i][1]);
-		diamond[i].SetIsAlive(true);
-		diamond[i].SetColor(0);
+	const int diamond1_position[3][2] = { {405,535},{140,260},{223,41} };
+	for (int i = 0; i < NUMRED; i++) {				// 設定球的起始座標
+		diamond1[i].SetXY(diamond1_position[i][0], diamond1_position[i][1]);
+		diamond1[i].SetIsAlive(true);
+	}
+	const int diamond2_position[4][2] = { {570,535},{470,290},{475,87},{35,109} };
+	for (int i = 0; i < NUMICE; i++) {				// 設定球的起始座標
+		diamond2[i].SetXY(diamond2_position[i][0], diamond2_position[i][1]);
+		diamond2[i].SetIsAlive(true);
 	}
 	player1.Initialize();
-	player1.SetColor(0);
+	player2.Initialize();
 	background.SetTopLeft(0,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
 	hits_left.SetInteger(HITS_LEFT);					// 指定剩下的撞擊數
@@ -362,20 +369,40 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	// 移動球
 	//
 	int i;
-	for (i=0; i < NUMBALLS; i++)
-		diamond[i].OnMove();
+	for (i=0; i < NUMRED; i++)
+		diamond1[i].OnMove();
+	for (i = 0; i < NUMICE; i++)
+	{
+		diamond2[i].OnMove();
+	}
 	//
 	// 移動擦子
 	//
 
 	player1.OnMove();
+	player2.OnMove();
+
 	//
 	// 判斷擦子是否碰到球
 	//
 	
-	for (i=0; i < NUMBALLS; i++)
-		if (diamond[i].IsAlive() && diamond[i].HitPlayer(&player1)) {
-			diamond[i].SetIsAlive(false);
+	for (i=0; i < NUMRED; i++)
+		if (diamond1[i].IsAlive() && diamond1[i].HitPlayer(&player1)) {
+			diamond1[i].SetIsAlive(false);
+			CAudio::Instance()->Play(AUDIO_DING);
+			hits_left.Add(-1);
+			//
+			// 若剩餘碰撞次數為0，則跳到Game Over狀態
+			//
+			if (hits_left.GetInteger() <= 0) {
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
+				GotoGameState(GAME_STATE_OVER);
+			}
+		}
+	for (i = 0; i < NUMICE; i++)
+		if (diamond2[i].IsAlive() && diamond2[i].HitPlayer(&player2)) {
+			diamond2[i].SetIsAlive(false);
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_left.Add(-1);
 			//
@@ -408,10 +435,14 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// 開始載入資料
 	//
 	int i;
-	for (i = 0; i < NUMBALLS; i++)	
-		diamond[i].LoadBitmap();								// 載入第i個球的圖形
-
+	for (i = 0; i < NUMRED; i++)	
+		diamond1[i].LoadBitmap();								// 載入第i個球的圖形
+	for (i = 0; i < NUMICE; i++) {
+		diamond2[i].LoadBitmap();
+	}
 	player1.LoadBitmap();
+	player2.LoadBitmap();
+
 	background.LoadBitmap(IDB_MAP1);					// 載入背景的圖形
 	//
 	// 完成部分Loading動作，提高進度
@@ -443,10 +474,16 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_UP    = 0x26; // keyboard上箭頭
 	const char KEY_RIGHT = 0x27; // keyboard右箭頭
 	const char KEY_DOWN  = 0x28; // keyboard下箭頭
+	const char KEY_A = 'A';
+	const char KEY_W = 'W';
+	const char KEY_D = 'D';
+	const char KEY_S = 'S';
+
 	if (nChar == KEY_LEFT)
 	{
 
 		player1.SetMovingLeft(true);
+
 	}
 	if (nChar == KEY_RIGHT) {
 
@@ -462,6 +499,26 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 		player1.SetMovingDown(true);
 	}
+	if (nChar == KEY_A)
+	{
+
+		player2.SetMovingLeft(true);
+
+	}
+	if (nChar == KEY_D) {
+
+		player2.SetMovingRight(true);
+	}
+	if (nChar == KEY_W)
+	{
+
+		player2.SetMovingUp(true);
+	}
+	if (nChar == KEY_S)
+	{
+
+		player2.SetMovingDown(true);
+	}
 	//gamemap.OnKeyDown(nChar);
 }
 
@@ -471,6 +528,10 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_UP    = 0x26; // keyboard上箭頭
 	const char KEY_RIGHT = 0x27; // keyboard右箭頭
 	const char KEY_DOWN  = 0x28; // keyboard下箭頭
+	const char KEY_A = 'A';
+	const char KEY_W = 'W';
+	const char KEY_D = 'D';
+	const char KEY_S = 'S';
 	if (nChar == KEY_LEFT)
 	{
 
@@ -489,6 +550,26 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	{
 
 		player1.SetMovingDown(false);
+	}
+	if (nChar == KEY_A)
+	{
+
+		player2.SetMovingLeft(false);
+
+	}
+	if (nChar == KEY_D) {
+
+		player2.SetMovingRight(false);
+	}
+	if (nChar == KEY_W)
+	{
+
+		player2.SetMovingUp(false);
+	}
+	if (nChar == KEY_S)
+	{
+
+		player2.SetMovingDown(false);
 	}
 }
 
@@ -530,11 +611,16 @@ void CGameStateRun::OnShow()
 	background.ShowBitmap();			// 貼上背景圖
 	help.ShowBitmap();					// 貼上說明圖
 	hits_left.ShowBitmap();
-	for (int i=0; i < NUMBALLS; i++)
-		diamond[i].OnShow();				// 貼上第i號球
+	for (int i=0; i < NUMRED; i++)
+		diamond1[i].OnShow();				// 貼上第i號球
+	for (int i = 0; i < NUMICE; i++)
+	{
+		diamond2[i].OnShow();
+	}
 	bball.OnShow();						// 貼上彈跳的球
 	//eraser.OnShow();					// 貼上擦子
 	player1.OnShow();
+	player2.OnShow();
 	//
 	//  貼上左上及右下角落的圖
 	//

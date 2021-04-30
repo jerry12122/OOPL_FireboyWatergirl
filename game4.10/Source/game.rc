@@ -132,6 +132,20 @@ ICE_RIGHT_RUN_3         BITMAP                  "..\\..\\res\\ICE_RIGHT_RUN_3.bm
 
 FIRE_DIAMOND            BITMAP                  "..\\..\\res\\FIRE_DIAMOND.bmp"
 
+FIRE_FRONT              BITMAP                  "..\\..\\res\\FIRE_FRONT.bmp"
+
+FIRE_LEFT_RUN_1         BITMAP                  "..\\..\\res\\FIRE_LEFT_RUN_1.bmp"
+
+FIRE_LEFT_RUN_2         BITMAP                  "..\\..\\res\\FIRE_LEFT_RUN_2.bmp"
+
+FIRE_LEFT_RUN_3         BITMAP                  "..\\..\\res\\FIRE_LEFT_RUN_3.bmp"
+
+FIRE_RIGHT_RUN_1        BITMAP                  "..\\..\\res\\FIRE_RIGHT_RUN_1.bmp"
+
+FIRE_RIGHT_RUN_2        BITMAP                  "..\\..\\res\\FIRE_RIGHT_RUN_2.bmp"
+
+FIRE_RIGHT_RUN_3        BITMAP                  "..\\..\\res\\FIRE_RIGHT_RUN_3.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

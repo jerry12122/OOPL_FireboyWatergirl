@@ -258,7 +258,9 @@
     <None Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\IcePlayer.cpp" />
+    <ClCompile Include="Source\RedPlayer.cpp" />
+    <ClCompile Include="Source\IceDiamond.cpp" />
     <ClCompile Include="Source\RedDiamond.cpp" />
     <ClCompile Include="Source\audio.cpp" />
     <ClCompile Include="Source\CBall.cpp" />
@@ -306,7 +308,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\IcePlayer.h" />
+    <ClInclude Include="Source\RedPlayer.h" />
+    <ClInclude Include="Source\IceDiamond.h" />
     <ClInclude Include="Source\RedDiamond.h" />
     <ClInclude Include="Source\audio.h" />
     <ClInclude Include="Source\CBall.h" />
@@ -331,6 +335,13 @@
   <ItemGroup>
     <Image Include="..\res\demo_map.bmp" />
     <Image Include="..\res\FIRE_DIAMOND.bmp" />
+    <Image Include="..\res\FIRE_FRONT.bmp" />
+    <Image Include="..\res\FIRE_LEFT_RUN_1.bmp" />
+    <Image Include="..\res\FIRE_LEFT_RUN_2.bmp" />
+    <Image Include="..\res\FIRE_LEFT_RUN_3.bmp" />
+    <Image Include="..\res\FIRE_RIGHT_RUN_1.bmp" />
+    <Image Include="..\res\FIRE_RIGHT_RUN_2.bmp" />
+    <Image Include="..\res\FIRE_RIGHT_RUN_3.bmp" />
     <Image Include="..\res\GAME_MENU.bmp" />
     <Image Include="..\res\ICE_DIAMOND.bmp" />
     <Image Include="..\res\ICE_FRONT.bmp" />
