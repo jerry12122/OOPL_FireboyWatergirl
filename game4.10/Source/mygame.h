@@ -45,6 +45,7 @@
 #include "IceDiamond.h"
 #include "IcePlayer.h"
 #include "RedPlayer.h"
+#include "RedDoor.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -122,6 +123,7 @@ namespace game_framework {
 		RedPlayer		player1;
 		IcePlayer		player2;
 		CGameMap		gamemap;
+		RedDoor			reddoor;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

@@ -146,6 +146,12 @@ FIRE_RIGHT_RUN_2        BITMAP                  "..\\..\\res\\FIRE_RIGHT_RUN_2.b
 
 FIRE_RIGHT_RUN_3        BITMAP                  "..\\..\\res\\FIRE_RIGHT_RUN_3.bmp"
 
+DOOR_OPEN               BITMAP                  "..\\..\\res\\DOOR_OPEN.bmp"
+
+FIRE_DOOR_CLOSE         BITMAP                  "..\\..\\res\\FIRE_DOOR_CLOSE.bmp"
+
+ICE_DOOR_CLOSE          BITMAP                  "..\\..\\res\\ICE_DOOR_CLOSE.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

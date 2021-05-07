@@ -55,11 +55,13 @@
 #define FIRE_FRONT                      176
 #define FIRE_LEFT_RUN_1                 177
 #define FIRE_LEFT_RUN_2                 178
-#define IDB_BITMAP9                     179
 #define FIRE_LEFT_RUN_3                 179
 #define FIRE_RIGHT_RUN_1                180
 #define FIRE_RIGHT_RUN_2                181
 #define FIRE_RIGHT_RUN_3                182
+#define DOOR_OPEN                       183
+#define FIRE_DOOR_CLOSE                 184
+#define ICE_DOOR_CLOSE                  185
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -72,7 +74,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        183
+#define _APS_NEXT_RESOURCE_VALUE        188
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101
