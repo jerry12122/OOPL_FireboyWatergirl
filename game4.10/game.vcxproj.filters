@@ -141,6 +141,7 @@
     <ClCompile Include="Source\IcePlayer.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="RedLake.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -191,6 +192,7 @@
     <ClInclude Include="Source\IcePlayer.h">
       <Filter>MyGame</Filter>
     </ClInclude>
+    <ClInclude Include="RedLake.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\game.rc">
