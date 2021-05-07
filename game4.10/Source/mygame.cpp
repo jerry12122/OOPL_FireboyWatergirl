@@ -223,83 +223,15 @@ CGameMap::CGameMap():X(20),Y(40),MW(120),MH(100)
 		}
 	}
 	//random_num = 0;
-	//bballs = NULL;
+	
 }
 void CGameMap::LoadBitmap() {
-	//blue.LoadBitmap(IDB_BLUE);
-	//green.LoadBitmap(IDB_GREEN);
+
 	background.LoadBitmap(IDB_MAP1);
-}/*
-void CGameMap::OnShow() {
-	background.SetTopLeft(0, 0);
-	background.ShowBitmap();
-	/*
-	for (int i = 0; i < 5; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			switch (map[j][i])
-			{
-				case 0:
-					break;
-				case 1:
-					blue.SetTopLeft(X + (MW*i), Y + (MH*j));
-					blue.ShowBitmap();
-					break;
-
-				case 2:
-					green.SetTopLeft(X + (MW*i), Y + (MH*j));
-					green.ShowBitmap();
-					break;
-				default:
-					ASSERT(0);
-
-			}
-		}
-	}
-	for (int i = 0; i < random_num; i++) {
-		bballs[i].OnShow();
-	}
-}*/
-/*
-void CGameMap::InitalizeBouncingBall(int ini_index, int row, int col) {
-	const int VELOCITY = 10;
-	const int BALL_PIC_HIGHT = 15;
-	int floor = Y + (row + 1)*MH - BALL_PIC_HIGHT;
-
-	bballs[ini_index].LoadBitmap();
-	bballs[ini_index].SetFloor(floor);
-	bballs[ini_index].SetVelocity(VELOCITY + col);
-	bballs[ini_index].SetXY(X + col * MW + MW / 2, floor);
 }
-void CGameMap::RandonBouncingBall() {
-	const int MAX_RAND_NUM = 10;
-	random_num = (rand() % MAX_RAND_NUM) + 1;
-	delete [] bballs;
-	bballs = new CBouncingBall[random_num];
-	int ini_index = 0;
-	for (int row = 0; row < 4; row++) {
-		for (int col = 0; col < 5; col++) {
-			if (map[row][col] != 0 && ini_index < random_num) {
-				InitalizeBouncingBall(ini_index, row, col);
-				ini_index++;
-			}
-		}
 
-	}
-}
-void CGameMap::OnKeyDown(UINT nChar) {
-	const int KEY_SPACE = 0x20;
-	if (nChar == KEY_SPACE)
-		RandonBouncingBall();
-}
-void CGameMap::OnMove() {
-	for (int i = 0; i < random_num; i++) {
-		bballs[i].OnMove();
-	}
-}*/
 CGameMap::~CGameMap() {
-	//delete [] bballs;
+	
 }
 
 
@@ -417,7 +349,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	// 移動彈跳的球
 	//
-	bball.OnMove();
+	
 
 
 
@@ -453,7 +385,6 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	// 繼續載入其他資料
 	//
 	help.LoadBitmap(IDB_HELP,RGB(255,255,255));				// 載入說明的圖形
-	bball.LoadBitmap();										// 載入圖形
 	hits_left.LoadBitmap();
 	CAudio::Instance()->Load(AUDIO_DING,  ".\\sounds\\ding.wav");	// 載入編號0的聲音ding.wav
 	CAudio::Instance()->Load(AUDIO_LAKE,  ".\\sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
@@ -617,8 +548,6 @@ void CGameStateRun::OnShow()
 	{
 		diamond2[i].OnShow();
 	}
-	bball.OnShow();						// 貼上彈跳的球
-	//eraser.OnShow();					// 貼上擦子
 	player1.OnShow();
 	player2.OnShow();
 	//

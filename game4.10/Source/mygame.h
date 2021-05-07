@@ -79,32 +79,13 @@ namespace game_framework {
 	// 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 	// 每個Member function的Implementation都要弄懂
 	/////////////////////////////////////////////////////////////////////////////
-;/*
-	class CBouncingBall {
-	public:
-		void LoadBitmap();
-		void OnMove();
-		void OnShow();
-		void SetFloor(int);
-		void SetXY(int,int);
-		void SetVelocity(int);
-	private:
-		int x, y;
-		int floor;
-		bool rising;
-		int initial_velocity;
-		int velocity;
-		CAnimation animation;
-	};*/
+
 	class CGameMap {
 	public:
 		CGameMap();
 		void LoadBitmap();
 		void OnShow();
-		//void OnMove();
-		//void OnKeyDown(UINT);
-		//void RandonBouncingBall();
-		//void InitalizeBouncingBall(int, int, int);
+
 		~CGameMap();
 	protected:
 		CMovingBitmap background;
@@ -113,10 +94,6 @@ namespace game_framework {
 		int y_block[11];
 		const int X, Y;
 		const int MW, MH;
-		//CBouncingBall* bballs;
-		//int random_num;
-
-
 	};
 	class CGameStateRun : public CGameState {
 	public:
@@ -141,12 +118,10 @@ namespace game_framework {
 		CMovingBitmap	help;		// 說明圖
 		RedDiamond		*diamond1;	// 鑽石的陣列
 		IceDiamond		*diamond2;
-		CEraser			eraser;		// 拍子
 		CInteger		hits_left;	// 剩下的撞擊數
-		CBouncingBall   bball;		// 反覆彈跳的球
 		RedPlayer		player1;
 		IcePlayer		player2;
-		CGameMap gamemap;
+		CGameMap		gamemap;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
