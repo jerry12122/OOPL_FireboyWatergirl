@@ -146,6 +146,10 @@ FIRE_RIGHT_RUN_2        BITMAP                  "..\\..\\res\\FIRE_RIGHT_RUN_2.b
 
 FIRE_RIGHT_RUN_3        BITMAP                  "..\\..\\res\\FIRE_RIGHT_RUN_3.bmp"
 
+FIRE_LAKE               BITMAP                  "..\\..\\res\\FIRE_LAKE.bmp"
+
+ICE_LAKE                BITMAP                  "..\\..\\res\\ICE_RAKE.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -153,6 +157,14 @@ FIRE_RIGHT_RUN_3        BITMAP                  "..\\..\\res\\FIRE_RIGHT_RUN_3.b
 //
 
 IDC_GAMECURSOR          CURSOR                  "..\\res\\gamecurs.cur"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
+IDB_PNG1                PNG                     "C:\\Users\\pinyu\\Desktop\\game\\res\\RED_LAKE.png"
 
 #endif    // 中文 (繁體，台灣) resources
 /////////////////////////////////////////////////////////////////////////////

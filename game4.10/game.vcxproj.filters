@@ -279,5 +279,18 @@
     <Image Include="..\res\FIRE_RIGHT_RUN_3.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Image.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\FIRE_LAKE.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\ICE_RAKE.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\RED_LAKE.png" />
+    <Image Include="res\bitmap7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
