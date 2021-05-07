@@ -242,6 +242,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 {
 	diamond1 = new RedDiamond[NUMRED];
 	diamond2 = new IceDiamond[NUMICE];
+	//reddoor = new RedDoor();
 }
 
 CGameStateRun::~CGameStateRun()
@@ -301,7 +302,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	// 移動球
 	//
 	int i;
-	for (i=0; i < NUMRED; i++)
+	for (i = 0; i < NUMRED; i++)
 		diamond1[i].OnMove();
 	for (i = 0; i < NUMICE; i++)
 	{
@@ -317,8 +318,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	//
 	// 判斷擦子是否碰到球
 	//
-	
-	for (i=0; i < NUMRED; i++)
+
+	for (i = 0; i < NUMRED; i++)
 		if (diamond1[i].IsAlive() && diamond1[i].HitPlayer(&player1)) {
 			diamond1[i].SetIsAlive(false);
 			CAudio::Instance()->Play(AUDIO_DING);
@@ -333,6 +334,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			}
 		}
 	for (i = 0; i < NUMICE; i++)
+	{
 		if (diamond2[i].IsAlive() && diamond2[i].HitPlayer(&player2)) {
 			diamond2[i].SetIsAlive(false);
 			CAudio::Instance()->Play(AUDIO_DING);
@@ -346,6 +348,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
+	}
 	//
 	// 移動彈跳的球
 	//

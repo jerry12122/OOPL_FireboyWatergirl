@@ -258,6 +258,7 @@
     <None Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\RedDoor.cpp" />
     <ClCompile Include="Source\RedLake.cpp" />
     <ClCompile Include="Source\IcePlayer.cpp" />
     <ClCompile Include="Source\RedPlayer.cpp" />
@@ -309,6 +310,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\RedDoor.h" />
     <ClInclude Include="Source\RedLake.h" />
     <ClInclude Include="Source\IcePlayer.h" />
     <ClInclude Include="Source\RedPlayer.h" />
@@ -335,8 +337,11 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\res\1.png" />
     <Image Include="..\res\demo_map.bmp" />
+    <Image Include="..\res\DOOR_OPEN.bmp" />
     <Image Include="..\res\FIRE_DIAMOND.bmp" />
+    <Image Include="..\res\FIRE_DOOR_CLOSE.bmp" />
     <Image Include="..\res\FIRE_FRONT.bmp" />
     <Image Include="..\res\FIRE_LAKE.bmp" />
     <Image Include="..\res\FIRE_LEFT_RUN_1.bmp" />
@@ -347,6 +352,7 @@
     <Image Include="..\res\FIRE_RIGHT_RUN_3.bmp" />
     <Image Include="..\res\GAME_MENU.bmp" />
     <Image Include="..\res\ICE_DIAMOND.bmp" />
+    <Image Include="..\res\ICE_DOOR_CLOSE.bmp" />
     <Image Include="..\res\ICE_FRONT.bmp" />
     <Image Include="..\res\ICE_LEFT_RUN_1.bmp" />
     <Image Include="..\res\ICE_LEFT_RUN_11.bmp" />
