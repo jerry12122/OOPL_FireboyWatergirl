@@ -6,6 +6,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "RedPlayer.h"
+
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// RedLake: Ball class

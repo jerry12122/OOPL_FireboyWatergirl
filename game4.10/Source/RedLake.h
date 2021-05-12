@@ -1,10 +1,10 @@
-#pragma once
 #include "RedPlayer.h"
+#pragma once
 namespace game_framework {
 	class RedLake
 	{
 	public:
-		RedLaked();
+		RedLake();
 		bool HitPlayer(RedPlayer *player);							// 是否碰到擦子
 		bool IsAlive();											// 是否活著
 		void LoadBitmap();										// 載入圖形

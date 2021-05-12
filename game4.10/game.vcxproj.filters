@@ -285,7 +285,6 @@
     <Image Include="..\res\FIRE_RIGHT_RUN_3.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-<<<<<<< HEAD
     <Image Include="Image.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -295,9 +294,6 @@
     <Image Include="..\res\ICE_RAKE.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\res\RED_LAKE.png" />
-    <Image Include="res\bitmap7.bmp">
-=======
     <Image Include="..\res\DOOR_OPEN.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -309,7 +305,6 @@
     </Image>
     <Image Include="..\res\1.png" />
     <Image Include="..\res\FIRE_LAKE.bmp">
->>>>>>> 01084543839e1146eba8d449c6bdc6934a48e853
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
