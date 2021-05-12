@@ -146,8 +146,7 @@ FIRE_RIGHT_RUN_2        BITMAP                  "..\\..\\res\\FIRE_RIGHT_RUN_2.b
 
 FIRE_RIGHT_RUN_3        BITMAP                  "..\\..\\res\\FIRE_RIGHT_RUN_3.bmp"
 
-
-FIRE_LAKE               BITMAP                  "..\\..\\res\\FIRE_LAKE.bmp"
+FIRE_LAKE               BITMAP                  "..\\..\\res\\ICE_DOOR_CLOSE.bmp"
 
 ICE_LAKE                BITMAP                  "..\\..\\res\\ICE_RAKE.bmp"
 
@@ -158,21 +157,12 @@ FIRE_DOOR_CLOSE         BITMAP                  "..\\..\\res\\FIRE_DOOR_CLOSE.bm
 ICE_DOOR_CLOSE          BITMAP                  "..\\..\\res\\ICE_DOOR_CLOSE.bmp"
 
 
-
 /////////////////////////////////////////////////////////////////////////////
 //
 // Cursor
 //
 
 IDC_GAMECURSOR          CURSOR                  "..\\res\\gamecurs.cur"
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// PNG
-//
-
-
 
 #endif    // 中文 (繁體，台灣) resources
 /////////////////////////////////////////////////////////////////////////////

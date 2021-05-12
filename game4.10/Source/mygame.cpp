@@ -58,7 +58,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
-#include "RedDiamond.h"
+
 
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////

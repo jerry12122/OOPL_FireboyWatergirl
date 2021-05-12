@@ -47,6 +47,7 @@
 #include "RedPlayer.h"
 #include "RedDoor.h"
 
+
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -124,6 +125,7 @@ namespace game_framework {
 		IcePlayer		player2;
 		CGameMap		gamemap;
 		RedDoor			reddoor;
+
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

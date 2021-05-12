@@ -258,8 +258,8 @@
     <None Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\RedDoor.cpp" />
     <ClCompile Include="Source\RedLake.cpp" />
+    <ClCompile Include="Source\RedDoor.cpp" />
     <ClCompile Include="Source\IcePlayer.cpp" />
     <ClCompile Include="Source\RedPlayer.cpp" />
     <ClCompile Include="Source\IceDiamond.cpp" />
@@ -310,8 +310,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\RedDoor.h" />
     <ClInclude Include="Source\RedLake.h" />
+    <ClInclude Include="Source\RedDoor.h" />
     <ClInclude Include="Source\IcePlayer.h" />
     <ClInclude Include="Source\RedPlayer.h" />
     <ClInclude Include="Source\IceDiamond.h" />
