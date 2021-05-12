@@ -72,22 +72,38 @@ namespace game_framework {
 		animation.OnMove();
 		animation1.OnMove();
 
-		if (isMovingLeft)
-			x -= STEP_SIZE;
+		if (isMovingLeft) {
+			if (x > 20) {
+				x -= STEP_SIZE;
+			}
+		}
 		if (isMovingRight)
-			x += STEP_SIZE;
+			if (x < 720) {
+				x += STEP_SIZE;
+			}
 		if (isMovingUp)
 			rising = true;
 
 		if (rising) {			// 上升狀態
-			if (velocity > 0) {
+			if (velocity > 6) {
 
 				y -= velocity;	// 當速度 > 0時，y軸上升(移動velocity個點，velocity的單位為 點/次)
 				velocity--;		// 受重力影響，下次的上升速度降低
 			}
 			else {
 				rising = false; // 當速度 <= 0，上升終止，下次改為下降
-				velocity = 1;	// 下降的初速(velocity)為1
+				velocity = 5;	// 下降的初速(velocity)為1
+				if (y < floor - 1) {  // 當y座標還沒碰到地板
+					y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
+					velocity++;		// 受重力影響，下次的下降速度增加
+				}
+				else {
+					y = floor - 1;  // 當y座標低於地板，更正為地板上
+
+					rising = false;	// 探底反彈，下次改為上升
+					velocity = initial_velocity;
+					// 重設上升初始速度
+				}
 			}
 		}
 		else {				// 下降狀態
