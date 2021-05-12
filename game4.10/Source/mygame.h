@@ -47,6 +47,7 @@
 #include "RedPlayer.h"
 #include "RedDoor.h"
 #include "RedLake.h"
+#include "IceLake.h"
 
 
 namespace game_framework {
@@ -117,14 +118,18 @@ namespace game_framework {
 	private:
 		const int		NUMRED;	// 球的總數
 		const int		NUMICE;
+		const int		LAKERED;	// 水的總數
+		const int		LAKEICE;
 		CMovingBitmap	background;	// 背景圖
 		CMovingBitmap	help;		// 說明圖
 		RedDiamond		*diamond1;	// 鑽石的陣列
 		IceDiamond		*diamond2;
-		CInteger		hits_left;	// 剩下的撞擊數
+		CInteger		hits_left;
+		CInteger		hits_lake;// 剩下的撞擊數
 		RedPlayer		player1;
 		IcePlayer		player2;
-		RedLake			Lake1;
+		RedLake			*Lake1;
+		IceLake			*Lake2;
 		CGameMap		gamemap;
 		RedDoor			reddoor;
 

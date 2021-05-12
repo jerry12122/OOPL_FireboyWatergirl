@@ -4,17 +4,17 @@
 #include <ddraw.h>
 #include "audio.h"
 #include "gamelib.h"
-#include "IcePlayer.h"
-#include "RedLake.h"
+#include "RedPlayer.h"
+#include "IceLake.h"
 
 namespace game_framework {
-	RedLake::RedLake()
+	IceLake::IceLake()
 	{
 		is_alive = true;
 		x = y = 0;
 	}
 
-	bool RedLake::HitPlayer(IcePlayer *player)
+	bool IceLake::HitPlayer(RedPlayer *player)
 	{
 
 		// 檢測擦子所構成的矩形是否碰到球
@@ -22,7 +22,7 @@ namespace game_framework {
 			player->GetX2(), player->GetY2());
 	}
 
-	bool RedLake::HitRectangle(int tx1, int ty1, int tx2, int ty2)
+	bool IceLake::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
 		int x1 = x;				// 球的左上角x座標
 		int y1 = y;				// 球的左上角y座標
@@ -34,43 +34,43 @@ namespace game_framework {
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 
-	bool RedLake::IsAlive()
+	bool IceLake::IsAlive()
 	{
 		return is_alive;
 	}
 
-	void RedLake::LoadBitmap()
+	void IceLake::LoadBitmap()
 	{
 
-		LAKE.LoadBitmap(FIRE_LAKE, RGB(255, 255, 255));			// 載入球的圖形
+		LAKE.LoadBitmap(ICE_LAKE, RGB(255, 255, 255));			// 載入球的圖形
 
 	}
-	void RedLake::OnMove()
+	void IceLake::OnMove()
 	{
 		if (!is_alive)
 			return;
 	}
 
-	void RedLake::SetIsAlive(bool alive)
+	void IceLake::SetIsAlive(bool alive)
 	{
 		is_alive = alive;
 	}
 
-	void RedLake::SetXY(int nx, int ny)
+	void IceLake::SetXY(int nx, int ny)
 	{
 		x = nx; y = ny;
 	}
 
-	void RedLake::OnShow()
+	void IceLake::OnShow()
 	{
 		if (is_alive) {
-			LAKE.SetTopLeft(x,y);
+			LAKE.SetTopLeft(x, y);
 			LAKE.ShowBitmap();
-			//LAKE.SetTopLeft(330,573);
+			//LAKE.SetTopLeft(530, 573);
 			//LAKE.ShowBitmap();
-			//LAKE.SetTopLeft(125, 408);
+			//LAKE.SetTopLeft(448, 326);
 			//LAKE.ShowBitmap();
-			//LAKE.SetTopLeft(270, 122);
+			//LAKE.SetTopLeft(465, 122);
 			//LAKE.ShowBitmap();
 		}
 	}

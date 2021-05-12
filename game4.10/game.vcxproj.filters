@@ -147,6 +147,9 @@
     <ClCompile Include="Source\RedLake.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\IceLake.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -201,6 +204,9 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\RedLake.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\IceLake.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
@@ -301,11 +307,11 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\res\1.png" />
-    <Image Include="..\res\FIRE_LAKE.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="..\res\RED_LAKE.png" />
     <Image Include="res\bitmap7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\FIRE_LAKE.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\res\FIRE_LAKE.bmp">

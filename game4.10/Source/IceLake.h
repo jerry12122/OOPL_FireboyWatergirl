@@ -1,14 +1,11 @@
-#include "IcePlayer.h"
-//<<<<<<< HEAD
-
-//=======
+#include "RedPlayer.h"
 #pragma once
 namespace game_framework {
-	class RedLake
+	class IceLake
 	{
 	public:
-		RedLake();
-		bool HitPlayer(IcePlayer *player);							// 是否碰到擦子
+		IceLake();
+		bool HitPlayer(RedPlayer *player);							// 是否碰到擦子
 		bool IsAlive();											// 是否活著
 		void LoadBitmap();										// 載入圖形
 		void OnMove();											// 移動
@@ -23,4 +20,3 @@ namespace game_framework {
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	// 是否碰到參數範圍的矩形
 	};
 }
-//>>>>>>> 1e440f3c13a133fc32a58cadfbef21d931c9579e
