@@ -238,10 +238,12 @@ CGameMap::~CGameMap() {
 
 
 CGameStateRun::CGameStateRun(CGame *g)
-: CGameState(g), NUMRED(3),NUMICE(4)
+: CGameState(g), NUMRED(3),NUMICE(4), LAKERED(3), LAKEICE(3)
 {
 	diamond1 = new RedDiamond[NUMRED];
 	diamond2 = new IceDiamond[NUMICE];
+	Lake1 = new RedLake[LAKERED];
+	Lake2 = new IceLake[LAKEICE];
 	//reddoor = new RedDoor();
 }
 
@@ -249,7 +251,8 @@ CGameStateRun::~CGameStateRun()
 {
 	delete [] diamond1;
 	delete[] diamond2;
-
+	delete[] Lake1;
+	delete[] Lake2;
 }
 
 void CGameStateRun::OnBeginState()
@@ -258,6 +261,7 @@ void CGameStateRun::OnBeginState()
 	const int BALL_XY_OFFSET = 45;
 	const int BALL_PER_ROW = 7;
 	const int HITS_LEFT = 10;
+	const int HITS_LAKE = 1;
 	const int HITS_LEFT_X = 590;
 	const int HITS_LEFT_Y = 0;
 	const int BACKGROUND_X = 60;
@@ -272,11 +276,22 @@ void CGameStateRun::OnBeginState()
 		diamond2[i].SetXY(diamond2_position[i][0], diamond2_position[i][1]);
 		diamond2[i].SetIsAlive(true);
 	}
+	const int Lake1_position[3][2] = { {330,573},{125,408},{270,122} };
+	for (int i = 0; i < LAKERED; i++) {				// 設定球的起始座標
+		Lake1[i].SetXY(Lake1_position[i][0], Lake1_position[i][1]);
+		Lake1[i].SetIsAlive(true);
+	}
+	const int Lake2_position[3][2] = { {530,573},{448,326},{465,122} };
+	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
+		Lake2[i].SetXY(Lake2_position[i][0], Lake2_position[i][1]);
+		Lake2[i].SetIsAlive(true);
+	}
 	player1.Initialize();
 	player2.Initialize();
 	background.SetTopLeft(0,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
-	hits_left.SetInteger(HITS_LEFT);					// 指定剩下的撞擊數
+	hits_left.SetInteger(HITS_LEFT);
+	hits_lake.SetInteger(HITS_LAKE);
 	hits_left.SetTopLeft(HITS_LEFT_X,HITS_LEFT_Y);		// 指定剩下撞擊數的座標
 	CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
@@ -349,6 +364,34 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			}
 		}
 	}
+	for (i = 0; i < LAKERED; i++)
+		if (Lake1[i].IsAlive() && Lake1[i].HitPlayer(&player2)) {
+			CAudio::Instance()->Play(AUDIO_DING);
+			hits_lake.Add(-1);
+			//
+			// 若剩餘碰撞次數為0，則跳到Game Over狀態
+			//
+			if (hits_lake.GetInteger() <= 0) {
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
+				GotoGameState(GAME_STATE_OVER);
+			}
+		}
+	for (i = 0; i < LAKEICE; i++)
+	{
+		if (Lake2[i].IsAlive() && Lake2[i].HitPlayer(&player1)) {
+			CAudio::Instance()->Play(AUDIO_DING);
+			hits_lake.Add(-1);
+			//
+			// 若剩餘碰撞次數為0，則跳到Game Over狀態
+			//
+			if (hits_lake.GetInteger() <= 0) {
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
+				GotoGameState(GAME_STATE_OVER);
+			}
+		}
+	}
 	//
 	// 移動彈跳的球
 	//
@@ -375,10 +418,14 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	for (i = 0; i < NUMICE; i++) {
 		diamond2[i].LoadBitmap();
 	}
+	for (i = 0; i < LAKERED; i++)
+		Lake1[i].LoadBitmap();								// 載入第i個球的圖形
+	for (i = 0; i < LAKEICE; i++) {
+		Lake2[i].LoadBitmap();
+	}
 
 	player1.LoadBitmap();
 	player2.LoadBitmap();
-	Lake1.LoadBitmap(); 
 	reddoor.LoadBitmap();
 	background.LoadBitmap(IDB_MAP1);					// 載入背景的圖形
 	//
@@ -555,7 +602,12 @@ void CGameStateRun::OnShow()
 	}
 	player1.OnShow();
 	player2.OnShow();
-	Lake1.OnShow();
+	for (int i = 0; i < LAKERED; i++)
+		Lake1[i].OnShow();				// 貼上第i號球
+	for (int i = 0; i < LAKEICE; i++)
+	{
+		Lake2[i].OnShow();
+	}
 	//reddoor.OnShow();
 	//
 	//  貼上左上及右下角落的圖
