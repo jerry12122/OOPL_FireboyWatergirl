@@ -260,7 +260,7 @@ void CGameStateRun::OnBeginState()
 	const int BALL_GAP = 90;
 	const int BALL_XY_OFFSET = 45;
 	const int BALL_PER_ROW = 7;
-	const int HITS_LEFT = 0;
+	const int HITS_LEFT = 10;
 	const int HITS_LAKE = 1;
 	const int HITS_LEFT_X = 590;
 	const int HITS_LEFT_Y = 0;
