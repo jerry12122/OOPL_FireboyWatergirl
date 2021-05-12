@@ -46,6 +46,8 @@
 #include "IcePlayer.h"
 #include "RedPlayer.h"
 #include "RedDoor.h"
+#include "RedLake.h"
+
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -122,8 +124,10 @@ namespace game_framework {
 		CInteger		hits_left;	// ³Ñ¤Uªº¼²À»¼Æ
 		RedPlayer		player1;
 		IcePlayer		player2;
+		RedLake			Lake1;
 		CGameMap		gamemap;
 		RedDoor			reddoor;
+
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

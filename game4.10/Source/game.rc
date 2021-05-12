@@ -146,17 +146,15 @@ FIRE_RIGHT_RUN_2        BITMAP                  "..\\..\\res\\FIRE_RIGHT_RUN_2.b
 
 FIRE_RIGHT_RUN_3        BITMAP                  "..\\..\\res\\FIRE_RIGHT_RUN_3.bmp"
 
-<<<<<<< HEAD
-FIRE_LAKE               BITMAP                  "..\\..\\res\\FIRE_LAKE.bmp"
+FIRE_LAKE               BITMAP                  "..\\..\\res\\ICE_DOOR_CLOSE.bmp"
 
 ICE_LAKE                BITMAP                  "..\\..\\res\\ICE_RAKE.bmp"
-=======
+
 DOOR_OPEN               BITMAP                  "..\\..\\res\\DOOR_OPEN.bmp"
 
 FIRE_DOOR_CLOSE         BITMAP                  "..\\..\\res\\FIRE_DOOR_CLOSE.bmp"
 
 ICE_DOOR_CLOSE          BITMAP                  "..\\..\\res\\ICE_DOOR_CLOSE.bmp"
->>>>>>> 01084543839e1146eba8d449c6bdc6934a48e853
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -165,14 +163,6 @@ ICE_DOOR_CLOSE          BITMAP                  "..\\..\\res\\ICE_DOOR_CLOSE.bmp
 //
 
 IDC_GAMECURSOR          CURSOR                  "..\\res\\gamecurs.cur"
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// PNG
-//
-
-IDB_PNG1                PNG                     "C:\\Users\\pinyu\\Desktop\\game\\res\\RED_LAKE.png"
 
 #endif    // 中文 (繁體，台灣) resources
 /////////////////////////////////////////////////////////////////////////////

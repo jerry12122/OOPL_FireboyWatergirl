@@ -58,7 +58,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
-#include "RedDiamond.h"
+
 
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
@@ -375,9 +375,11 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	for (i = 0; i < NUMICE; i++) {
 		diamond2[i].LoadBitmap();
 	}
+
 	player1.LoadBitmap();
 	player2.LoadBitmap();
-
+	Lake1.LoadBitmap(); 
+	reddoor.LoadBitmap();
 	background.LoadBitmap(IDB_MAP1);					// 載入背景的圖形
 	//
 	// 完成部分Loading動作，提高進度
@@ -553,6 +555,8 @@ void CGameStateRun::OnShow()
 	}
 	player1.OnShow();
 	player2.OnShow();
+	Lake1.OnShow();
+	//reddoor.OnShow();
 	//
 	//  貼上左上及右下角落的圖
 	//
