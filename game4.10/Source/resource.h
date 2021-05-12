@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ ²£¥Íªº Include ÀÉ®×¡C
-// ¥Ñ game.rc ¨Ï¥Î
+// Microsoft Visual C++ ï¿½ï¿½ï¿½Íªï¿½ Include ï¿½É®×¡C
+// ï¿½ï¿½ game.rc ï¿½Ï¥ï¿½
 //
 #define IDD_ABOUTBOX                    100
 #define IDP_SOCKETS_INIT_FAILED         104

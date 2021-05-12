@@ -260,7 +260,7 @@ void CGameStateRun::OnBeginState()
 	const int BALL_GAP = 90;
 	const int BALL_XY_OFFSET = 45;
 	const int BALL_PER_ROW = 7;
-	const int HITS_LEFT = 10;
+	const int HITS_LEFT = 0;
 	const int HITS_LAKE = 1;
 	const int HITS_LEFT_X = 590;
 	const int HITS_LEFT_Y = 0;
@@ -353,7 +353,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		if (diamond2[i].IsAlive() && diamond2[i].HitPlayer(&player2)) {
 			diamond2[i].SetIsAlive(false);
 			CAudio::Instance()->Play(AUDIO_DING);
-			hits_left.Add(-1);
+			hits_left.Add(1);
 			//
 			// 若剩餘碰撞次數為0，則跳到Game Over狀態
 			//
