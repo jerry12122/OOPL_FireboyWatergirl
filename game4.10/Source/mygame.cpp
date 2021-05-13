@@ -216,7 +216,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 
 CGameStateRun::~CGameStateRun()
 {
-	delete [] diamond1;
+	delete[] diamond1;
 	delete[] diamond2;
 	delete[] Lake1;
 	delete[] Lake2;
@@ -229,6 +229,7 @@ void CGameStateRun::OnBeginState()
 	const int BALL_PER_ROW = 7;
 	const int HITS_LEFT = 0;
 	const int HITS_LAKE = 1;
+	const int HITS_DOOR = 1;
 	const int HITS_LEFT_X = 590;
 	const int HITS_LEFT_Y = 0;
 	const int BACKGROUND_X = 60;
@@ -255,11 +256,17 @@ void CGameStateRun::OnBeginState()
 	}
 	player1.Initialize();
 	player2.Initialize();
+	reddoor.SetIsAlive(true);
+	reddoor.SetXY(690, 69);
+	icedoor.SetIsAlive(true);
+	icedoor.SetXY(600, 69);
+
 
 	background.SetTopLeft(0,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
 	hits_left.SetInteger(HITS_LEFT);
 	hits_lake.SetInteger(HITS_LAKE);
+	hits_door.SetInteger(HITS_DOOR);
 	hits_left.SetTopLeft(HITS_LEFT_X,HITS_LEFT_Y);		// 指定剩下撞擊數的座標
 	CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
 	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
@@ -297,17 +304,19 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 	player1.OnMove();
 	player2.OnMove();
-
+	reddoor.OnMove();
+	icedoor.OnMove();
 	//
 	// 判斷擦子是否碰到球
 	//
 
-	for (i = 0; i < NUMRED; i++)
+	for (i = 0; i < NUMRED; i++) {
 		if (diamond1[i].IsAlive() && diamond1[i].HitPlayer(&player1)) {
 			diamond1[i].SetIsAlive(false);
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_left.Add(1);
 		}
+	}
 	for (i = 0; i < NUMICE; i++)
 	{
 		if (diamond2[i].IsAlive() && diamond2[i].HitPlayer(&player2)) {
@@ -316,7 +325,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			hits_left.Add(1);
 		}
 	}
-	for (i = 0; i < LAKERED; i++)
+	for (i = 0; i < LAKERED; i++) {
 		if (Lake1[i].IsAlive() && Lake1[i].HitPlayer(&player2)) {
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
@@ -329,6 +338,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
+	}
 	for (i = 0; i < LAKEICE; i++)
 	{
 		if (Lake2[i].IsAlive() && Lake2[i].HitPlayer(&player1)) {
@@ -343,6 +353,16 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
+	}
+	if (reddoor.IsAlive() && (reddoor.HitPlayer(&player1))) {
+		reddoor.SetIsAlive(false);
+		CAudio::Instance()->Play(AUDIO_DING);
+		hits_left.Add(1);
+	}
+	if (icedoor.IsAlive() && icedoor.HitPlayer(&player2)) {
+		icedoor.SetIsAlive(false);
+		CAudio::Instance()->Play(AUDIO_DING);
+		hits_left.Add(1);
 	}
 
 }
@@ -560,7 +580,5 @@ void CGameStateRun::OnShow()
 	//
 	//  貼上左上及右下角落的圖
 	//
-
-
 }
 }

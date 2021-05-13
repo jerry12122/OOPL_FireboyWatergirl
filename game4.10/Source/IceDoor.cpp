@@ -8,9 +8,6 @@
 #include "IceDoor.h"
 
 namespace game_framework {
-	/////////////////////////////////////////////////////////////////////////////
-	// RedDoor: Ball class
-	/////////////////////////////////////////////////////////////////////////////
 	IceDoor::IceDoor()
 	{
 		is_alive = true;
@@ -27,10 +24,10 @@ namespace game_framework {
 
 	bool IceDoor::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
-		int x1 = x;				// 球的左上角x座標
-		int y1 = y;				// 球的左上角y座標
-		int x2 = x1 + bmp.Width();	// 球的右下角x座標
-		int y2 = y1 + bmp.Height();	// 球的右下角y座標
+		int x1 = x ;				// 球的左上角x座標
+		int y1 = y ;				// 球的左上角y座標
+		int x2 = x1 + door.Width();	// 球的右下角x座標
+		int y2 = y1 + door.Height();	// 球的右下角y座標
 									//
 									// 檢測球的矩形與參數矩形是否有交集
 									//
@@ -45,7 +42,7 @@ namespace game_framework {
 	void IceDoor::LoadBitmap()
 	{
 
-		bmp.LoadBitmap(ICE_DOOR_CLOSE, RGB(255, 255, 255));			// 載入球的圖形
+		door.LoadBitmap(ICE_DOOR_CLOSE, RGB(255, 255, 255));			// 載入球的圖形
 		bmp2.LoadBitmap(DOOR_OPEN, RGB(255, 255, 255));			// 載入球的圖形
 
 
@@ -70,8 +67,12 @@ namespace game_framework {
 	void IceDoor::OnShow()
 	{
 		if (is_alive) {
-			bmp.SetTopLeft(600, 69);
-			bmp.ShowBitmap();
+			door.SetTopLeft(x, y);
+			door.ShowBitmap();
+		}
+		else {
+			bmp2.SetTopLeft(x, y);
+			bmp2.ShowBitmap();
 		}
 	}
 }

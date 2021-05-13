@@ -114,6 +114,7 @@ namespace game_framework {
 		IceDiamond		*diamond2;
 		CInteger		hits_left;
 		CInteger		hits_lake;// ³Ñ¤Uªº¼²À»¼Æ
+		CInteger		hits_door;
 		RedPlayer		player1;
 		IcePlayer		player2;
 		RedLake			*Lake1;

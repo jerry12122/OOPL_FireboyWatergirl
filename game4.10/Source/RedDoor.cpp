@@ -27,10 +27,10 @@ namespace game_framework {
 
 	bool RedDoor::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
-		int x1 = x;				// 球的左上角x座標
-		int y1 = y;				// 球的左上角y座標
-		int x2 = x1 + bmp.Width();	// 球的右下角x座標
-		int y2 = y1 + bmp.Height();	// 球的右下角y座標
+		int x1 = x ;				// 球的左上角x座標
+		int y1 = y ;				// 球的左上角y座標
+		int x2 = x1 + doors.Width();	// 球的右下角x座標
+		int y2 = y1 + doors.Height();	// 球的右下角y座標
 									//
 									// 檢測球的矩形與參數矩形是否有交集
 									//
@@ -45,7 +45,7 @@ namespace game_framework {
 	void RedDoor::LoadBitmap()
 	{
 
-		bmp.LoadBitmap(FIRE_DOOR_CLOSE, RGB(255, 255, 255));			// 載入球的圖形
+		doors.LoadBitmap(FIRE_DOOR_CLOSE, RGB(255, 255, 255));			// 載入球的圖形
 		bmp2.LoadBitmap(DOOR_OPEN, RGB(255, 255, 255));			// 載入球的圖形
 
 
@@ -70,8 +70,12 @@ namespace game_framework {
 	void RedDoor::OnShow()
 	{
 		if (is_alive) {
-			bmp.SetTopLeft(690, 69);
-			bmp.ShowBitmap();
+			doors.SetTopLeft(x, y);
+			doors.ShowBitmap();
+		}
+		else {
+			bmp2.SetTopLeft(x, y);
+			bmp2.ShowBitmap();
 		}
 	}
 }

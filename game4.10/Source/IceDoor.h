@@ -13,7 +13,7 @@ namespace game_framework {
 		void SetXY(int nx, int ny);								// 設定圓心的座標
 		void SetIsAlive(bool alive);							// 設定是否活著
 	protected:
-		CMovingBitmap bmp, bmp2;			// 球的圖	
+		CMovingBitmap door, bmp2;			// 球的圖	
 		int x, y;					// 圓心的座標
 		bool is_alive;				// 是否活著
 	private:
