@@ -46,6 +46,7 @@
 #include "IcePlayer.h"
 #include "RedPlayer.h"
 #include "RedDoor.h"
+#include "IceDoor.h"
 #include "RedLake.h"
 #include "IceLake.h"
 
@@ -117,9 +118,8 @@ namespace game_framework {
 		IcePlayer		player2;
 		RedLake			*Lake1;
 		IceLake			*Lake2;
-
 		RedDoor			reddoor;
-
+		IceDoor			icedoor;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
