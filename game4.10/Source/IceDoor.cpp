@@ -4,20 +4,20 @@
 #include <ddraw.h>
 #include "audio.h"
 #include "gamelib.h"
-#include "RedPlayer.h"
-#include "RedDoor.h"
+#include "IcePlayer.h"
+#include "IceDoor.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// RedDoor: Ball class
 	/////////////////////////////////////////////////////////////////////////////
-	RedDoor::RedDoor()
+	IceDoor::IceDoor()
 	{
 		is_alive = true;
 		x = y = 0;
 	}
 
-	bool RedDoor::HitPlayer(RedPlayer *player)
+	bool IceDoor::HitPlayer(IcePlayer *player)
 	{
 
 		// 檢測擦子所構成的矩形是否碰到球
@@ -25,7 +25,7 @@ namespace game_framework {
 			player->GetX2(), player->GetY2());
 	}
 
-	bool RedDoor::HitRectangle(int tx1, int ty1, int tx2, int ty2)
+	bool IceDoor::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
 		int x1 = x;				// 球的左上角x座標
 		int y1 = y;				// 球的左上角y座標
@@ -37,40 +37,40 @@ namespace game_framework {
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 
-	bool RedDoor::IsAlive()
+	bool IceDoor::IsAlive()
 	{
 		return is_alive;
 	}
 
-	void RedDoor::LoadBitmap()
+	void IceDoor::LoadBitmap()
 	{
 
-		bmp.LoadBitmap(FIRE_DOOR_CLOSE, RGB(255, 255, 255));			// 載入球的圖形
+		bmp.LoadBitmap(ICE_DOOR_CLOSE, RGB(255, 255, 255));			// 載入球的圖形
 		bmp2.LoadBitmap(DOOR_OPEN, RGB(255, 255, 255));			// 載入球的圖形
 
 
 	}
 
-	void RedDoor::OnMove()
+	void IceDoor::OnMove()
 	{
 		if (!is_alive)
 			return;
 	}
 
-	void RedDoor::SetIsAlive(bool alive)
+	void IceDoor::SetIsAlive(bool alive)
 	{
 		is_alive = alive;
 	}
 
-	void RedDoor::SetXY(int nx, int ny)
+	void IceDoor::SetXY(int nx, int ny)
 	{
 		x = nx; y = ny;
 	}
 
-	void RedDoor::OnShow()
+	void IceDoor::OnShow()
 	{
 		if (is_alive) {
-			bmp.SetTopLeft(690, 69);
+			bmp.SetTopLeft(600, 69);
 			bmp.ShowBitmap();
 		}
 	}

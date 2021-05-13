@@ -210,8 +210,8 @@ CGameStateRun::CGameStateRun(CGame *g)
 	diamond2 = new IceDiamond[NUMICE];
 	Lake1 = new RedLake[LAKERED];
 	Lake2 = new IceLake[LAKEICE];
-	
 	//reddoor = new RedDoor();
+	//icedoor = new IceDoor();
 }
 
 CGameStateRun::~CGameStateRun()
@@ -372,6 +372,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	player1.LoadBitmap();
 	player2.LoadBitmap();
 	reddoor.LoadBitmap();
+	icedoor.LoadBitmap();
 	background.LoadBitmap(IDB_MAP1);					// 載入背景的圖形
 	//
 	// 完成部分Loading動作，提高進度
@@ -547,6 +548,8 @@ void CGameStateRun::OnShow()
 	}
 	player1.OnShow();
 	player2.OnShow();
+	reddoor.OnShow();
+	icedoor.OnShow();
 	for (int i = 0; i < LAKERED; i++)
 		Lake1[i].OnShow();				// 貼上第i號球
 	for (int i = 0; i < LAKEICE; i++)

@@ -258,6 +258,7 @@
     <None Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\IceDoor.cpp" />
     <ClCompile Include="Source\IceLake.cpp" />
     <ClCompile Include="Source\RedLake.cpp" />
     <ClCompile Include="Source\RedDoor.cpp" />
@@ -311,6 +312,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\IceDoor.h" />
     <ClInclude Include="Source\IceLake.h" />
     <ClInclude Include="Source\RedLake.h" />
     <ClInclude Include="Source\RedDoor.h" />
