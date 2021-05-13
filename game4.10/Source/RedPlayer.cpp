@@ -127,7 +127,7 @@ namespace game_framework {
 		const int STEP_SIZE = 6;
 		animation.OnMove();
 		animation1.OnMove();
-
+		/*
 		if (isLeftRightEmpty(x, y+55)&&y+55<578)
 		{
 			int  ycoord = 0;
@@ -139,7 +139,7 @@ namespace game_framework {
 			}
 			floor = y_edge[ycoord + 1]-50;
 		}
-
+		*/
 		if (isMovingLeft)
 			if (isLeftRightEmpty(x- STEP_SIZE,y) && x > 20) {
 				x -= STEP_SIZE;
