@@ -120,41 +120,46 @@ namespace game_framework {
 	}
 	void IcePlayer::OnMove()
 	{
-		const int STEP_SIZE = 5;
+		const int STEP_SIZE = 7;
 		animation.OnMove();
 		animation1.OnMove();
-
+		/*
+		if (isLeftRightEmpty(x, y+55)&&y+55<578)
+		{
+			int  ycoord = 0;
+			for (int i = 0; i < 19; i++)
+			{
+				if (y >= y_edge[i]) {
+					ycoord = i;
+				}
+			}
+			floor = y_edge[ycoord + 1]-50;
+		}
+		*/
 		if (isMovingLeft)
 			if (isLeftRightEmpty(x - STEP_SIZE, y) && x > 20) {
 				x -= STEP_SIZE;
 			}
 		if (isMovingRight)
-			if (isLeftRightEmpty(x + 45 + STEP_SIZE, y)) {
+			if (isLeftRightEmpty(x + 45 + STEP_SIZE, y) && x < 778) {
 				x += STEP_SIZE;
 			}
 		if (isMovingUp)
 			rising = true;
-
 		if (rising) {			// 上升狀態
-			if (velocity > 6) {
+			if (velocity > 0) {
 
 				y -= velocity;	// 當速度 > 0時，y軸上升(移動velocity個點，velocity的單位為 點/次)
 				velocity--;		// 受重力影響，下次的上升速度降低
 			}
 			else {
 				rising = false; // 當速度 <= 0，上升終止，下次改為下降
-				velocity = 5;	// 下降的初速(velocity)為1
-				if (y < floor - 1) {  // 當y座標還沒碰到地板
-					y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
-					velocity++;		// 受重力影響，下次的下降速度增加
-				}
-				else {
-					y = floor - 1;  // 當y座標低於地板，更正為地板上
-
-					rising = false;	// 探底反彈，下次改為上升
-					velocity = initial_velocity;
-					// 重設上升初始速度
-				}
+				velocity = 1;	// 下降的初速(velocity)為1
+			}
+			if (!isLeftRightEmpty(x, y - 1))
+			{
+				rising = false;
+				velocity = 0;
 			}
 		}
 		else {				// 下降狀態
@@ -171,7 +176,6 @@ namespace game_framework {
 			}
 			isMovingUp = false;
 		};
-
 		if (isMovingDown)
 			y += STEP_SIZE;
 	}

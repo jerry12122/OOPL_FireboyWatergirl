@@ -39,7 +39,7 @@ namespace game_framework {
 
 	void RedPlayer::Initialize()
 	{
-		const int INITIAL_VELOCITY = 12;	// 初始上升速度
+		const int INITIAL_VELOCITY = 9;	// 初始上升速度
 		const int FLOOR = 578 - 52;				// 地板座標
 		const int X_POS = 42;
 		const int Y_POS = 530;
@@ -124,7 +124,7 @@ namespace game_framework {
 	void RedPlayer::OnMove()
 	{
 
-		const int STEP_SIZE = 6;
+		const int STEP_SIZE = 7;
 		animation.OnMove();
 		animation1.OnMove();
 		/*
