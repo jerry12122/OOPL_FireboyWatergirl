@@ -244,12 +244,12 @@ void CGameStateRun::OnBeginState()
 		diamond2[i].SetXY(diamond2_position[i][0], diamond2_position[i][1]);
 		diamond2[i].SetIsAlive(true);
 	}
-	const int Lake1_position[3][2] = { {360,578},{125,413},{285,125} };
+	const int Lake1_position[3][2] = { {360,567},{125,402},{285,115} };
 	for (int i = 0; i < LAKERED; i++) {				// 設定球的起始座標
 		Lake1[i].SetXY(Lake1_position[i][0], Lake1_position[i][1]);
 		Lake1[i].SetIsAlive(true);
 	}
-	const int Lake2_position[3][2] = { {530,578},{430,331},{440,125} };
+	const int Lake2_position[3][2] = { {530,567},{430,319},{440,115} };
 	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
 		Lake2[i].SetXY(Lake2_position[i][0], Lake2_position[i][1]);
 		Lake2[i].SetIsAlive(true);
@@ -356,17 +356,17 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 	if (reddoor.IsAlive() && (reddoor.HitPlayer(&player1))) {
 		reddoor.SetIsAlive(false);
-		CAudio::Instance()->Play(AUDIO_DING);
-		hits_left.Add(1);
+	}
+	if (!(reddoor.IsAlive()) && !(reddoor.HitPlayer(&player1))) {
+		reddoor.SetIsAlive(true);
 	}
 	if (icedoor.IsAlive() && icedoor.HitPlayer(&player2)) {
 		icedoor.SetIsAlive(false);
-		CAudio::Instance()->Play(AUDIO_DING);
-		hits_left.Add(1);
+	}
+	if (!(icedoor.IsAlive()) && !(icedoor.HitPlayer(&player2))) {
+		icedoor.SetIsAlive(true);
 	}
 	if (!(icedoor.IsAlive()) && !(reddoor.IsAlive())) {
-		icedoor.SetIsAlive(false);
-		CAudio::Instance()->Play(AUDIO_DING);
 		GotoGameState(GAME_STATE_INIT);
 	}
 
