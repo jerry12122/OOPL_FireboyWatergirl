@@ -25,6 +25,9 @@ namespace game_framework {
 		void SetFloor(int);
 		void SetVelocity(int);
 		bool isLeftRightEmpty(int x, int y);
+		int getCoordX(int x, int y);
+		int getCoordY(int x, int y);
+		void setfloor();
 
 	protected:
 		CAnimation animation, animation1;		// 擦子的動畫
