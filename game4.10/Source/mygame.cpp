@@ -364,6 +364,11 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 		CAudio::Instance()->Play(AUDIO_DING);
 		hits_left.Add(1);
 	}
+	if (!(icedoor.IsAlive()) && !(reddoor.IsAlive())) {
+		icedoor.SetIsAlive(false);
+		CAudio::Instance()->Play(AUDIO_DING);
+		GotoGameState(GAME_STATE_INIT);
+	}
 
 }
 
