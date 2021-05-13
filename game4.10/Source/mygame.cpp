@@ -244,12 +244,12 @@ void CGameStateRun::OnBeginState()
 		diamond2[i].SetXY(diamond2_position[i][0], diamond2_position[i][1]);
 		diamond2[i].SetIsAlive(true);
 	}
-	const int Lake1_position[3][2] = { {360,575},{125,410},{285,125} };
+	const int Lake1_position[3][2] = { {360,578},{125,413},{285,125} };
 	for (int i = 0; i < LAKERED; i++) {				// 設定球的起始座標
 		Lake1[i].SetXY(Lake1_position[i][0], Lake1_position[i][1]);
 		Lake1[i].SetIsAlive(true);
 	}
-	const int Lake2_position[3][2] = { {530,575},{430,328},{440,125} };
+	const int Lake2_position[3][2] = { {530,578},{430,331},{440,125} };
 	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
 		Lake2[i].SetXY(Lake2_position[i][0], Lake2_position[i][1]);
 		Lake2[i].SetIsAlive(true);
@@ -566,8 +566,7 @@ void CGameStateRun::OnShow()
 	{
 		diamond2[i].OnShow();
 	}
-	player1.OnShow();
-	player2.OnShow();
+	
 	reddoor.OnShow();
 	icedoor.OnShow();
 	for (int i = 0; i < LAKERED; i++)
@@ -576,6 +575,8 @@ void CGameStateRun::OnShow()
 	{
 		Lake2[i].OnShow();
 	}
+	player1.OnShow();
+	player2.OnShow();
 	//reddoor.OnShow();
 	//
 	//  貼上左上及右下角落的圖
