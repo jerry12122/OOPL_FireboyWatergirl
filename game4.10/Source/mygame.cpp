@@ -200,40 +200,6 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 
-CGameMap::CGameMap():X(20),Y(40),MW(120),MH(100)
-{
-	int map_init[11][6] = {
-		{1,1,1,1,1,1},
-		{1,0,0,0,0,1},
-		{1,0,1,1,1,1},
-		{1,0,0,0,0,1},
-		{1,1,0,0,0,1},
-		{1,0,0,0,0,1},
-		{1,1,1,1,0,1},
-		{1,0,0,0,0,1},
-		{1,1,1,0,1,1},
-		{1,0,0,0,0,1},
-		{1,1,1,1,1,1}
-	};
-	for (int i = 0; i < 10;i++)
-	{
-		for (int j = 0; j < 5; j++)
-		{
-			map[i][j] = map_init[i][j];
-		}
-	}
-	//random_num = 0;
-	
-}
-void CGameMap::LoadBitmap() {
-
-	background.LoadBitmap(IDB_MAP1);
-}
-
-CGameMap::~CGameMap() {
-	
-}
-
 
 
 
@@ -244,6 +210,7 @@ CGameStateRun::CGameStateRun(CGame *g)
 	diamond2 = new IceDiamond[NUMICE];
 	Lake1 = new RedLake[LAKERED];
 	Lake2 = new IceLake[LAKEICE];
+	
 	//reddoor = new RedDoor();
 }
 
@@ -260,7 +227,7 @@ void CGameStateRun::OnBeginState()
 	const int BALL_GAP = 90;
 	const int BALL_XY_OFFSET = 45;
 	const int BALL_PER_ROW = 7;
-	const int HITS_LEFT = 10;
+	const int HITS_LEFT = 0;
 	const int HITS_LAKE = 1;
 	const int HITS_LEFT_X = 590;
 	const int HITS_LEFT_Y = 0;
@@ -288,6 +255,7 @@ void CGameStateRun::OnBeginState()
 	}
 	player1.Initialize();
 	player2.Initialize();
+
 	background.SetTopLeft(0,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
 	hits_left.SetInteger(HITS_LEFT);
@@ -338,15 +306,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		if (diamond1[i].IsAlive() && diamond1[i].HitPlayer(&player1)) {
 			diamond1[i].SetIsAlive(false);
 			CAudio::Instance()->Play(AUDIO_DING);
-			hits_left.Add(-1);
-			//
-			// 若剩餘碰撞次數為0，則跳到Game Over狀態
-			//
-			if (hits_left.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
-				GotoGameState(GAME_STATE_OVER);
-			}
+			hits_left.Add(1);
 		}
 	for (i = 0; i < NUMICE; i++)
 	{
@@ -354,14 +314,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			diamond2[i].SetIsAlive(false);
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_left.Add(1);
-			//
-			// 若剩餘碰撞次數為0，則跳到Game Over狀態
-			//
-			if (hits_left.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
-				GotoGameState(GAME_STATE_OVER);
-			}
 		}
 	}
 	for (i = 0; i < LAKERED; i++)
@@ -392,14 +344,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			}
 		}
 	}
-	//
-	// 移動彈跳的球
-	//
-	
 
-
-
-	//gamemap.OnMove();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
@@ -446,7 +391,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 
 
-	gamemap.LoadBitmap();
+
 
 }
 

@@ -23,4 +23,4 @@ namespace game_framework {
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	// 是否碰到參數範圍的矩形
 	};
 }
-//>>>>>>> 1e440f3c13a133fc32a58cadfbef21d931c9579e
+

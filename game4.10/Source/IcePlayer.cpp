@@ -49,7 +49,43 @@ namespace game_framework {
 		rising = false;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
-
+		int map_init[18][14] = {
+			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+			{1,1,1,0,0,1,1,1,1,1,1,1,1,1},
+			{1,1,1,1,0,1,1,1,1,1,1,1,1,1},
+			{1,1,1,1,0,0,0,0,0,0,0,0,0,0},
+			{0,0,1,1,0,0,1,1,1,1,1,1,1,1},
+			{0,0,1,1,1,1,1,1,1,0,1,1,1,1},
+			{0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+			{1,1,1,1,1,1,1,1,1,1,1,0,1,1},
+			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+			{1,0,0,0,0,0,0,0,0,1,1,1,1,1},
+			{1,1,1,1,1,1,1,1,0,0,0,0,0,0},
+			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+			{0,0,0,0,0,0,0,0,1,1,1,1,1,1},
+			{1,1,1,1,1,1,1,0,1,1,1,1,1,1},
+			{1,1,1,1,1,1,1,0,0,0,0,0,1,1},
+			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+			{0,0,0,0,0,1,1,1,1,1,1,1,1,1},
+			{1,1,1,1,1,1,1,1,1,1,1,1,1,0}
+		};
+		for (int i = 0; i < 19; i++)
+		{
+			for (int j = 0; j < 15; j++)
+			{
+				map[i][j] = map_init[i][j];
+			}
+		}
+		int x_edge_init[15] = { 20,103,122,203,246,269,348,370,390,411,553,591,694,717,778 };
+		for (int j = 0; j < 15; j++)
+		{
+			x_edge[j] = x_edge_init[j];
+		}
+		int y_edge_init[19] = { 21,84,102,127,148,187,229,247,267,311,328,349,413,432,458,474,496,515,578 };
+		for (int j = 0; j < 19; j++)
+		{
+			y_edge[j] = y_edge_init[j];
+		}
 	}
 
 	void IcePlayer::LoadBitmap()
@@ -65,20 +101,35 @@ namespace game_framework {
 
 
 	}
-
+	bool IcePlayer::isLeftRightEmpty(int x, int y)
+	{
+		int x_coord = 0, ycoord = 0;
+		for (int i = 0; i < 15; i++)
+		{
+			if (x >= x_edge[i]) {
+				x_coord = i;
+			}
+		}
+		for (int i = 0; i < 19; i++)
+		{
+			if (y >= y_edge[i]) {
+				ycoord = i;
+			}
+		}
+		return map[ycoord][x_coord];
+	}
 	void IcePlayer::OnMove()
 	{
 		const int STEP_SIZE = 5;
 		animation.OnMove();
 		animation1.OnMove();
 
-		if (isMovingLeft) {
-			if (x > 20) {
+		if (isMovingLeft)
+			if (isLeftRightEmpty(x - STEP_SIZE, y) && x > 20) {
 				x -= STEP_SIZE;
 			}
-		}
 		if (isMovingRight)
-			if (x < 720) {
+			if (isLeftRightEmpty(x + 45 + STEP_SIZE, y)) {
 				x += STEP_SIZE;
 			}
 		if (isMovingUp)

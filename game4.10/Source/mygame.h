@@ -84,21 +84,8 @@ namespace game_framework {
 	// 每個Member function的Implementation都要弄懂
 	/////////////////////////////////////////////////////////////////////////////
 
-	class CGameMap {
-	public:
-		CGameMap();
-		void LoadBitmap();
-		void OnShow();
 
-		~CGameMap();
-	protected:
-		CMovingBitmap background;
-		int map[6][11];
-		int x_block[6];
-		int y_block[11];
-		const int X, Y;
-		const int MW, MH;
-	};
+
 	class CGameStateRun : public CGameState {
 	public:
 		CGameStateRun(CGame *g);
@@ -130,7 +117,7 @@ namespace game_framework {
 		IcePlayer		player2;
 		RedLake			*Lake1;
 		IceLake			*Lake2;
-		CGameMap		gamemap;
+
 		RedDoor			reddoor;
 
 	};

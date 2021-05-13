@@ -66,12 +66,6 @@ namespace game_framework {
 		if (is_alive) {
 			LAKE.SetTopLeft(x,y);
 			LAKE.ShowBitmap();
-			//LAKE.SetTopLeft(330,573);
-			//LAKE.ShowBitmap();
-			//LAKE.SetTopLeft(125, 408);
-			//LAKE.ShowBitmap();
-			//LAKE.SetTopLeft(270, 122);
-			//LAKE.ShowBitmap();
 		}
 	}
 }
