@@ -323,5 +323,8 @@
     <Image Include="..\res\FIRE_LAKE.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\res\GAMEOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

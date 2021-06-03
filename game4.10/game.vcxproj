@@ -354,6 +354,7 @@
     <Image Include="..\res\FIRE_RIGHT_RUN_1.bmp" />
     <Image Include="..\res\FIRE_RIGHT_RUN_2.bmp" />
     <Image Include="..\res\FIRE_RIGHT_RUN_3.bmp" />
+    <Image Include="..\res\GAMEOVER.bmp" />
     <Image Include="..\res\GAME_MENU.bmp" />
     <Image Include="..\res\ICE_DIAMOND.bmp" />
     <Image Include="..\res\ICE_DOOR_CLOSE.bmp" />

@@ -150,16 +150,26 @@ CGameStateOver::CGameStateOver(CGame *g)
 {
 }
 
+void CGameStateOver::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	if ((point.x > 254 && point.x < 367) && (point.y > 337 && point.y < 376))
+	{
+		GotoGameState(GAME_STATE_INIT);
+	}
+	if ((point.x > 444 && point.x < 556) && (point.y > 337 && point.y < 376))
+	{
+		GotoGameState(GAME_STATE_RUN);
+	}
+}
+
 void CGameStateOver::OnMove()
 {
-	counter--;
-	if (counter < 0)
-		GotoGameState(GAME_STATE_INIT);
+
 }
 
 void CGameStateOver::OnBeginState()
 {
-	counter = 30 * 5; // 5 seconds
+
 }
 
 void CGameStateOver::OnInit()
@@ -172,7 +182,8 @@ void CGameStateOver::OnInit()
 	//
 	// 開始載入資料
 	//
-	Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	gameover.LoadBitmap(GAMEOVER, RGB(255, 255, 255));
+	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 最終進度為100%
 	//
@@ -181,27 +192,14 @@ void CGameStateOver::OnInit()
 
 void CGameStateOver::OnShow()
 {
-	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC 
-	CFont f,*fp;
-	f.CreatePointFont(160,"Times New Roman");	// 產生 font f; 160表示16 point的字
-	fp=pDC->SelectObject(&f);					// 選用 font f
-	pDC->SetBkColor(RGB(0,0,0));
-	pDC->SetTextColor(RGB(255,255,0));
-	char str[80];								// Demo 數字對字串的轉換
-	sprintf(str, "Game Over ! (%d)", counter / 30);
-	pDC->TextOut(240,210,str);
-	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
-	CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
-	
+	gameover.SetTopLeft(118, 138);
+	gameover.ShowBitmap();
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 /////////////////////////////////////////////////////////////////////////////
-
-
-
-
 
 CGameStateRun::CGameStateRun(CGame *g)
 : CGameState(g), NUMRED(3),NUMICE(4), LAKERED(3), LAKEICE(3)

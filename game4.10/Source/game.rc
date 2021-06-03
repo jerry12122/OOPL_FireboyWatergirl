@@ -156,6 +156,8 @@ ICE_DOOR_CLOSE          BITMAP                  "..\\..\\res\\ICE_DOOR_CLOSE.bmp
 
 FIRE_LAKE               BITMAP                  "..\\..\\res\\FIRE_LAKE.bmp"
 
+GAMEOVER                BITMAP                  "..\\..\\res\\GAMEOVER.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
