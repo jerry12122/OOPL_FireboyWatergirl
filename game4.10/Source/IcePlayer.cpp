@@ -102,23 +102,49 @@ namespace game_framework {
 	}
 	bool IcePlayer::isLeftRightEmpty(int x, int y, int value)
 	{
+		int x_coord = 0, ycoord = 0;
 		if (x < 21 || x>778 || y < 21 || y>578)
 		{
 			return 0;
 		}
-		int x_coord = 0, ycoord = 0;
-		for (int i = 0; i < 15; i++)
-		{
-			if (x >= x_edge[i]) {
-				x_coord = i;
+		bool result = 1;
+		if (value == 0) {
+			for (int i = 0; i < 15; i++)
+			{
+				if (x >= x_edge[i]) {
+					x_coord = i;
+				}
 			}
-		}
-		for (int i = 0; i < 19; i++)
-		{
-			if (y + value >= y_edge[i]) {
-				ycoord = i;
+			for (int i = 0; i < 19; i++)
+			{
+				if (y + value >= y_edge[i]) {
+					ycoord = i;
+				}
 			}
+			result = map[ycoord][x_coord] && result;
 		}
+		else
+		{
+			for (int i = 0; i < 15; i++)
+			{
+				if (x >= x_edge[i]) {
+					x_coord = i;
+				}
+			}
+
+			for (int j = 5; j < 35; j += 3)
+			{
+				for (int i = 0; i < 19; i++)
+				{
+					if (y + j >= y_edge[i]) {
+						ycoord = i;
+					}
+				}
+				result = map[ycoord][x_coord] && result;
+			}
+
+		}
+
 		return map[ycoord][x_coord];
 	}
 	void IcePlayer::setfloor()
@@ -193,12 +219,12 @@ namespace game_framework {
 		setfloor();
 
 		if (isMovingLeft)
-			if (isLeftRightEmpty(x - STEP_SIZE, y, 20) && x > 20) {
+			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20) {
 				x -= STEP_SIZE;
 				setfloor();
 			}
 		if (isMovingRight)
-			if (isLeftRightEmpty(x + 45 + STEP_SIZE, y, 20) && x < 778) {
+			if (isLeftRightEmpty(x + 45 + STEP_SIZE, y, 1) && x < 778) {
 				x += STEP_SIZE;
 				setfloor();
 			}
