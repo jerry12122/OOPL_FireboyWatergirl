@@ -242,12 +242,12 @@ void CGameStateRun::OnBeginState()
 		diamond2[i].SetXY(diamond2_position[i][0], diamond2_position[i][1]);
 		diamond2[i].SetIsAlive(true);
 	}
-	const int Lake1_position[3][2] = { {360,567},{125,402},{285,115} };
+	const int Lake1_position[3][2] = { {360,579},{125,414},{285,127} };
 	for (int i = 0; i < LAKERED; i++) {				// 設定球的起始座標
 		Lake1[i].SetXY(Lake1_position[i][0], Lake1_position[i][1]);
 		Lake1[i].SetIsAlive(true);
 	}
-	const int Lake2_position[3][2] = { {530,567},{430,319},{440,115} };
+	const int Lake2_position[3][2] = { {530,579},{430,331},{440,127} };
 	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
 		Lake2[i].SetXY(Lake2_position[i][0], Lake2_position[i][1]);
 		Lake2[i].SetIsAlive(true);
@@ -273,22 +273,7 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
-	//
-	// 如果希望修改cursor的樣式，則將下面程式的commment取消即可
-	//
-	// SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));
-	//
-	// 移動背景圖的座標
-	//
-	/*
-		if (background.Top() > SIZE_Y)
-		background.SetTopLeft(60 ,-background.Height());
-	background.SetTopLeft(background.Left(),background.Top()+1);
-	*/
 
-	//
-	// 移動球
-	//
 	int i;
 	for (i = 0; i < NUMRED; i++)
 		diamond1[i].OnMove();
@@ -296,9 +281,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	{
 		diamond2[i].OnMove();
 	}
-	//
-	// 移動擦子
-	//
 
 	player1.OnMove();
 	player2.OnMove();

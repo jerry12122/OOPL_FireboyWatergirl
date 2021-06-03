@@ -24,7 +24,7 @@ namespace game_framework {
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
 		void SetFloor(int);
 		void SetVelocity(int);
-		bool isLeftRightEmpty(int x, int y);
+		bool isLeftRightEmpty(int x, int y, int value);
 		int getCoordX(int x, int y);
 		int getCoordY(int x, int y);
 		void setfloor();

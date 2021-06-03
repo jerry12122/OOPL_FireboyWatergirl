@@ -50,6 +50,7 @@ namespace game_framework {
 		rising = false;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
+		
 		int map_init[18][14] = {
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{1,1,1,0,0,1,1,1,1,1,1,1,1,1},
@@ -101,21 +102,51 @@ namespace game_framework {
 		animation1.AddBitmap(FIRE_LEFT_RUN_3, RGB(255, 255, 255));
 		bit.LoadBitmap(FIRE_FRONT, RGB(255, 255, 255));
 	}
-	bool RedPlayer::isLeftRightEmpty(int x, int y)
+	bool RedPlayer::isLeftRightEmpty(int x, int y, int value)
 	{
 		int x_coord = 0, ycoord = 0;
-		for (int i = 0; i <15; i++)
+		if (x < 21 || x>778 || y < 21 || y>578)
 		{
-			if (x >= x_edge[i]) {
-				x_coord = i;
-			}
+			return 0;
 		}
-		for (int i = 0; i < 19; i++)
+		bool result = 1;
+		if (value == 0) {
+			for (int i = 0; i < 15; i++)
+			{
+				if (x >= x_edge[i]) {
+					x_coord = i;
+				}
+			}
+			for (int i = 0; i < 19; i++)
+			{
+				if (y + value >= y_edge[i]) {
+					ycoord = i;
+				}
+			}
+			result = map[ycoord][x_coord] && result;
+		}
+		else 
 		{
-			if (y >= y_edge[i]) {
-				ycoord = i;
+			for (int i = 0; i < 15; i++)
+			{
+				if (x >= x_edge[i]) {
+					x_coord = i;
+				}
 			}
+			
+			for (int j = 5; j < 35; j+=3)
+			{
+				for (int i = 0; i < 19; i++)
+				{
+					if (y + j >= y_edge[i]) {
+						ycoord = i;
+					}
+				}
+				result = map[ycoord][x_coord] && result;
+			}
+
 		}
+
 		return map[ycoord][x_coord];
 	}
 	int RedPlayer::getCoordX(int x, int y)
@@ -146,7 +177,7 @@ namespace game_framework {
 		{
 			floor = 578 - 40;
 		}
-		else if (x + 20 >= 717 && x + 20 < 778 && y + 40 < 517 && y + 40 >= 350)
+		else if (x + 20 >= 717 && x + 20 < 778 && y + 40 < 578 && y + 40 >= 350)
 		{
 			floor = 517 - 40;
 		}
@@ -166,19 +197,19 @@ namespace game_framework {
 		{
 			floor = 311 - 40;
 		}
-		else if ((x + 20 >= 414 && x + 20 < 591 && y + 40 >= 247 && y + 40 < 331) || (x + 20 >= 591 && x + 20 < 778 && y + 40 >= 267 && y + 40 < 331) || (x + 20 >= 594 && x + 20 < 778 && y + 40 >= 144 && y + 40 < 267))
+		else if ((x + 20 >= 414 && x + 20 < 591 && y + 40 >= 247 && y + 40 < 331) || (x + 20 >= 591 && x + 20 < 778 && y + 40 >= 267 && y + 40 < 331) || (x + 20 >= 694 && x + 20 < 778 && y + 40 >= 144 && y + 40 < 267))
 		{
 			floor = 331 - 40;
 		}
-		else if ((x + 20 >= 553 && x + 20 < 694 && y + 40 >= 144 && y + 40 < 229) || (x + 20 >= 348 && x + 20 < 411 && y + 40 < 144 && y + 40 >= 122) || (x + 20 >= 246 && x + 20 < 348 && y + 40 >= 186 && y + 40 < 229) || (x + 20 >= 122 && x + 20 < 246 && y + 40 >= 102 && y + 40 < 229) || (x + 20 >= 122 && x + 20 < 203 && y + 40 >= 21 && y + 40 < 102))
+		else if ((x + 20 >= 553 && x + 20 < 591 && y + 40 >= 144 && y + 40 < 247) || (x + 20 >= 591 && x + 20 < 694 && y + 40 >= 144 && y + 40 < 267) || (x + 20 >= 348 && x + 20 < 411 && y + 40 >= 144 && y + 40 < 229) || (x + 20 >= 246 && x + 20 < 348 && y + 40 >= 186 && y + 40 < 229) || (x + 20 >= 122 && x + 20 < 246 && y + 40 >= 102 && y + 40 < 229) || (x + 20 >= 122 && x + 20 < 203 && y + 40 >= 21 && y + 40 < 102))
 		{
 			floor = 229 - 40;
 		}
 		else if ((x + 20 >= 411 && x + 20 < 553 && y + 40 >= 144 && y + 40 < 188))
 		{
-			floor = 194 - 40;
+			floor = 188 - 40;
 		}
-		else if ((x + 20 >= 21 && x + 20 < 203 && y + 40 >= 21 && y + 40 < 148))
+		else if ((x + 20 >= 21 && x + 20 < 203 && y + 40 >= 21 && y + 40 < 229))
 		{
 			floor = 148 - 40;
 		}
@@ -213,12 +244,12 @@ namespace game_framework {
 		setfloor();
 
 		if (isMovingLeft)
-			if (isLeftRightEmpty(x- STEP_SIZE,y) && x > 20) {
+			if (isLeftRightEmpty(x- STEP_SIZE,y,1) && x > 20) {
 				x -= STEP_SIZE;
 				setfloor();
 			}
 		if (isMovingRight)
-			if (isLeftRightEmpty(x+45+STEP_SIZE, y) && x < 778) {
+			if (isLeftRightEmpty(x+45+STEP_SIZE, y,1) && x < 778) {
 				x += STEP_SIZE;
 				setfloor();
 			}
@@ -226,20 +257,24 @@ namespace game_framework {
 			rising = true;
 		if (rising) {			// 上升狀態
 			if (velocity > 0) {
+				if (!isLeftRightEmpty(x, y - 1,0))
+				{
+					velocity--;
+					setfloor();
+				}
+				else 
+				{
+					y -= velocity;	// 當速度 > 0時，y軸上升(移動velocity個點，velocity的單位為 點/次)
+					velocity--;		// 受重力影響，下次的上升速度降低
+					setfloor();
+				}
 
-				y -= velocity;	// 當速度 > 0時，y軸上升(移動velocity個點，velocity的單位為 點/次)
-				velocity--;		// 受重力影響，下次的上升速度降低
-				setfloor();
 			}
 			else {
 				rising = false; // 當速度 <= 0，上升終止，下次改為下降
 				velocity = 1;	// 下降的初速(velocity)為1
 			}
-			if (!isLeftRightEmpty(x, y - 1))
-			{
-				rising = false;
-				velocity = 0;
-			}
+
 		}
 		else {				// 下降狀態
 			if (y < floor - 1) {  // 當y座標還沒碰到地板

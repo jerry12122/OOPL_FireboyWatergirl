@@ -22,9 +22,9 @@ namespace game_framework {
 		void SetMovingRight(bool flag); // 設定是否正在往右移動
 		void SetMovingUp(bool flag);	// 設定是否正在往上移動
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
-		void SetFloor(int);
+		void setfloor();
 		void SetVelocity(int);
-		bool isLeftRightEmpty(int x, int y);
+		bool isLeftRightEmpty(int x, int y, int value);
 	protected:
 		CAnimation animation, animation1;		// 擦子的動畫
 		CMovingBitmap bit;
