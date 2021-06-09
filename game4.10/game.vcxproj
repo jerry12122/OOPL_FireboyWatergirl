@@ -258,6 +258,7 @@
     <None Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\box.cpp" />
     <ClCompile Include="Source\IceDoor.cpp" />
     <ClCompile Include="Source\IceLake.cpp" />
     <ClCompile Include="Source\RedLake.cpp" />
@@ -312,6 +313,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\box.h" />
     <ClInclude Include="Source\IceDoor.h" />
     <ClInclude Include="Source\IceLake.h" />
     <ClInclude Include="Source\RedLake.h" />
@@ -342,6 +344,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\res\1.png" />
+    <Image Include="..\res\box.bmp" />
     <Image Include="..\res\demo_map.bmp" />
     <Image Include="..\res\DOOR_OPEN.bmp" />
     <Image Include="..\res\FIRE_DIAMOND.bmp" />

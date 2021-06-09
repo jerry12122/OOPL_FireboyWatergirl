@@ -158,6 +158,8 @@ FIRE_LAKE               BITMAP                  "..\\..\\res\\FIRE_LAKE.bmp"
 
 GAMEOVER                BITMAP                  "..\\..\\res\\GAMEOVER.bmp"
 
+IDB_BOX                 BITMAP                  "..\\..\\res\\box.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

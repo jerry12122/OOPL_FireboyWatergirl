@@ -153,7 +153,7 @@ namespace game_framework {
 		{
 			floor = 578 - 40;
 		}
-		else if (x + 20 >= 717 && x + 20 < 778 && y + 40 < 578 && y + 40 >= 350)
+		else if (x + 20 >= 717 && x + 20 < 800 && y + 40 < 600 && y + 40 >= 350)
 		{
 			floor = 517 - 40;
 		}
@@ -216,7 +216,9 @@ namespace game_framework {
 			floor = y_edge[ycoord + 1]-50;
 		}
 		*/
-		setfloor();
+		if (!rising && velocity == initial_velocity) {
+			y = floor;
+		}
 
 		if (isMovingLeft)
 			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20) {

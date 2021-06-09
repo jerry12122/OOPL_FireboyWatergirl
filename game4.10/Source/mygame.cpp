@@ -242,7 +242,7 @@ void CGameStateRun::OnBeginState()
 		diamond2[i].SetXY(diamond2_position[i][0], diamond2_position[i][1]);
 		diamond2[i].SetIsAlive(true);
 	}
-	const int Lake1_position[3][2] = { {360,579},{125,414},{285,127} };
+	const int Lake1_position[3][2] = { {360,579},{125,410},{285,127} };
 	for (int i = 0; i < LAKERED; i++) {				// 設定球的起始座標
 		Lake1[i].SetXY(Lake1_position[i][0], Lake1_position[i][1]);
 		Lake1[i].SetIsAlive(true);
