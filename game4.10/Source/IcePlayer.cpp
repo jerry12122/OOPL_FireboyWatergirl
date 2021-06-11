@@ -228,8 +228,10 @@ namespace game_framework {
 				x += STEP_SIZE;
 				setfloor();
 			}
-		if (isMovingUp)
+		if (isMovingUp){
 			rising = true;
+			isMovingUp = false;
+		} 
 		if (rising) {			// ¤W¤Éª¬ºA
 			if (velocity > 0) {
 				if (!isLeftRightEmpty(x, y - 1, 0))

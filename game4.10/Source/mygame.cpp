@@ -425,7 +425,6 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 	if (nChar == KEY_UP)
 	{
-
 		player1.SetMovingUp(true);
 	}
 	if (nChar == KEY_DOWN)
