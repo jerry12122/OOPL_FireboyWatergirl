@@ -153,6 +153,9 @@
     <ClCompile Include="Source\IceDoor.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\box.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -213,6 +216,9 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\IceDoor.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\box.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
@@ -324,6 +330,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\res\GAMEOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\box.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -66,8 +66,9 @@
 #define ICE_DOOR_CLOSE                  190
 #define IDB_BITMAP5                     196
 #define FIRE_LAKE                       196
-#define IDB_BITMAP6                     197
 #define GAMEOVER                        197
+#define IDB_BITMAP6                     198
+#define IDB_BOX                         198
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -80,7 +81,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        198
+#define _APS_NEXT_RESOURCE_VALUE        199
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101
