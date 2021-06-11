@@ -156,6 +156,9 @@
     <ClCompile Include="Source\box.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Mood.cpp">
+      <Filter>MyGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\audio.h">
@@ -219,6 +222,9 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\box.h">
+      <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mood.h">
       <Filter>MyGame</Filter>
     </ClInclude>
   </ItemGroup>
@@ -333,6 +339,18 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\res\box.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\bitmap7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\rightmood.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\midmood.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\leftmood.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

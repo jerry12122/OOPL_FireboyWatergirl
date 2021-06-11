@@ -49,6 +49,7 @@
 #include "IceDoor.h"
 #include "RedLake.h"
 #include "IceLake.h"
+#include "Mood.h"
 
 
 namespace game_framework {
@@ -121,6 +122,7 @@ namespace game_framework {
 		IceLake			*Lake2;
 		RedDoor			reddoor;
 		IceDoor			icedoor;
+		Mood			mood;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

@@ -160,6 +160,12 @@ GAMEOVER                BITMAP                  "..\\..\\res\\GAMEOVER.bmp"
 
 IDB_BOX                 BITMAP                  "..\\..\\res\\box.bmp"
 
+RIGHT_MOOD              BITMAP                  "..\\..\\res\\rightmood.bmp"
+
+MID_MOOD                BITMAP                  "..\\..\\res\\midmood.bmp"
+
+LEFT_MOOD               BITMAP                  "..\\..\\res\\leftmood.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

@@ -258,7 +258,8 @@ void CGameStateRun::OnBeginState()
 	reddoor.SetXY(690, 69);
 	icedoor.SetIsAlive(true);
 	icedoor.SetXY(600, 69);
-
+	mood.SetIsAlive(true);
+	mood.SetXY(260, 390);
 
 	background.SetTopLeft(0,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
@@ -286,6 +287,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	player2.OnMove();
 	reddoor.OnMove();
 	icedoor.OnMove();
+	mood.OnMove();
 	//
 	// 判斷擦子是否碰到球
 	//
@@ -378,6 +380,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	player2.LoadBitmap();
 	reddoor.LoadBitmap();
 	icedoor.LoadBitmap();
+	mood.LoadBitmap();
 	background.LoadBitmap(IDB_MAP1);					// 載入背景的圖形
 	//
 	// 完成部分Loading動作，提高進度
@@ -553,6 +556,7 @@ void CGameStateRun::OnShow()
 	
 	reddoor.OnShow();
 	icedoor.OnShow();
+	mood.OnShow();
 	for (int i = 0; i < LAKERED; i++)
 		Lake1[i].OnShow();				// 貼上第i號球
 	for (int i = 0; i < LAKEICE; i++)
