@@ -110,6 +110,7 @@ namespace game_framework {
 		const int		NUMICE;
 		const int		LAKERED;	// 水的總數
 		const int		LAKEICE;
+		const int		NUMMOD;
 		CMovingBitmap	background;	// 背景圖
 		CMovingBitmap	help;		// 說明圖
 		RedDiamond		*diamond1;	// 鑽石的陣列
@@ -123,7 +124,7 @@ namespace game_framework {
 		IceLake			*Lake2;
 		RedDoor			reddoor;
 		IceDoor			icedoor;
-		Mood			mood;
+		Mood			*mood;
 		box				box;
 	};
 

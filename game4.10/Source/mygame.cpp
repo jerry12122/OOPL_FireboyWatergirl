@@ -202,12 +202,13 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
-: CGameState(g), NUMRED(3),NUMICE(4), LAKERED(3), LAKEICE(3)
+: CGameState(g), NUMRED(3),NUMICE(4), LAKERED(3), LAKEICE(3),NUMMOD(2)
 {
 	diamond1 = new RedDiamond[NUMRED];
 	diamond2 = new IceDiamond[NUMICE];
 	Lake1 = new RedLake[LAKERED];
 	Lake2 = new IceLake[LAKEICE];
+	mood = new Mood[NUMMOD];
 	//reddoor = new RedDoor();
 	//icedoor = new IceDoor();
 }
@@ -218,6 +219,7 @@ CGameStateRun::~CGameStateRun()
 	delete[] diamond2;
 	delete[] Lake1;
 	delete[] Lake2;
+	delete[] mood;
 }
 
 void CGameStateRun::OnBeginState()
@@ -251,6 +253,11 @@ void CGameStateRun::OnBeginState()
 	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
 		Lake2[i].SetXY(Lake2_position[i][0], Lake2_position[i][1]);
 	}
+	const int mood_position[2][2] = { {260,388},{22,308} };
+	for (int i = 0; i < NUMMOD; i++) {				// 設定球的起始座標
+		mood[i].SetXY(mood_position[i][0], mood_position[i][1]);
+		mood[i].SetIsAlive(true);
+	}
 
 	player1.Initialize();
 	player2.Initialize();
@@ -258,8 +265,6 @@ void CGameStateRun::OnBeginState()
 	reddoor.SetXY(690, 69);
 	icedoor.SetIsAlive(true);
 	icedoor.SetXY(600, 69);
-	mood.SetIsAlive(true);
-	mood.SetXY(260, 390);
 	box.init();
 	box.SetXY(500, 154);
 	
@@ -285,12 +290,15 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	{
 		diamond2[i].OnMove();
 	}
+	for (i = 0; i < NUMMOD; i++)
+	{
+		mood[i].OnMove();
+	}
 
 	player1.OnMove();
 	player2.OnMove();
 	reddoor.OnMove();
 	icedoor.OnMove();
-	mood.OnMove();
 	box.OnMove();
 	//
 	// 判斷擦子是否碰到球
@@ -357,6 +365,18 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	if (!(icedoor.IsAlive()) && !(icedoor.HitPlayer(&player2))) {
 		icedoor.SetIsAlive(true);
 	}
+	if ((mood[0].IsAlive()) && (mood[0].HitPlayer(&player2))) {
+		mood[0].SetIsAlive(false);
+	}
+	if ((mood[0].IsAlive()) && (mood[0].HitPlayer(&player1))) {
+		mood[0].SetIsAlive(false);
+	}
+	if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player2))) {
+		mood[0].SetIsAlive(true);
+	}
+	if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player1))) {
+		mood[0].SetIsAlive(true);
+	}
 	if (!(icedoor.IsAlive()) && !(reddoor.IsAlive())) {
 		GotoGameState(GAME_STATE_INIT);
 	}
@@ -389,7 +409,9 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	player2.LoadBitmap();
 	reddoor.LoadBitmap();
 	icedoor.LoadBitmap();
-	mood.LoadBitmap();
+	for (i = 0; i < NUMMOD; i++) {
+		mood[i].LoadBitmap();
+	}
 	box.LoadBitmap();
 	background.LoadBitmap(IDB_MAP1);					// 載入背景的圖形
 	//
@@ -566,7 +588,8 @@ void CGameStateRun::OnShow()
 	
 	reddoor.OnShow();
 	icedoor.OnShow();
-	mood.OnShow();
+	mood[0].OnShow();
+	mood[1].OnShow1();
 	box.OnShow();
 	for (int i = 0; i < LAKERED; i++)
 		Lake1[i].OnShow();				// 貼上第i號球

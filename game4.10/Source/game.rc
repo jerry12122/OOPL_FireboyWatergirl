@@ -166,6 +166,8 @@ MID_MOOD                BITMAP                  "..\\..\\res\\midmood.bmp"
 
 LEFT_MOOD               BITMAP                  "..\\..\\res\\leftmood.bmp"
 
+MOOD                    BITMAP                  "..\\..\\res\\mood1.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
