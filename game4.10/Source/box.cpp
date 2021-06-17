@@ -52,7 +52,7 @@ namespace game_framework {
 	}
 	void box::LoadBitmap()
 	{
-		bmp.LoadBitmap(IDB_BALL, RGB(0, 0, 0));			// 載入球的圖形
+		bmp.LoadBitmap(IDB_BOX, RGB(0, 0, 0));			// 載入球的圖形
 		//bmp_center.LoadBitmap(IDB_CENTER, RGB(0, 0, 0));	// 載入球圓心的圖形
 	}
 
@@ -94,11 +94,7 @@ namespace game_framework {
 
 	void box::OnShow()
 	{
-		if (is_alive) {
-			bmp.SetTopLeft(x + dx, y + dy);
-			bmp.ShowBitmap();
-			//bmp_center.SetTopLeft(x, y);
-			//bmp_center.ShowBitmap();
-		}
+		bmp.SetTopLeft(x + dx, y + dy);
+		bmp.ShowBitmap();
 	}
 }
