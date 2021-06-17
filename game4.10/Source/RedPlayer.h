@@ -38,11 +38,11 @@ namespace game_framework {
 		bool isMovingRight;			// 是否正在往右移動
 		bool isMovingUp;			// 是否正在往上移動
 		int floor;				// 地板的Y座標
-		int map[18][14];
-		int x_edge[15];
-		int y_edge[19];
 		bool rising;			// true表上升、false表下降
 		int initial_velocity;	// 初始速度
 		int velocity;			// 目前的速度(點/次)
+		int map[18][14];
+		int x_edge[15];
+		int y_edge[19];
 	};
 }

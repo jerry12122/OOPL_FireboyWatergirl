@@ -45,6 +45,7 @@
 #include "IceDiamond.h"
 #include "IcePlayer.h"
 #include "RedPlayer.h"
+#include "Button.h"
 #include "RedDoor.h"
 #include "IceDoor.h"
 #include "RedLake.h"
@@ -111,6 +112,7 @@ namespace game_framework {
 		const int		LAKERED;	// 水的總數
 		const int		LAKEICE;
 		const int		NUMMOD;
+		const int		NUMBUT;
 		CMovingBitmap	background;	// 背景圖
 		CMovingBitmap	help;		// 說明圖
 		RedDiamond		*diamond1;	// 鑽石的陣列
@@ -126,6 +128,7 @@ namespace game_framework {
 		IceDoor			icedoor;
 		Mood			*mood;
 		box				box;
+		Button			*button;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

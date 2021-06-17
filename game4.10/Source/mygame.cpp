@@ -58,8 +58,6 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
-#include "Windows.h"
-using   namespace   std;
 
 
 namespace game_framework {
@@ -204,13 +202,14 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
-: CGameState(g), NUMRED(3),NUMICE(4), LAKERED(3), LAKEICE(3),NUMMOD(2)
+: CGameState(g), NUMRED(3),NUMICE(4), LAKERED(3), LAKEICE(3),NUMMOD(2), NUMBUT(2)
 {
 	diamond1 = new RedDiamond[NUMRED];
 	diamond2 = new IceDiamond[NUMICE];
 	Lake1 = new RedLake[LAKERED];
 	Lake2 = new IceLake[LAKEICE];
 	mood = new Mood[NUMMOD];
+	button = new Button[NUMBUT];
 	//reddoor = new RedDoor();
 	//icedoor = new IceDoor();
 }
@@ -222,6 +221,7 @@ CGameStateRun::~CGameStateRun()
 	delete[] Lake1;
 	delete[] Lake2;
 	delete[] mood;
+	delete[] button;
 }
 
 void CGameStateRun::OnBeginState()
@@ -260,6 +260,7 @@ void CGameStateRun::OnBeginState()
 		mood[i].SetXY(mood_position[i][0], mood_position[i][1]);
 		mood[i].SetIsAlive(true);
 	}
+	
 
 	player1.Initialize();
 	player2.Initialize();
@@ -269,7 +270,11 @@ void CGameStateRun::OnBeginState()
 	icedoor.SetXY(600, 69);
 	box.init();
 	box.SetXY(500, 154);
-	
+	const int button_position[2][2] = { {270,530},{220,308} };
+	for (int i = 0; i < NUMBUT; i++) {				// 設定球的起始座標
+		button[i].SetXY(button_position[i][0], button_position[i][1]);
+		button[i].SetIsAlive(true);
+	}
 
 	background.SetTopLeft(0,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
@@ -292,10 +297,12 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	{
 		diamond2[i].OnMove();
 	}
-	mood[0].OnMove();
-	mood[1].OnMove1();
 	player1.OnMove();
 	player2.OnMove();
+	mood[0].OnMove();
+	mood[1].OnMove1();
+	button[0].OnMove();
+	button[1].OnMove1();
 	reddoor.OnMove();
 	icedoor.OnMove();
 	box.OnMove();
@@ -380,6 +387,22 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		mood[0].SetIsAlive(true);
 		mood[1].SetIsAlive(true);
 	}
+	if (button[0].IsAlive() && (button[0].HitPlayer(&player2))) {
+		button[0].SetIsAlive(false);
+		button[1].SetIsAlive(false);
+	}
+	if (!(button[0].IsAlive()) && !(button[0].HitPlayer(&player1))) {
+		button[0].SetIsAlive(true);
+		button[1].SetIsAlive(true);
+	}
+	if (button[0].IsAlive() && button[0].HitPlayer(&player1)) {
+		button[0].SetIsAlive(false);
+		button[1].SetIsAlive(false);
+	}
+	if (!(button[0].IsAlive()) && !(button[0].HitPlayer(&player2))) {
+		button[0].SetIsAlive(true);
+		button[1].SetIsAlive(true);
+	}
 	if (!(icedoor.IsAlive()) && !(reddoor.IsAlive())) {
 		GotoGameState(GAME_STATE_INIT);
 	}
@@ -413,6 +436,9 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	icedoor.LoadBitmap();
 	for (i = 0; i < NUMMOD; i++) {
 		mood[i].LoadBitmap();
+	}
+	for (i = 0; i < NUMBUT; i++) {
+		button[i].LoadBitmap();
 	}
 	box.LoadBitmap();
 	background.LoadBitmap(IDB_MAP1);					// 載入背景的圖形
@@ -592,6 +618,8 @@ void CGameStateRun::OnShow()
 	icedoor.OnShow();
 	mood[0].OnShow();
 	mood[1].OnShow1();
+	button[0].OnShow();
+	button[1].OnShow1();
 	box.OnShow();
 	for (int i = 0; i < LAKERED; i++)
 		Lake1[i].OnShow();				// 貼上第i號球
