@@ -77,18 +77,42 @@ namespace game_framework {
 	}
 	void Mood::OnMove()
 	{
-		if (!is_alive)
-			return;
+		return;
+	}
+	void Mood::OnMove1()
+	{
+		if (is_alive)
+			if (y > 308) {
+				y -= 1;
+			}
+			else {
+				y = y;
+			}
+		else {
+			if (y <370) {
+				y += 1;
+			}
+			else {
+				y = y;
+			}
+		}
+		return;
 	}
 
 	void Mood::SetIsAlive(bool alive)
 	{
 		is_alive = alive;
+
 	}
 
 	void Mood::SetXY(int nx, int ny)
 	{
 		x = nx; y = ny;
+	}
+
+	int Mood::ReY()
+	{
+		return y;
 	}
 
 	void Mood::OnShow()
@@ -105,6 +129,10 @@ namespace game_framework {
 	void Mood::OnShow1()
 	{
 		if (is_alive) {
+			mo.SetTopLeft(x, y);
+			mo.ShowBitmap();
+		}
+		else {
 			mo.SetTopLeft(x, y);
 			mo.ShowBitmap();
 		}

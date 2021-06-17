@@ -58,6 +58,8 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
+#include "Windows.h"
+using   namespace   std;
 
 
 namespace game_framework {
@@ -290,11 +292,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	{
 		diamond2[i].OnMove();
 	}
-	for (i = 0; i < NUMMOD; i++)
-	{
-		mood[i].OnMove();
-	}
-
+	mood[0].OnMove();
+	mood[1].OnMove1();
 	player1.OnMove();
 	player2.OnMove();
 	reddoor.OnMove();
@@ -367,20 +366,23 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 	if ((mood[0].IsAlive()) && (mood[0].HitPlayer(&player2))) {
 		mood[0].SetIsAlive(false);
+		mood[1].SetIsAlive(false);
 	}
 	if ((mood[0].IsAlive()) && (mood[0].HitPlayer(&player1))) {
 		mood[0].SetIsAlive(false);
+		mood[1].SetIsAlive(false);
 	}
 	if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player2))) {
 		mood[0].SetIsAlive(true);
+		mood[1].SetIsAlive(true);
 	}
 	if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player1))) {
 		mood[0].SetIsAlive(true);
+		mood[1].SetIsAlive(true);
 	}
 	if (!(icedoor.IsAlive()) && !(reddoor.IsAlive())) {
 		GotoGameState(GAME_STATE_INIT);
 	}
-
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
