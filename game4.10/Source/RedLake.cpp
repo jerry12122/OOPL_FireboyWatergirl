@@ -10,7 +10,6 @@
 namespace game_framework {
 	RedLake::RedLake()
 	{
-		is_alive = true;
 		x = y = 0;
 	}
 
@@ -34,10 +33,6 @@ namespace game_framework {
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 
-	bool RedLake::IsAlive()
-	{
-		return is_alive;
-	}
 
 	void RedLake::LoadBitmap()
 	{
@@ -47,25 +42,19 @@ namespace game_framework {
 	}
 	void RedLake::OnMove()
 	{
-		if (!is_alive)
-			return;
 	}
 
-	void RedLake::SetIsAlive(bool alive)
-	{
-		is_alive = alive;
-	}
+
 
 	void RedLake::SetXY(int nx, int ny)
 	{
 		x = nx; y = ny;
+
 	}
 
 	void RedLake::OnShow()
 	{
-		if (is_alive) {
-			LAKE.SetTopLeft(x,y);
-			LAKE.ShowBitmap();
-		}
+		LAKE.SetTopLeft(x, y);
+		LAKE.ShowBitmap();
 	}
 }

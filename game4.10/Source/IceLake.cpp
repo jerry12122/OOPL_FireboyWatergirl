@@ -10,7 +10,6 @@
 namespace game_framework {
 	IceLake::IceLake()
 	{
-		is_alive = true;
 		x = y = 0;
 	}
 
@@ -34,10 +33,6 @@ namespace game_framework {
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 
-	bool IceLake::IsAlive()
-	{
-		return is_alive;
-	}
 
 	void IceLake::LoadBitmap()
 	{
@@ -47,14 +42,9 @@ namespace game_framework {
 	}
 	void IceLake::OnMove()
 	{
-		if (!is_alive)
-			return;
 	}
 
-	void IceLake::SetIsAlive(bool alive)
-	{
-		is_alive = alive;
-	}
+
 
 	void IceLake::SetXY(int nx, int ny)
 	{
@@ -63,9 +53,7 @@ namespace game_framework {
 
 	void IceLake::OnShow()
 	{
-		if (is_alive) {
-			LAKE.SetTopLeft(x, y);
-			LAKE.ShowBitmap();
-		}
+		LAKE.SetTopLeft(x, y);
+		LAKE.ShowBitmap();
 	}
 }

@@ -377,7 +377,6 @@
     <Image Include="..\res\ICE_RIGHT_RUN_3.bmp" />
     <Image Include="..\res\leftmood.bmp" />
     <Image Include="..\res\midmood.bmp" />
-    <Image Include="..\res\RED_LAKE.png" />
     <Image Include="..\res\rightmood.bmp" />
     <Image Include="Image.bmp" />
     <Image Include="res\bitmap3.bmp" />

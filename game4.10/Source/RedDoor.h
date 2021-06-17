@@ -5,7 +5,7 @@ namespace game_framework {
 	{
 		public:
 			RedDoor();
-			bool HitPlayer(RedPlayer *player);							// 是否碰到擦子
+			bool HitPlayer(RedPlayer *player);						// 是否碰到擦子
 			bool IsAlive();											// 是否活著
 			void LoadBitmap();										// 載入圖形
 			void OnMove();											// 移動

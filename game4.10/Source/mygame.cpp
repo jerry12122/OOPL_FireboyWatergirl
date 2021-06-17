@@ -245,13 +245,13 @@ void CGameStateRun::OnBeginState()
 	const int Lake1_position[3][2] = { {360,579},{125,410},{285,127} };
 	for (int i = 0; i < LAKERED; i++) {				// 設定球的起始座標
 		Lake1[i].SetXY(Lake1_position[i][0], Lake1_position[i][1]);
-		Lake1[i].SetIsAlive(true);
+
 	}
 	const int Lake2_position[3][2] = { {530,579},{430,331},{440,127} };
 	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
 		Lake2[i].SetXY(Lake2_position[i][0], Lake2_position[i][1]);
-		Lake2[i].SetIsAlive(true);
 	}
+
 	player1.Initialize();
 	player2.Initialize();
 	reddoor.SetIsAlive(true);
@@ -260,6 +260,9 @@ void CGameStateRun::OnBeginState()
 	icedoor.SetXY(600, 69);
 	mood.SetIsAlive(true);
 	mood.SetXY(260, 390);
+	box.init();
+	box.SetXY(500, 154);
+	
 
 	background.SetTopLeft(0,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
@@ -288,6 +291,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	reddoor.OnMove();
 	icedoor.OnMove();
 	mood.OnMove();
+	box.OnMove();
 	//
 	// 判斷擦子是否碰到球
 	//
@@ -308,7 +312,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		}
 	}
 	for (i = 0; i < LAKERED; i++) {
-		if (Lake1[i].IsAlive() && Lake1[i].HitPlayer(&player2)) {
+		if ( Lake1[i].HitPlayer(&player2)) {
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
@@ -323,7 +327,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 	for (i = 0; i < LAKEICE; i++)
 	{
-		if (Lake2[i].IsAlive() && Lake2[i].HitPlayer(&player1)) {
+		if ( Lake2[i].HitPlayer(&player1)) {
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
@@ -335,6 +339,11 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
+	}
+	if (box.HitEraser(&player1)||box.HitEraser(&player2)) {
+		box.SetMovingLeft(true);
+			
+		
 	}
 	if (reddoor.IsAlive() && (reddoor.HitPlayer(&player1))) {
 		reddoor.SetIsAlive(false);
@@ -381,6 +390,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	reddoor.LoadBitmap();
 	icedoor.LoadBitmap();
 	mood.LoadBitmap();
+	box.LoadBitmap();
 	background.LoadBitmap(IDB_MAP1);					// 載入背景的圖形
 	//
 	// 完成部分Loading動作，提高進度
@@ -557,6 +567,7 @@ void CGameStateRun::OnShow()
 	reddoor.OnShow();
 	icedoor.OnShow();
 	mood.OnShow();
+	box.OnShow();
 	for (int i = 0; i < LAKERED; i++)
 		Lake1[i].OnShow();				// 貼上第i號球
 	for (int i = 0; i < LAKEICE; i++)
