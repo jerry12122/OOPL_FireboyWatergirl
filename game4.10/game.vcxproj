@@ -258,6 +258,7 @@
     <None Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Greenlake.cpp" />
     <ClCompile Include="Source\Button.cpp">
       <FileType>CppCode</FileType>
     </ClCompile>
@@ -317,6 +318,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Greenlake.h" />
     <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Mood.h" />
     <ClInclude Include="Source\box.h" />
@@ -367,6 +369,7 @@
     <Image Include="..\res\FIRE_RIGHT_RUN_3.bmp" />
     <Image Include="..\res\GAMEOVER.bmp" />
     <Image Include="..\res\GAME_MENU.bmp" />
+    <Image Include="..\res\GREEN_RAKE.bmp" />
     <Image Include="..\res\ICE_DIAMOND.bmp" />
     <Image Include="..\res\ICE_DOOR_CLOSE.bmp" />
     <Image Include="..\res\ICE_FRONT.bmp" />
