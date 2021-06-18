@@ -310,6 +310,10 @@ namespace game_framework {
 		this->velocity = velocity;
 		this->initial_velocity = velocity;
 	}
+	void IcePlayer::SetFloor(int floor)
+	{
+		this->floor = floor;
+	}
 	void IcePlayer::OnShow()
 	{
 		if (isMovingLeft) {

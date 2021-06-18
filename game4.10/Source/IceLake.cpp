@@ -11,6 +11,7 @@ namespace game_framework {
 	IceLake::IceLake()
 	{
 		x = y = 0;
+		hack = false;
 	}
 
 	bool IceLake::HitPlayer(RedPlayer *player)
