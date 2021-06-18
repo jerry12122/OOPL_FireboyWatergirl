@@ -399,18 +399,15 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 		button[0].SetIsAlive(false);
 		button[1].SetIsAlive(false);
 	}
-	if (!(button[0].IsAlive()) && !(button[0].HitPlayer(&player1))) {
-		button[0].SetIsAlive(true);
-		button[1].SetIsAlive(true);
-	}
 	if (button[0].IsAlive() && button[0].HitPlayer(&player1)) {
 		button[0].SetIsAlive(false);
 		button[1].SetIsAlive(false);
 	}
-	if (!(button[0].IsAlive()) && !(button[0].HitPlayer(&player2))) {
+	if (!(button[0].IsAlive()) && (!(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2)))) {
 		button[0].SetIsAlive(true);
 		button[1].SetIsAlive(true);
 	}
+	
 	if (!(icedoor.IsAlive()) && !(reddoor.IsAlive())) {
 		GotoGameState(GAME_STATE_INIT);
 	}
