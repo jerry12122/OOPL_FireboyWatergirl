@@ -267,6 +267,8 @@ void CGameStateRun::OnBeginState()
 	background.SetTopLeft(0,0);				// 設定背景的起始座標
 	help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
 	hits_left.SetInteger(HITS_LEFT);
+
+
 	hits_lake.SetInteger(HITS_LAKE);
 	hits_door.SetInteger(HITS_DOOR);
 	hits_left.SetTopLeft(HITS_LEFT_X,HITS_LEFT_Y);		// 指定剩下撞擊數的座標
@@ -312,7 +314,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		}
 	}
 	for (i = 0; i < LAKERED; i++) {
-		if ( Lake1[i].HitPlayer(&player2)) {
+		if ( Lake1[i].HitPlayer(&player2) && Lake1[i].hack == false) {
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
@@ -327,7 +329,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 	for (i = 0; i < LAKEICE; i++)
 	{
-		if ( Lake2[i].HitPlayer(&player1)) {
+		if ( Lake2[i].HitPlayer(&player1)&& Lake2[i].hack==false) {
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
@@ -342,9 +344,15 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 	if (box.HitEraser(&player1)||box.HitEraser(&player2)) {
 		box.SetMovingLeft(true);
-			
-		
 	}
+	/*
+	if (box.OnBox(player1.GetX1(), player1.GetX2(), player1.GetY1(), player1.GetY2())) {
+		player1.SetFloor(box.GetY1() - 40);
+	}
+	if (box.OnBox(player2.GetX1(), player2.GetX2(), player2.GetY1(), player2.GetY2())) {
+		player2.SetFloor(box.GetY1() - 40);
+	}
+	*/
 	if (reddoor.IsAlive() && (reddoor.HitPlayer(&player1))) {
 		reddoor.SetIsAlive(false);
 	}
@@ -402,6 +410,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	//
 	help.LoadBitmap(IDB_HELP,RGB(255,255,255));				// 載入說明的圖形
 	hits_left.LoadBitmap();
+
 	CAudio::Instance()->Load(AUDIO_DING,  ".\\sounds\\ding.wav");	// 載入編號0的聲音ding.wav
 	CAudio::Instance()->Load(AUDIO_LAKE,  ".\\sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
 	CAudio::Instance()->Load(AUDIO_NTUT,  ".\\sounds\\ntut.mid");	// 載入編號2的聲音ntut.mid
@@ -425,6 +434,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_W = 'W';
 	const char KEY_D = 'D';
 	const char KEY_S = 'S';
+	const char KEY_P = 'P';
 
 	if (nChar == KEY_LEFT)
 	{
@@ -464,6 +474,16 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	{
 
 		player2.SetMovingDown(true);
+	}
+	if (nChar == KEY_P)
+	{
+		for (int i = 0; i < LAKERED; i++) {
+			Lake1[i].hack = true;
+		}
+		for (int i = 0; i < LAKEICE; i++) {
+			Lake2[i].hack= true;
+		}
+		hits_left.Add(99999);
 	}
 	//gamemap.OnKeyDown(nChar);
 }
@@ -514,7 +534,6 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 	if (nChar == KEY_S)
 	{
-
 		player2.SetMovingDown(false);
 	}
 }
@@ -557,6 +576,7 @@ void CGameStateRun::OnShow()
 	background.ShowBitmap();			// 貼上背景圖
 	help.ShowBitmap();					// 貼上說明圖
 	hits_left.ShowBitmap();
+
 	for (int i=0; i < NUMRED; i++)
 		diamond1[i].OnShow();				// 貼上第i號球
 	for (int i = 0; i < NUMICE; i++)

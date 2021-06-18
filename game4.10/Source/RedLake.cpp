@@ -10,6 +10,7 @@
 namespace game_framework {
 	RedLake::RedLake()
 	{
+		this->hack = false;
 		x = y = 0;
 	}
 

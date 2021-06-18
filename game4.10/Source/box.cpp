@@ -90,10 +90,10 @@ namespace game_framework {
 	}
 	bool box::OnBox(int tx1, int ty1, int tx2, int ty2)
 	{
-		int x1 = x + dx;				// 球的左上角x座標
-		int y1 = y + dy;				// 球的左上角y座標
-		int x2 = x1 + bmp.Width();	// 球的右下角x座標
-		int y2 = y1 + bmp.Height();	// 球的右下角y座標
+		int x1 = x + dx;				
+		int y1 = y + dy;				
+		int x2 = x1 + bmp.Width();	
+		int y2 = y1 + bmp.Height();	
 
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
@@ -254,6 +254,10 @@ namespace game_framework {
 		y = ny;
 		setfloor();
 		floor = ny;
+	}
+	int box::GetY1()
+	{
+		return y;
 	}
 	void box::SetMovingLeft(bool flag)
 	{

@@ -23,6 +23,7 @@ namespace game_framework {
 		void SetMovingUp(bool flag);	// 設定是否正在往上移動
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
 		void setfloor();
+		void SetFloor(int);
 		void SetVelocity(int);
 		bool isLeftRightEmpty(int x, int y, int value);
 	protected:
