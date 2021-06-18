@@ -530,7 +530,7 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		for (int i = 0; i < LAKEICE; i++) {
 			Lake2[i].hack= true;
 		}
-		hits_left.Add(99999);
+		hits_left.Add(10000);
 	}
 	//gamemap.OnKeyDown(nChar);
 }
