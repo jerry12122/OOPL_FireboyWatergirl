@@ -202,7 +202,7 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
-: CGameState(g), NUMRED(3),NUMICE(4), LAKERED(3), LAKEICE(3),NUMMOD(2), NUMBUT(2)
+: CGameState(g), NUMRED(3),NUMICE(4), LAKERED(3), LAKEICE(3),NUMMOD(2), NUMBUT(3)
 {
 	diamond1 = new RedDiamond[NUMRED];
 	diamond2 = new IceDiamond[NUMICE];
@@ -270,7 +270,7 @@ void CGameStateRun::OnBeginState()
 	icedoor.SetXY(600, 69);
 	box.init();
 	box.SetXY(500, 154);
-	const int button_position[2][2] = { {270,300},{695,228} };
+	const int button_position[3][2] = { {270,295},{697,228} ,{600,215} };
 	for (int i = 0; i < NUMBUT; i++) {				// 設定球的起始座標
 		button[i].SetXY(button_position[i][0], button_position[i][1]);
 		button[i].SetIsAlive(true);
@@ -305,6 +305,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	mood[1].OnMove1();
 	button[0].OnMove();
 	button[1].OnMove1();
+	button[2].OnMove();
 	reddoor.OnMove();
 	icedoor.OnMove();
 	box.OnMove();
@@ -395,17 +396,23 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		//mood[0].SetIsAlive(true);
 		//mood[1].SetIsAlive(true);
 	//}
-	if (button[0].IsAlive() && (button[0].HitPlayer(&player2))) {
+	if (button[0].IsAlive() && ((button[0].HitPlayer(&player2)) || button[0].HitPlayer(&player1))) {
 		button[0].SetIsAlive(false);
 		button[1].SetIsAlive(false);
 	}
-	if (button[0].IsAlive() && button[0].HitPlayer(&player1)) {
-		button[0].SetIsAlive(false);
+	if (button[2].IsAlive() && ((button[2].HitPlayer(&player2)) || button[2].HitPlayer(&player1))) {
+		button[2].SetIsAlive(false);
 		button[1].SetIsAlive(false);
 	}
-	if (!(button[0].IsAlive()) && (!(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2)))) {
-		button[0].SetIsAlive(true);
+	if (!((button[0].IsAlive()) && (button[2].IsAlive())) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2)) && !(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
 		button[1].SetIsAlive(true);
+
+	}
+	if (!(button[0].IsAlive()) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2))) {
+		button[0].SetIsAlive(true);
+	}
+	if (!(button[2].IsAlive()) && !(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
+		button[2].SetIsAlive(true);
 	}
 	
 	if (!(icedoor.IsAlive()) && !(reddoor.IsAlive())) {
@@ -637,6 +644,7 @@ void CGameStateRun::OnShow()
 	mood[1].OnShow1();
 	button[0].OnShow();
 	button[1].OnShow1();
+	button[2].OnShow();
 	box.OnShow();
 	for (int i = 0; i < LAKERED; i++)
 		Lake1[i].OnShow();				// 貼上第i號球
