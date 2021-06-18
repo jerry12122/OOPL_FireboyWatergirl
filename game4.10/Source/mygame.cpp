@@ -379,14 +379,14 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 		mood[0].SetIsAlive(false);
 		mood[1].SetIsAlive(false);
 	}
-	if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player2))) {
-		mood[0].SetIsAlive(true);
-		mood[1].SetIsAlive(true);
-	}
-	if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player1))) {
-		mood[0].SetIsAlive(true);
-		mood[1].SetIsAlive(true);
-	}
+	//if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player2))) {
+		//mood[0].SetIsAlive(true);
+		//mood[1].SetIsAlive(true);
+	//}
+	//if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player1))) {
+		//mood[0].SetIsAlive(true);
+		//mood[1].SetIsAlive(true);
+	//}
 	if (button[0].IsAlive() && (button[0].HitPlayer(&player2))) {
 		button[0].SetIsAlive(false);
 		button[1].SetIsAlive(false);
