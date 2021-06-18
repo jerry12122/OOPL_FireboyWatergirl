@@ -40,9 +40,9 @@ namespace game_framework {
 
 	bool Mood::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
-		int x1 = x;				// 球的左上角x座標
+		int x1 = x + rm.Width();				// 球的左上角x座標
 		int y1 = y;				// 球的左上角y座標
-		int x2 = x1 + rm.Width();	// 球的右下角x座標
+		int x2 = x + rm.Width();	// 球的右下角x座標
 		int y2 = y1 + rm.Height();	// 球的右下角y座標
 									//
 									// 檢測球的矩形與參數矩形是否有交集
@@ -53,7 +53,7 @@ namespace game_framework {
 	{
 		int x1 = x;				// 球的左上角x座標
 		int y1 = y;				// 球的左上角y座標
-		int x2 = x1 + lm.Width();	// 球的右下角x座標
+		int x2 = x1;	// 球的右下角x座標
 		int y2 = y1 + lm.Height();	// 球的右下角y座標
 									//
 									// 檢測球的矩形與參數矩形是否有交集
@@ -72,22 +72,47 @@ namespace game_framework {
 		rm.LoadBitmap(RIGHT_MOOD, RGB(255, 255, 255));
 		mm.LoadBitmap(MID_MOOD, RGB(255, 255, 255));
 		lm.LoadBitmap(LEFT_MOOD, RGB(255, 255, 255));
+		mo.LoadBitmap(MOOD, RGB(255, 255, 255));
 
 	}
 	void Mood::OnMove()
 	{
-		if (!is_alive)
-			return;
+		return;
+	}
+	void Mood::OnMove1()
+	{
+		if (is_alive)
+			if (y > 308) {
+				y -= 1;
+			}
+			else {
+				y = y;
+			}
+		else {
+			if (y <370) {
+				y += 1;
+			}
+			else {
+				y = y;
+			}
+		}
+		return;
 	}
 
 	void Mood::SetIsAlive(bool alive)
 	{
 		is_alive = alive;
+
 	}
 
 	void Mood::SetXY(int nx, int ny)
 	{
 		x = nx; y = ny;
+	}
+
+	int Mood::ReY()
+	{
+		return y;
 	}
 
 	void Mood::OnShow()
@@ -99,6 +124,17 @@ namespace game_framework {
 		else {
 			lm.SetTopLeft(x, y);
 			lm.ShowBitmap();
+		}
+	}
+	void Mood::OnShow1()
+	{
+		if (is_alive) {
+			mo.SetTopLeft(x, y);
+			mo.ShowBitmap();
+		}
+		else {
+			mo.SetTopLeft(x, y);
+			mo.ShowBitmap();
 		}
 	}
 }

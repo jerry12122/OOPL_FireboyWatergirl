@@ -36,7 +36,6 @@ namespace game_framework {
 		return y + animation.Height();
 	}
 
-
 	void RedPlayer::Initialize()
 	{
 		const int INITIAL_VELOCITY = 11;	// 初始上升速度
@@ -50,7 +49,6 @@ namespace game_framework {
 		rising = false;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
-		
 		int map_init[18][14] = {
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{1,1,1,0,0,1,1,1,1,1,1,1,1,1},
@@ -88,10 +86,7 @@ namespace game_framework {
 		{
 			y_edge[j] = y_edge_init[j];
 		}
-		
-		
 	}
-
 	void RedPlayer::LoadBitmap()
 	{
 		animation.AddBitmap(FIRE_RIGHT_RUN_1, RGB(255, 255, 255));
@@ -235,7 +230,6 @@ namespace game_framework {
 	}
 	void RedPlayer::OnMove()
 	{
-
 		const int STEP_SIZE = 7;
 		animation.OnMove();
 		animation1.OnMove();
@@ -274,7 +268,7 @@ namespace game_framework {
 			if (velocity > 0) {
 				if (!isLeftRightEmpty(x, y - 1,0))
 				{
-					velocity--;
+					velocity-=2;
 					setfloor();
 				}
 				else 
@@ -309,7 +303,6 @@ namespace game_framework {
 		if (isMovingDown)
 			y = floor;
 	}
-
 	void RedPlayer::SetMovingDown(bool flag)
 	{
 		isMovingDown = flag;

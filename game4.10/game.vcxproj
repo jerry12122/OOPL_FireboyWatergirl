@@ -258,6 +258,9 @@
     <None Include="res\Toolbar.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Button.cpp">
+      <FileType>CppCode</FileType>
+    </ClCompile>
     <ClCompile Include="Source\Mood.cpp" />
     <ClCompile Include="Source\box.cpp" />
     <ClCompile Include="Source\IceDoor.cpp" />
@@ -314,6 +317,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Button.h" />
     <ClInclude Include="Source\Mood.h" />
     <ClInclude Include="Source\box.h" />
     <ClInclude Include="Source\IceDoor.h" />
@@ -348,6 +352,7 @@
     <Image Include="..\res\1.png" />
     <Image Include="..\res\bitmap7.bmp" />
     <Image Include="..\res\box.bmp" />
+    <Image Include="..\res\BUTTON.bmp" />
     <Image Include="..\res\demo_map.bmp" />
     <Image Include="..\res\DOOR_OPEN.bmp" />
     <Image Include="..\res\FIRE_DIAMOND.bmp" />
@@ -377,6 +382,7 @@
     <Image Include="..\res\ICE_RIGHT_RUN_3.bmp" />
     <Image Include="..\res\leftmood.bmp" />
     <Image Include="..\res\midmood.bmp" />
+    <Image Include="..\res\mood1.bmp" />
     <Image Include="..\res\rightmood.bmp" />
     <Image Include="Image.bmp" />
     <Image Include="res\bitmap3.bmp" />
