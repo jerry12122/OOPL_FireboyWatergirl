@@ -270,7 +270,7 @@ void CGameStateRun::OnBeginState()
 	icedoor.SetXY(600, 69);
 	box.init();
 	box.SetXY(500, 154);
-	const int button_position[2][2] = { {270,530},{220,308} };
+	const int button_position[2][2] = { {270,530},{695,228} };
 	for (int i = 0; i < NUMBUT; i++) {				// 設定球的起始座標
 		button[i].SetXY(button_position[i][0], button_position[i][1]);
 		button[i].SetIsAlive(true);
