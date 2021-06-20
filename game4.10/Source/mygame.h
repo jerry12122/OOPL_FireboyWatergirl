@@ -52,6 +52,7 @@
 #include "IceLake.h"
 #include "Mood.h"
 #include "box.h"
+#include "Greenlake.h"
 
 
 namespace game_framework {
@@ -111,6 +112,7 @@ namespace game_framework {
 		const int		NUMICE;
 		const int		LAKERED;	// 水的總數
 		const int		LAKEICE;
+		const int		LAKEGREEN;
 		const int		NUMMOD;
 		const int		NUMBUT;
 		CMovingBitmap	background;	// 背景圖
@@ -124,6 +126,7 @@ namespace game_framework {
 		IcePlayer		player2;
 		RedLake			*Lake1;
 		IceLake			*Lake2;
+		Greenlake		*Lake3;
 		RedDoor			reddoor;
 		IceDoor			icedoor;
 		Mood			*mood;

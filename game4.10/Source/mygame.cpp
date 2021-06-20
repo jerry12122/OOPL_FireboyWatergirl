@@ -202,12 +202,13 @@ void CGameStateOver::OnShow()
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
-: CGameState(g), NUMRED(3),NUMICE(4), LAKERED(3), LAKEICE(3),NUMMOD(2), NUMBUT(2)
+: CGameState(g), NUMRED(3),NUMICE(4), LAKERED(1), LAKEICE(1), LAKEGREEN(1), NUMMOD(2), NUMBUT(3)
 {
 	diamond1 = new RedDiamond[NUMRED];
 	diamond2 = new IceDiamond[NUMICE];
 	Lake1 = new RedLake[LAKERED];
 	Lake2 = new IceLake[LAKEICE];
+	Lake3 = new Greenlake[LAKEGREEN];
 	mood = new Mood[NUMMOD];
 	button = new Button[NUMBUT];
 	//reddoor = new RedDoor();
@@ -220,6 +221,7 @@ CGameStateRun::~CGameStateRun()
 	delete[] diamond2;
 	delete[] Lake1;
 	delete[] Lake2;
+	delete[] Lake3;
 	delete[] mood;
 	delete[] button;
 }
@@ -246,14 +248,18 @@ void CGameStateRun::OnBeginState()
 		diamond2[i].SetXY(diamond2_position[i][0], diamond2_position[i][1]);
 		diamond2[i].SetIsAlive(true);
 	}
-	const int Lake1_position[3][2] = { {360,579},{125,410},{285,127} };
+	const int Lake1_position[1][2] = { {360,579} };
 	for (int i = 0; i < LAKERED; i++) {				// 設定球的起始座標
 		Lake1[i].SetXY(Lake1_position[i][0], Lake1_position[i][1]);
 
 	}
-	const int Lake2_position[3][2] = { {530,579},{430,331},{440,127} };
+	const int Lake2_position[1][2] = { {530,579}};
 	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
 		Lake2[i].SetXY(Lake2_position[i][0], Lake2_position[i][1]);
+	}
+	const int Lake3_position[1][2] = { {460,455} };
+	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
+		Lake3[i].SetXY(Lake3_position[i][0], Lake3_position[i][1]);
 	}
 	const int mood_position[2][2] = { {260,388},{22,308} };
 	for (int i = 0; i < NUMMOD; i++) {				// 設定球的起始座標
@@ -270,7 +276,7 @@ void CGameStateRun::OnBeginState()
 	icedoor.SetXY(600, 69);
 	box.init();
 	box.SetXY(500, 154);
-	const int button_position[2][2] = { {270,300},{695,228} };
+	const int button_position[3][2] = { {270,295},{697,228} ,{600,215} };
 	for (int i = 0; i < NUMBUT; i++) {				// 設定球的起始座標
 		button[i].SetXY(button_position[i][0], button_position[i][1]);
 		button[i].SetIsAlive(true);
@@ -305,6 +311,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	mood[1].OnMove1();
 	button[0].OnMove();
 	button[1].OnMove1();
+	button[2].OnMove();
 	reddoor.OnMove();
 	icedoor.OnMove();
 	box.OnMove();
@@ -344,6 +351,21 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	for (i = 0; i < LAKEICE; i++)
 	{
 		if ( Lake2[i].HitPlayer(&player1)&& Lake2[i].hack==false) {
+			CAudio::Instance()->Play(AUDIO_DING);
+			hits_lake.Add(-1);
+			//
+			// 若剩餘碰撞次數為0，則跳到Game Over狀態
+			//
+			if (hits_lake.GetInteger() <= 0) {
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
+				GotoGameState(GAME_STATE_OVER);
+			}
+		}
+	}
+	for (i = 0; i < LAKEGREEN; i++)
+	{
+		if (Lake3[i].HitPlayer(&player1) && Lake3[i].hack == false) {
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
@@ -401,17 +423,23 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		//mood[0].SetIsAlive(true);
 		//mood[1].SetIsAlive(true);
 	//}
-	if (button[0].IsAlive() && (button[0].HitPlayer(&player2))) {
+	if (button[0].IsAlive() && ((button[0].HitPlayer(&player2)) || button[0].HitPlayer(&player1))) {
 		button[0].SetIsAlive(false);
 		button[1].SetIsAlive(false);
 	}
-	if (button[0].IsAlive() && button[0].HitPlayer(&player1)) {
-		button[0].SetIsAlive(false);
+	if (button[2].IsAlive() && ((button[2].HitPlayer(&player2)) || button[2].HitPlayer(&player1))) {
+		button[2].SetIsAlive(false);
 		button[1].SetIsAlive(false);
 	}
-	if (!(button[0].IsAlive()) && (!(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2)))) {
-		button[0].SetIsAlive(true);
+	if (!((button[0].IsAlive()) && (button[2].IsAlive())) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2)) && !(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
 		button[1].SetIsAlive(true);
+
+	}
+	if (!(button[0].IsAlive()) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2))) {
+		button[0].SetIsAlive(true);
+	}
+	if (!(button[2].IsAlive()) && !(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
+		button[2].SetIsAlive(true);
 	}
 	
 	if (!(icedoor.IsAlive()) && !(reddoor.IsAlive())) {
@@ -439,6 +467,9 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 		Lake1[i].LoadBitmap();								// 載入第i個球的圖形
 	for (i = 0; i < LAKEICE; i++) {
 		Lake2[i].LoadBitmap();
+	}
+	for (i = 0; i < LAKEGREEN; i++) {
+		Lake3[i].LoadBitmap();
 	}
 
 	player1.LoadBitmap();
@@ -535,6 +566,9 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		}
 		for (int i = 0; i < LAKEICE; i++) {
 			Lake2[i].hack= true;
+		}
+		for (int i = 0; i < LAKEGREEN; i++) {
+			Lake3[i].hack = true;
 		}
 		hits_left.Add(10000);
 	}
@@ -643,12 +677,19 @@ void CGameStateRun::OnShow()
 	mood[1].OnShow1();
 	button[0].OnShow();
 	button[1].OnShow1();
+	button[2].OnShow();
 	box.OnShow();
 	for (int i = 0; i < LAKERED; i++)
+	{
 		Lake1[i].OnShow();				// 貼上第i號球
+	}
 	for (int i = 0; i < LAKEICE; i++)
 	{
 		Lake2[i].OnShow();
+	}
+	for (int i = 0; i < LAKEGREEN; i++)
+	{
+		Lake3[i].OnShow();
 	}
 	player1.OnShow();
 	player2.OnShow();

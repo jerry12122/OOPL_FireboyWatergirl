@@ -170,6 +170,8 @@ MOOD                    BITMAP                  "..\\..\\res\\mood1.bmp"
 
 BUTTON_1                BITMAP                  "..\\..\\res\\BUTTON.bmp"
 
+GREEN_LAKE              BITMAP                  "..\\..\\res\\GREEN_RAKE.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
