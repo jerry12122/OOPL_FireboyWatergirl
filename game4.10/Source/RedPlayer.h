@@ -28,6 +28,8 @@ namespace game_framework {
 		int getCoordX(int x, int y);
 		int getCoordY(int x, int y);
 		void setfloor();
+		bool frontBox(int x,int y);
+		void setFront(bool a);
 
 	protected:
 		CAnimation animation, animation1;		// 擦子的動畫
@@ -37,6 +39,7 @@ namespace game_framework {
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動
 		bool isMovingUp;			// 是否正在往上移動
+		bool isFrontBox;
 		int floor;				// 地板的Y座標
 		bool rising;			// true表上升、false表下降
 		int initial_velocity;	// 初始速度

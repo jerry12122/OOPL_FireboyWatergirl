@@ -5,6 +5,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "RedPlayer.h"
+#include "box.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -96,6 +97,18 @@ namespace game_framework {
 		animation1.AddBitmap(FIRE_LEFT_RUN_2, RGB(255, 255, 255));
 		animation1.AddBitmap(FIRE_LEFT_RUN_3, RGB(255, 255, 255));
 		bit.LoadBitmap(FIRE_FRONT, RGB(255, 255, 255));
+	}
+	bool RedPlayer::frontBox(int bx,int by)
+	{
+		int x1 = bx;
+		int y1 = by;
+		int x2 = x1 + 35;
+		int y2 = y1 + 35;
+		return (x+40 >= x1 && x <= x2 && y+40 >= y1 && y <= y2);
+	}
+	void RedPlayer::setFront(bool a)
+	{
+		isFrontBox = a;
 	}
 	bool RedPlayer::isLeftRightEmpty(int x, int y, int value)
 	{
@@ -251,7 +264,7 @@ namespace game_framework {
 		}
 
 		if (isMovingLeft)
-			if (isLeftRightEmpty(x- STEP_SIZE,y,1) && x > 20) {
+			if (isLeftRightEmpty(x- STEP_SIZE,y,1) && x > 20 && isFrontBox==false) {
 				x -= STEP_SIZE;
 				setfloor();
 			}
