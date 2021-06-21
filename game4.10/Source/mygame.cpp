@@ -58,12 +58,128 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
-
+#include <iostream>     // std::cout
+#include <fstream> 
+#include <string.h>
+#include <conio.h>
+#include <time.h>
+#include <atomic>
+#include <chrono>
+#include <thread>
+#include <stdio.h>
+#include <sstream>
 
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲開頭畫面物件
 /////////////////////////////////////////////////////////////////////////////
+	CGameMap::CGameMap(int _stage) {
+
+	}
+
+	CGameMap::CGameMap() :X(10), Y(10), MW(10), MH(10) {
+		//map = (int**)malloc(sizeof(int*) * X);
+		sizeX = 600 / X;
+		sizeY = 800 / Y;
+		//int map_init[60][80];
+
+		/*  allocate storage for an array of pointers */
+		//map = (int**)malloc(sizeX * sizeof(int*));
+
+		/* for each pointer, allocate storage for an array of ints */
+		/*for (int i = 0; i < sizeX; i++) {
+			map[i] = (int*)malloc(sizeY * sizeof(int));
+		}*/
+		stage = 1;
+	}
+
+	void CGameMap::ReadFile() {
+		std::stringstream filename;
+		filename << "map\\Run" << "1" << ".txt";
+		ifstream is(filename.str(), std::ifstream::binary);
+		std::string line;
+		int i = 0;
+		while (getline(is, line)) {
+			for (int j = 0; j < sizeY; j++) {
+				map[i][j] = line[j] - '0';
+				/*if (line[j] - '0' == 0)
+					map[i][j] = 0;
+				else
+					map[i][j] = 1;	*/
+					//*(*(map + i) + j) = line[j] - '0';
+					//cout << map_init[i][j];
+			}
+			i++;
+		}
+		is.close();
+		/*
+		for (i = 0; i < 60; i++) {
+			for (int j = 0; j < 80; j++) {
+				map[i][j] = map_init[i][j];
+			}
+		}*/
+	}
+
+	void CGameMap::LoadBitmap() {
+		blue.LoadBitmap(IDB_BITMAP3);
+	}
+
+	void CGameMap::OnShow() {
+		for (int i = 0; i < 80; i++) {
+			for (int j = 0; j < 60; j++) {
+				switch (map[j][i]) {
+				case 0:
+					break;
+				case 1:
+					blue.SetTopLeft((10 * i), (10 * j));
+					blue.ShowBitmap();
+					break;
+					\
+				}
+			}
+		}
+	}
+
+	void CGameMap::setMap(int x, int y, int v) {
+		map[y][x] = v;
+	}
+
+	void CGameMap::SetStage(int _stage) {
+		stage = _stage;
+	}
+
+	int CGameMap::mapCoordinate(int x, int y) {
+		return map[y][x];
+	}
+
+	int CGameMap::GetX() {
+		return X;
+	}
+
+	int CGameMap::GetY() {
+		return Y;
+	}
+
+	int CGameMap::GetMH() {
+		return MH;
+	}
+
+	int CGameMap::GetMW() {
+		return MW;
+	}
+
+	int CGameMap::GetSizeX() {
+		return sizeX;
+	}
+
+	int CGameMap::GetSizeY() {
+		return sizeY;
+	}
+
+	CGameMap::~CGameMap() {
+	}
+
+
 
 CGameStateInit::CGameStateInit(CGame *g)
 : CGameState(g)

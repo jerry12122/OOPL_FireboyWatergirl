@@ -53,6 +53,8 @@
 #include "Mood.h"
 #include "box.h"
 #include "Greenlake.h"
+#include <fstream> 
+extern bool current_rank;
 
 
 namespace game_framework {
