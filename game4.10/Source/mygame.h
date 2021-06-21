@@ -71,6 +71,35 @@ namespace game_framework {
 	// 每個Member function的Implementation都要弄懂
 	/////////////////////////////////////////////////////////////////////////////
 
+	class CGameMap {
+	public:
+		CGameMap();
+		CGameMap(int _stage);
+		~CGameMap();
+		void LoadBitmap();
+		void OnShow();
+		void setMap(int x, int y, int v);
+		void SetStage(int _stage);
+		void ReadFile();
+		int mapCoordinate(int x, int y);
+		int GetX();
+		int GetY();
+		int GetMW();
+		int GetMH();
+		int GetSizeX();
+		int GetSizeY();
+		int GetStage();
+	protected:
+		CMovingBitmap blue, green;
+		int map[60][80];
+		//int **map;
+		//bool map[60][80];
+		int X, Y;
+		int MW, MH;
+		int sizeX, sizeY;
+		int stage;
+	};
+
 	class CGameStateInit : public CGameState {
 	public:
 		CGameStateInit(CGame *g);
@@ -151,6 +180,27 @@ namespace game_framework {
 	private:
 		int counter;	// 倒數之計數器
 		CMovingBitmap gameover;
+	};
+	class CGameStateWin : public CGameState {
+	public:
+		CGameStateWin(CGame *g);
+		void OnLButtonDown(UINT nFlags, CPoint point);
+		void OnBeginState();							// 設定每次重玩所需的變數
+		void OnInit();
+	protected:
+		void OnMove();									// 移動遊戲元素
+		void OnShow();									// 顯示這個狀態的遊戲畫面
+	private:
+		int counter;	// 倒數之計數器
+		CMovingBitmap gamewinspace;
+		CMovingBitmap alarm;
+		CMovingBitmap boygirl;
+		CMovingBitmap dim;
+		CMovingBitmap good;
+		CMovingBitmap bad;
+		CMovingBitmap next;
+		CMovingBitmap gold;
+		CMovingBitmap conti;
 	};
 
 }

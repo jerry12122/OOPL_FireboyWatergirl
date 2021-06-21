@@ -75,8 +75,17 @@
 #define LEFT_MOOD                       202
 #define MOOD                            203
 #define BUTTON_1                        206
-#define IDB_BITMAP7                     207
 #define GREEN_LAKE                      207
+#define Win                             208
+#define BOYGIRL                         209
+#define DIM                             210
+#define Alarm                           211
+#define NEXT                            212
+#define GOLD                            213
+#define BAD                             214
+#define GOOD                            215
+#define IDB_BITMAP7                     216
+#define CONTI                           216
 #define IDC_README                      1001
 #define ID_FILE_PAUSE                   32771
 #define ID_TOGGLE_FULLSCREEN            32772
@@ -89,7 +98,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        208
+#define _APS_NEXT_RESOURCE_VALUE        217
 #define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           101

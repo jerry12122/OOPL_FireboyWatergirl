@@ -191,6 +191,67 @@ void CGameStateOver::OnShow()
 	gameover.ShowBitmap();
 
 }
+CGameStateWin::CGameStateWin(CGame *g)
+	: CGameState(g)
+{
+}
+void CGameStateWin::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	if ((point.x > 320 && point.x < 510) && (point.y > 350 && point.y < 404))
+	{
+		GotoGameState(GAME_STATE_INIT);
+	}
+}
+void CGameStateWin::OnMove()
+{
+
+}
+void CGameStateWin::OnBeginState()
+{
+
+}
+void CGameStateWin::OnInit()
+{
+	//
+	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
+	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
+	//
+	ShowInitProgress(66);	// 接個前一個狀態的進度，此處進度視為66%
+	//
+	// 開始載入資料
+	//
+	gamewinspace.LoadBitmap(Win, RGB(255, 255, 255));
+	alarm.LoadBitmap(Alarm, RGB(255, 255, 255));
+	boygirl.LoadBitmap(BOYGIRL, RGB(255, 255, 255));
+	dim.LoadBitmap(DIM, RGB(255, 255, 255));
+	good.LoadBitmap(GOOD, RGB(255, 255, 255));
+	bad.LoadBitmap(BAD, RGB(255, 255, 255));
+	conti.LoadBitmap(CONTI, RGB(255, 255, 255));
+	next.LoadBitmap(NEXT, RGB(255, 255, 255));
+	gold.LoadBitmap(GOLD, RGB(255, 255, 255));
+	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	//
+	// 最終進度為100%
+	//
+	ShowInitProgress(100);
+}
+void CGameStateWin::OnShow()
+{
+	gamewinspace.SetTopLeft(130, 138);
+	gamewinspace.ShowBitmap();
+	alarm.SetTopLeft(270, 280);
+	alarm.ShowBitmap();
+	boygirl.SetTopLeft(270, 180);
+	boygirl.ShowBitmap();
+	dim.SetTopLeft(270, 240);
+	dim.ShowBitmap();
+	next.SetTopLeft(380, 231);
+	next.ShowBitmap();
+	gold.SetTopLeft(480, 231);
+	gold.ShowBitmap();
+	conti.SetTopLeft(320, 350);
+	conti.ShowBitmap();
+}
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 /////////////////////////////////////////////////////////////////////////////
@@ -265,9 +326,10 @@ void CGameStateRun::OnBeginState()
 	player1.Initialize();
 	player2.Initialize();
 	reddoor.SetIsAlive(true);
-	reddoor.SetXY(690, 69);
+	reddoor.SetXY(690, 550);
 	icedoor.SetIsAlive(true);
-	icedoor.SetXY(600, 69);
+	icedoor.SetXY(600, 550);
+	//69
 	box.init();
 	box.SetXY(500, 154);
 	const int button_position[3][2] = { {270,295},{697,228} ,{600,215} };
@@ -436,7 +498,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 	
 	if (!(icedoor.IsAlive()) && !(reddoor.IsAlive())) {
-		GotoGameState(GAME_STATE_INIT);
+		GotoGameState(GAME_STATE_WIN);
 	}
 }
 

@@ -172,6 +172,24 @@ BUTTON_1                BITMAP                  "..\\..\\res\\BUTTON.bmp"
 
 GREEN_LAKE              BITMAP                  "..\\..\\res\\GREEN_RAKE.bmp"
 
+Win                     BITMAP                  "..\\..\\res\\WIN.bmp"
+
+BOYGIRL                 BITMAP                  "..\\..\\res\\BOYGIRL.bmp"
+
+DIM                     BITMAP                  "..\\..\\res\\DIM.bmp"
+
+Alarm                   BITMAP                  "..\\..\\res\\time.bmp"
+
+NEXT                    BITMAP                  "..\\..\\res\\NEXT.bmp"
+
+GOLD                    BITMAP                  "..\\..\\res\\GOLD.bmp"
+
+BAD                     BITMAP                  "..\\..\\res\\bad.bmp"
+
+GOOD                    BITMAP                  "..\\..\\res\\GOOD.bmp"
+
+CONTI                   BITMAP                  "..\\..\\res\\CONTINUE.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
