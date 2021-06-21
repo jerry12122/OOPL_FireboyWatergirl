@@ -144,12 +144,36 @@ namespace game_framework {
 
 		return map[ycoord][x_coord];
 	}
+	bool IcePlayer::frontBox(int bx, int by)
+	{
+		int x1 = bx;
+		int y1 = by;
+		int x2 = x1 + 35;
+		int y2 = y1 + 35;
+		return (x + 40 >= x1 && x <= x2 && y + 40 >= y1 && y <= y2);
+	}
+	bool IcePlayer::onBox(int bx, int by)
+	{
+		int x1 = bx;
+		int y1 = by - 20;
+		int x2 = x1 + 35;
+		int y2 = y1 + 40;
+		return (x + 40 >= x1 && x <= x2 && y + 40 >= y1 && y <= y2);
+	}
+	void IcePlayer::setFront(bool a)
+	{
+		isFrontBox = a;
+	}
+	void IcePlayer::setOnBox(bool a)
+	{
+		isOnBox = a;
+	}
 	void IcePlayer::setfloor()
 	{
 		if ((x + 20 >= 20 && x + 20 < 266 && y + 40 < 578 && y + 40 >= 515) || \
 			(x + 20 >= 266 && x + 20 < 717 && y + 40 >= 474 && y + 40 < 578) || \
 			(x + 20 >= 266 && x + 20 < 370 && y + 40 >= 433 && y + 40 < 474) || \
-			(x + 20 >= 695 && x + 20 < 778 && y + 40 >= 350 && y + 40 < 517))
+			(x + 20 >= 695 && x + 20 < 717 && y + 40 >= 350 && y + 40 < 517))
 		{
 			floor = 578 - 40;
 		}
@@ -187,7 +211,14 @@ namespace game_framework {
 			(x + 20 >= 122 && x + 20 < 246 && y + 40 >= 102 && y + 40 < 229) || \
 			(x + 20 >= 122 && x + 20 < 203 && y + 40 >= 21 && y + 40 < 102))
 		{
-			floor = 229 - 40;
+			if (isOnBox)
+			{
+				floor = 229 - 40 - 35;
+			}
+			else
+			{
+				floor = 229 - 40;
+			}
 		}
 		else if ((x + 20 >= 411 && x + 20 < 553 && y + 40 >= 144 && y + 40 < 188))
 		{
@@ -229,7 +260,7 @@ namespace game_framework {
 		}
 
 		if (isMovingLeft)
-			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20) {
+			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20 && isFrontBox == false) {
 				x -= STEP_SIZE;
 				setfloor();
 			}

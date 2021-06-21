@@ -5,6 +5,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "RedPlayer.h"
+#include "box.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -39,9 +40,11 @@ namespace game_framework {
 	void RedPlayer::Initialize()
 	{
 		const int INITIAL_VELOCITY = 11;	// 初始上升速度
-		const int FLOOR = 578 - 40;				// 地板座標
+		const int FLOOR = 578 - 40;	
+		// 地板座標
 		const int X_POS = 42;
 		const int Y_POS = 530;
+
 		floor = FLOOR;
 		x = X_POS;
 		y = Y_POS;
@@ -96,6 +99,26 @@ namespace game_framework {
 		animation1.AddBitmap(FIRE_LEFT_RUN_2, RGB(255, 255, 255));
 		animation1.AddBitmap(FIRE_LEFT_RUN_3, RGB(255, 255, 255));
 		bit.LoadBitmap(FIRE_FRONT, RGB(255, 255, 255));
+	}
+	bool RedPlayer::frontBox(int bx,int by)
+	{
+		int x1 = bx;
+		int y1 = by;
+		int x2 = x1 + 35;
+		int y2 = y1 + 35;
+		return (x+40 >= x1 && x <= x2 && y+40 >= y1 && y <= y2);
+	}
+	bool RedPlayer::onBox(int bx, int by)
+	{
+		int x1 = bx;
+		int y1 = by-20;
+		int x2 = x1 + 35;
+		int y2 = y1 + 40;
+		return (x + 40 >= x1 && x <= x2 && y + 40 >= y1 && y <= y2);
+	}
+	void RedPlayer::setFront(bool a)
+	{
+		isFrontBox = a;
 	}
 	bool RedPlayer::isLeftRightEmpty(int x, int y, int value)
 	{
@@ -171,7 +194,7 @@ namespace game_framework {
 		if ((x + 20 >= 20 && x + 20 < 266 && y + 40 < 578 && y + 40 >= 515) || \
 			(x + 20 >= 266 && x + 20 < 717 && y + 40 >= 474 && y + 40 < 578) || \
 			(x + 20 >= 266 && x + 20 < 370 && y + 40 >= 433 && y + 40 < 474) || \
-			(x + 20 >= 695 && x + 20 < 778 && y + 40 >= 350 && y + 40 < 517))
+			(x + 20 >= 695 && x + 20 < 717 && y + 40 >= 350 && y + 40 < 517))
 		{
 			floor = 578 - 40;
 		}
@@ -209,7 +232,15 @@ namespace game_framework {
 			(x + 20 >= 122 && x + 20 < 246 && y + 40 >= 102 && y + 40 < 229) || \
 			(x + 20 >= 122 && x + 20 < 203 && y + 40 >= 21 && y + 40 < 102))
 		{
-			floor = 229 - 40;
+			if (isOnBox)
+			{
+				floor = 229 - 40 - 35;
+			}
+			else
+			{
+				floor = 229 - 40;
+			}
+			
 		}
 		else if ((x + 20 >= 411 && x + 20 < 553 && y + 40 >= 144 && y + 40 < 188))
 		{
@@ -248,10 +279,11 @@ namespace game_framework {
 		*/
 		if (!rising && velocity == initial_velocity) {
 			y = floor;
+
 		}
 
 		if (isMovingLeft)
-			if (isLeftRightEmpty(x- STEP_SIZE,y,1) && x > 20) {
+			if (isLeftRightEmpty(x- STEP_SIZE,y,1) && x > 20 && isFrontBox==false) {
 				x -= STEP_SIZE;
 				setfloor();
 			}
@@ -285,7 +317,8 @@ namespace game_framework {
 			}
 
 		}
-		else {				// 下降狀態
+		else 
+		{
 			if (y < floor - 1) {  // 當y座標還沒碰到地板
 				y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
 				velocity++;		// 受重力影響，下次的下降速度增加
@@ -293,15 +326,17 @@ namespace game_framework {
 			}
 			else {
 				setfloor();
-				y = floor - 1;  // 當y座標低於地板，更正為地板上
+				y = floor - 1;
 				rising = false;	// 探底反彈，下次改為上升
 				velocity = initial_velocity;
 				// 重設上升初始速度
 			}
 			isMovingUp = false;
-		};
+		}
 		if (isMovingDown)
-			y = floor;
+		{ 
+			y = floor - 1;
+		}
 	}
 	void RedPlayer::SetMovingDown(bool flag)
 	{
@@ -331,6 +366,10 @@ namespace game_framework {
 	void RedPlayer::SetFloor(int floor)
 	{
 		this->floor = floor;
+	}
+	void RedPlayer::setOnBox(bool a)
+	{
+		isOnBox = a;
 	}
 	void RedPlayer::SetVelocity(int velocity) {
 		this->velocity = velocity;

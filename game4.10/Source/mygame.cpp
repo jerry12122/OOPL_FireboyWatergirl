@@ -375,6 +375,11 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 	if (box.HitEraser(&player1)||box.HitEraser(&player2)) {
 		box.SetMovingLeft(true);
 	}
+	player1.setFront(player1.frontBox(box.x, box.y));
+	player1.setOnBox(player1.onBox(box.x, box.y));
+	player2.setFront(player2.frontBox(box.x, box.y));
+	player2.setOnBox(player2.onBox(box.x, box.y));
+
 	/*
 	if (box.OnBox(player1.GetX1(), player1.GetX2(), player1.GetY1(), player1.GetY2())) {
 		player1.SetFloor(box.GetY1() - 40);
