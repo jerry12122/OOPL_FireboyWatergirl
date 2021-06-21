@@ -149,7 +149,6 @@ CGameStateOver::CGameStateOver(CGame *g)
 : CGameState(g)
 {
 }
-
 void CGameStateOver::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	if ((point.x > 254 && point.x < 367) && (point.y > 337 && point.y < 376))
@@ -161,17 +160,14 @@ void CGameStateOver::OnLButtonDown(UINT nFlags, CPoint point)
 		GotoGameState(GAME_STATE_RUN);
 	}
 }
-
 void CGameStateOver::OnMove()
 {
 
 }
-
 void CGameStateOver::OnBeginState()
 {
 
 }
-
 void CGameStateOver::OnInit()
 {
 	//
@@ -189,14 +185,12 @@ void CGameStateOver::OnInit()
 	//
 	ShowInitProgress(100);
 }
-
 void CGameStateOver::OnShow()
 {
 	gameover.SetTopLeft(118, 138);
 	gameover.ShowBitmap();
 
 }
-
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 /////////////////////////////////////////////////////////////////////////////
