@@ -57,6 +57,7 @@
 extern bool current_rank;
 
 
+
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -139,6 +140,9 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
+		bool JUMP, UP;
+		CGameMap gamemap;
+		static CGameMap getMap();
 		const int		NUMRED;	// 球的總數
 		const int		NUMICE;
 		const int		LAKERED;	// 水的總數

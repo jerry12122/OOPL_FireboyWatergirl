@@ -68,7 +68,186 @@
 #include <thread>
 #include <stdio.h>
 #include <sstream>
+template <class P1, class P2, class M>
+void setMoving(P1 *player1, P2 *player2, M *map) {
 
+	int x_start = 0;
+	int x_end = 0;
+	int y_start = 0;
+	int y_end = 0;
+
+	int x_start_fireman = 0;
+	int x_end_fireman = 0;
+	int y_start_fireman = 0;
+	int y_end_fireman = 0;
+
+	int x1_water = (*player1).GetX1();
+	int x2_water = (*player1).GetX2();
+	int y1_water = (*player1).GetY1();
+	int y2_water = (*player1).GetY2();
+
+	int x1_fire = (*player2).GetX1();
+	int x2_fire = (*player2).GetX2();
+	int y1_fire = (*player2).GetY1();
+	int y2_fire = (*player2).GetY2();
+
+	int X = (*map).GetX();
+	int Y = (*map).GetY();
+	int sizeX = (*map).GetSizeX();
+	int sizeY = (*map).GetSizeY();
+
+	int i = 0;
+
+	if (x1_water % X == 0) {
+		x_start = ((int)x1_water / X) + 1;
+	}
+	else {
+		x_start = ((int)x1_water / X);
+	}
+	if (x_start_fireman % X == 0) {
+		x_start_fireman = ((int)x1_fire / X) + 1;
+	}
+	else {
+		x_start_fireman = ((int)x1_fire / X);
+	}
+
+	if (y1_water % Y == 0) {
+		y_start = ((int)y1_water / Y);
+	}
+	else {
+		y_start = ((int)y1_water / Y) + 1;
+	}
+	if (y1_fire % Y == 0) {
+		y_start_fireman = ((int)y1_fire / Y);
+	}
+	else {
+		y_start_fireman = ((int)y1_fire / Y) + 1;
+	}
+
+	if (x2_water % X == 0) {
+		x_end = (x2_water / X);
+	}
+	else {
+		x_end = ((int)x2_water / X) + 1;
+	}
+	if (x2_fire % X == 0) {
+		x_end_fireman = (x2_fire / X);
+	}
+	else {
+		x_end_fireman = ((int)x2_fire
+			/ X) + 1;
+	}
+
+	//y_start = ((int)y1_water / gamemap.GetY());
+	if (y2_water % Y == 0) {
+		y_end = (y2_water / Y);
+	}
+	else {
+		y_end = ((int)y2_water / Y) + 1;
+	}
+	//y_start_fireman = ((int)y1_fire / gamemap.GetY());
+	if (y2_fire % Y == 0) {
+		y_end_fireman = (y2_fire / Y);
+	}
+	else {
+		y_end_fireman = ((int)y2_fire / Y) + 1;
+	}
+
+	for (i = y_start; i <= y_end; i++) {
+		if ((*map).mapCoordinate(x_start, i - 1) == 1) {
+			(*player1).SetMovingLeft(false);
+		}
+		if ((*map).mapCoordinate(x_end, i - 1) == 1) {
+			(*player1).SetMovingRight(false);
+		}
+	}
+	for (i = y_start_fireman; i < y_end_fireman; i++) {
+		if ((*map).mapCoordinate(x_start_fireman, i) == 1) {
+			(*player2).SetMovingLeft(false);
+		}
+		if ((*map).mapCoordinate(x_end_fireman, i) == 1) {
+			(*player2).SetMovingRight(false);
+		}
+	}
+	for (i = y_end; i < (*map).GetSizeX(); i++) {
+		if ((*map).mapCoordinate(x_end, i) == 1) {
+			(*player1).SetStopDown(i);
+			break;
+		}
+	}
+	/*for (int i = y_start; i >= 0; i--) {
+		if (gamemap.mapCoordinate(x_start, i+1) == 1) {
+			P1.setceil(i * Y);
+			break;
+		}
+	}
+	for (int i = y_end; i < gamemap.GetSizeX(); i++) {
+		if (gamemap.mapCoordinate(x_start, i) == 1) {
+			P1.setfloor(i * Y);
+			break;
+		}
+	}*/
+	int stop = 0;
+	for (i = y_start - 1; i >= 0; i--) {
+		for (int j = x_start; j <= x_end; j++)
+			if ((*map).mapCoordinate(j, i) == 1) {
+				(*player1).setceil(i * Y);
+				stop = 1;
+				break;
+			}
+		if (stop == 1)
+			break;
+	}
+	stop = 0;
+	for (i = y_end; i < 59; i++) {
+		for (int j = x_start; j <= x_end; j++)
+			if ((*map).mapCoordinate(j, i) == 1) {
+				(*player1).setfloor(i * Y);
+				stop = 1;
+				break;
+			}
+		if (stop == 1)
+			break;
+	}
+	stop = 0;
+	for (i = y_start_fireman - 1; i >= 0; i--) {
+		for (int j = x_start_fireman; j <= x_end_fireman; j++)
+			if ((*map).mapCoordinate(j, i) == 1) {
+				(*player2).setceil(i * Y);
+				stop = 1;
+				break;
+			}
+		if (stop == 1)
+			break;
+	}
+	stop = 0;
+	for (i = y_end_fireman + 1; i < 59; i++) {
+		for (int j = x_start_fireman; j <= x_end_fireman; j++)
+			if ((*map).mapCoordinate(j, i) == 1) {
+				(*player2).setfloor(i * Y);
+				stop = 1;
+				break;
+			}
+		if (stop == 1)
+			break;
+	}
+
+	if (!(*player1).GetUpEnable()) {
+		if ((*map).mapCoordinate(x_end, y_end) == 1 || y_end >= sizeX)
+			(*player1).SetMovingDown(false);
+		else {
+			(*player1).SetMovingDown(true);
+		}
+	}
+
+	if (!(*player2).GetUpEnable()) {
+		if ((*map).mapCoordinate(x_end_fireman, y_end_fireman) == 1 || (*player2).GetY2() >= 580)
+			(*player2).SetMovingDown(false);
+		else {
+			(*player2).SetMovingDown(true);
+		}
+	}
+}
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲開頭畫面物件
@@ -409,6 +588,7 @@ void CGameStateRun::OnBeginState()
 	const int HITS_LEFT_Y = 0;
 	const int BACKGROUND_X = 60;
 	const int ANIMATION_SPEED = 15;
+	const int STAGE = 1;
 	const int diamond1_position[3][2] = { {405,535},{140,260},{223,41} };
 	for (int i = 0; i < NUMRED; i++) {				// 設定球的起始座標
 		diamond1[i].SetXY(diamond1_position[i][0], diamond1_position[i][1]);
@@ -438,9 +618,11 @@ void CGameStateRun::OnBeginState()
 		mood[i].SetIsAlive(true);
 	}
 	
-
+	gamemap.SetStage(1);
+	gamemap.ReadFile();
 	player1.Initialize();
 	player2.Initialize();
+	player1.SetXY(200,340);
 	reddoor.SetIsAlive(true);
 	reddoor.SetXY(690, 550);
 	icedoor.SetIsAlive(true);
@@ -553,10 +735,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	if (box.HitEraser(&player1)||box.HitEraser(&player2)) {
 		box.SetMovingLeft(true);
 	}
-	player1.setFront(player1.frontBox(box.x, box.y));
-	player1.setOnBox(player1.onBox(box.x, box.y));
-	player2.setFront(player2.frontBox(box.x, box.y));
-	player2.setOnBox(player2.onBox(box.x, box.y));
+
 
 	/*
 	if (box.OnBox(player1.GetX1(), player1.GetX2(), player1.GetY1(), player1.GetY2())) {
@@ -707,14 +886,11 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 	if (nChar == KEY_DOWN)
 	{
-
 		player1.SetMovingDown(true);
 	}
 	if (nChar == KEY_A)
 	{
-
-		player2.SetMovingLeft(true);
-
+		player2.SetMovingLeft(true);		
 	}
 	if (nChar == KEY_D) {
 
