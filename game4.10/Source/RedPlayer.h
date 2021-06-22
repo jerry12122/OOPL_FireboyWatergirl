@@ -1,9 +1,42 @@
 #pragma once
+#include <fstream> 
+extern bool current_rank;
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// 這個class提供可以用鍵盤或滑鼠控制的擦子
 	// 看懂就可以改寫成自己的程式了
 	/////////////////////////////////////////////////////////////////////////////
+
+
+	class CGameMap {
+	public:
+		CGameMap();
+		CGameMap(int _stage);
+		~CGameMap();
+		void LoadBitmap();
+		void OnShow();
+		void setMap(int x, int y, int v);
+		void SetStage(int _stage);
+		void ReadFile();
+		int remap();
+		int mapCoordinate(int x, int y);
+		int GetX();
+		int GetY();
+		int GetMW();
+		int GetMH();
+		int GetSizeX();
+		int GetSizeY();
+		int GetStage();
+	protected:
+		CMovingBitmap blue, green;
+		//int **map;
+		//bool map[60][80];
+		int map[60][80];
+		int X, Y;
+		int MW, MH;
+		int sizeX, sizeY;
+		int stage;
+	};
 
 	class RedPlayer
 	{
@@ -32,10 +65,15 @@ namespace game_framework {
 		bool onBox(int x, int y);
 		void setFront(bool a);
 		void setOnBox(bool a);
+		int map[60][80];
+		int x_edge[800];
+		int y_edge[600];
 
 	protected:
 		CAnimation animation, animation1;		// 擦子的動畫
 		CMovingBitmap bit;
+		CGameMap gamemap;
+		static CGameMap getMap();
 		int x, y;					// 擦子左上角座標
 		bool isMovingDown;			// 是否正在往下移動
 		bool isMovingLeft;			// 是否正在往左移動
@@ -47,8 +85,5 @@ namespace game_framework {
 		bool rising;			// true表上升、false表下降
 		int initial_velocity;	// 初始速度
 		int velocity;			// 目前的速度(點/次)
-		int map[18][14];
-		int x_edge[15];
-		int y_edge[19];
 	};
 }

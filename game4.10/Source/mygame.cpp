@@ -58,128 +58,12 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
-#include <iostream>     // std::cout
-#include <fstream> 
-#include <string.h>
-#include <conio.h>
-#include <time.h>
-#include <atomic>
-#include <chrono>
-#include <thread>
-#include <stdio.h>
-#include <sstream>
+
 
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲開頭畫面物件
 /////////////////////////////////////////////////////////////////////////////
-	CGameMap::CGameMap(int _stage) {
-
-	}
-
-	CGameMap::CGameMap() :X(10), Y(10), MW(10), MH(10) {
-		//map = (int**)malloc(sizeof(int*) * X);
-		sizeX = 600 / X;
-		sizeY = 800 / Y;
-		//int map_init[60][80];
-
-		/*  allocate storage for an array of pointers */
-		//map = (int**)malloc(sizeX * sizeof(int*));
-
-		/* for each pointer, allocate storage for an array of ints */
-		/*for (int i = 0; i < sizeX; i++) {
-			map[i] = (int*)malloc(sizeY * sizeof(int));
-		}*/
-		stage = 1;
-	}
-
-	void CGameMap::ReadFile() {
-		std::stringstream filename;
-		filename << "map\\Run" << "1" << ".txt";
-		ifstream is(filename.str(), std::ifstream::binary);
-		std::string line;
-		int i = 0;
-		while (getline(is, line)) {
-			for (int j = 0; j < sizeY; j++) {
-				map[i][j] = line[j] - '0';
-				/*if (line[j] - '0' == 0)
-					map[i][j] = 0;
-				else
-					map[i][j] = 1;	*/
-					//*(*(map + i) + j) = line[j] - '0';
-					//cout << map_init[i][j];
-			}
-			i++;
-		}
-		is.close();
-		/*
-		for (i = 0; i < 60; i++) {
-			for (int j = 0; j < 80; j++) {
-				map[i][j] = map_init[i][j];
-			}
-		}*/
-	}
-
-	void CGameMap::LoadBitmap() {
-		blue.LoadBitmap(IDB_BITMAP3);
-	}
-
-	void CGameMap::OnShow() {
-		for (int i = 0; i < 80; i++) {
-			for (int j = 0; j < 60; j++) {
-				switch (map[j][i]) {
-				case 0:
-					break;
-				case 1:
-					blue.SetTopLeft((10 * i), (10 * j));
-					blue.ShowBitmap();
-					break;
-					\
-				}
-			}
-		}
-	}
-
-	void CGameMap::setMap(int x, int y, int v) {
-		map[y][x] = v;
-	}
-
-	void CGameMap::SetStage(int _stage) {
-		stage = _stage;
-	}
-
-	int CGameMap::mapCoordinate(int x, int y) {
-		return map[y][x];
-	}
-
-	int CGameMap::GetX() {
-		return X;
-	}
-
-	int CGameMap::GetY() {
-		return Y;
-	}
-
-	int CGameMap::GetMH() {
-		return MH;
-	}
-
-	int CGameMap::GetMW() {
-		return MW;
-	}
-
-	int CGameMap::GetSizeX() {
-		return sizeX;
-	}
-
-	int CGameMap::GetSizeY() {
-		return sizeY;
-	}
-
-	CGameMap::~CGameMap() {
-	}
-
-
 
 CGameStateInit::CGameStateInit(CGame *g)
 : CGameState(g)
@@ -399,6 +283,8 @@ CGameStateRun::~CGameStateRun()
 
 void CGameStateRun::OnBeginState()
 {
+	gamemap.~CGameMap();
+	gamemap.ReadFile();
 	const int BALL_GAP = 90;
 	const int BALL_XY_OFFSET = 45;
 	const int BALL_PER_ROW = 7;
@@ -432,7 +318,7 @@ void CGameStateRun::OnBeginState()
 	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
 		Lake3[i].SetXY(Lake3_position[i][0], Lake3_position[i][1]);
 	}
-	const int mood_position[2][2] = { {260,388},{22,308} };
+	const int mood_position[2][2] = { {260,380},{20,310} };
 	for (int i = 0; i < NUMMOD; i++) {				// 設定球的起始座標
 		mood[i].SetXY(mood_position[i][0], mood_position[i][1]);
 		mood[i].SetIsAlive(true);
@@ -442,13 +328,12 @@ void CGameStateRun::OnBeginState()
 	player1.Initialize();
 	player2.Initialize();
 	reddoor.SetIsAlive(true);
-	reddoor.SetXY(690, 550);
+	reddoor.SetXY(690, 60);
 	icedoor.SetIsAlive(true);
-	icedoor.SetXY(600, 550);
-	//69
+	icedoor.SetXY(600, 60);
 	box.init();
-	box.SetXY(500, 154);
-	const int button_position[3][2] = { {270,295},{697,228} ,{600,215} };
+	box.SetXY(500, 150);
+	const int button_position[3][2] = { {270,295},{710,230} ,{600,215} };
 	for (int i = 0; i < NUMBUT; i++) {				// 設定球的起始座標
 		button[i].SetXY(button_position[i][0], button_position[i][1]);
 		button[i].SetIsAlive(true);
@@ -642,7 +527,7 @@ void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 	for (i = 0; i < LAKEGREEN; i++) {
 		Lake3[i].LoadBitmap();
 	}
-
+	gamemap.LoadBitmap();
 	player1.LoadBitmap();
 	player2.LoadBitmap();
 	reddoor.LoadBitmap();
@@ -832,6 +717,7 @@ void CGameStateRun::OnShow()
 	//  貼上背景圖、撞擊數、球、擦子、彈跳的球
 	//
 	background.ShowBitmap();			// 貼上背景圖
+	gamemap.OnShow();
 	help.ShowBitmap();					// 貼上說明圖
 	hits_left.ShowBitmap();
 

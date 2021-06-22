@@ -400,5 +400,11 @@
     <Image Include="..\res\CONTINUE.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\res\dot.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\res\1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

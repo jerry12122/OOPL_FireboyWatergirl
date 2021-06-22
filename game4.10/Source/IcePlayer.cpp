@@ -42,6 +42,7 @@ namespace game_framework {
 		const int FLOOR = 496 - 52;				// ¦aªO®y¼Ð
 		const int X_POS = 42;
 		const int Y_POS = 446;
+		gamemap.ReadFile();
 		floor = FLOOR;
 		x = X_POS;
 		y = Y_POS;
@@ -49,7 +50,7 @@ namespace game_framework {
 		rising = false;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
-		int map_init[18][14] = {
+		/*int map_init[18][14] = {
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{1,1,1,0,0,1,1,1,1,1,1,1,1,1},
 			{1,1,1,1,0,1,1,1,1,1,1,1,1,1},
@@ -85,6 +86,21 @@ namespace game_framework {
 		for (int j = 0; j < 19; j++)
 		{
 			y_edge[j] = y_edge_init[j];
+		}*/
+		for (int i = 0; i < 60; i++)
+		{
+			for (int j = 0; j < 80; j++)
+			{
+				map[i][j] = gamemap.mapCoordinate(j, i);
+			}
+		}
+		for (int j = 0; j < 800; j++)
+		{
+			x_edge[j] = j + 1;
+		}
+		for (int j = 0; j < 600; j++)
+		{
+			y_edge[j] = j + 1;
 		}
 	}
 	void IcePlayer::LoadBitmap()
@@ -106,23 +122,23 @@ namespace game_framework {
 		}
 		bool result = 1;
 		if (value == 0) {
-			for (int i = 0; i < 15; i++)
+			for (int i = 0; i < 800; i++)
 			{
 				if (x >= x_edge[i]) {
 					x_coord = i;
 				}
 			}
-			for (int i = 0; i < 19; i++)
+			for (int i = 0; i < 600; i++)
 			{
 				if (y + value >= y_edge[i]) {
 					ycoord = i;
 				}
 			}
-			result = map[ycoord][x_coord] && result;
+			result = map[ycoord/10][x_coord/10] && result;
 		}
 		else
 		{
-			for (int i = 0; i < 15; i++)
+			for (int i = 0; i < 800; i++)
 			{
 				if (x >= x_edge[i]) {
 					x_coord = i;
@@ -131,18 +147,18 @@ namespace game_framework {
 
 			for (int j = 5; j < 35; j += 3)
 			{
-				for (int i = 0; i < 19; i++)
+				for (int i = 0; i < 600; i++)
 				{
 					if (y + j >= y_edge[i]) {
 						ycoord = i;
 					}
 				}
-				result = map[ycoord][x_coord] && result;
+				result = map[ycoord/10][x_coord/10] && result;
 			}
 
 		}
 
-		return map[ycoord][x_coord];
+		return map[ycoord/10][x_coord/10];
 	}
 	bool IcePlayer::frontBox(int bx, int by)
 	{

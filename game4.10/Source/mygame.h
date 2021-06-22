@@ -73,35 +73,6 @@ namespace game_framework {
 	// 每個Member function的Implementation都要弄懂
 	/////////////////////////////////////////////////////////////////////////////
 
-	class CGameMap {
-	public:
-		CGameMap();
-		CGameMap(int _stage);
-		~CGameMap();
-		void LoadBitmap();
-		void OnShow();
-		void setMap(int x, int y, int v);
-		void SetStage(int _stage);
-		void ReadFile();
-		int mapCoordinate(int x, int y);
-		int GetX();
-		int GetY();
-		int GetMW();
-		int GetMH();
-		int GetSizeX();
-		int GetSizeY();
-		int GetStage();
-	protected:
-		CMovingBitmap blue, green;
-		int map[60][80];
-		//int **map;
-		//bool map[60][80];
-		int X, Y;
-		int MW, MH;
-		int sizeX, sizeY;
-		int stage;
-	};
-
 	class CGameStateInit : public CGameState {
 	public:
 		CGameStateInit(CGame *g);
@@ -126,6 +97,7 @@ namespace game_framework {
 	public:
 		CGameStateRun(CGame *g);
 		~CGameStateRun();
+		CGameMap gamemap;
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();  								// 遊戲的初值及圖形設定
 		void OnKeyDown(UINT, UINT, UINT);
