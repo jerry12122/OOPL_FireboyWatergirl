@@ -21,8 +21,6 @@ namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// RedPlayer: RedPlayer class
 	/////////////////////////////////////////////////////////////////////////////
-
-<<<<<<< HEAD
 	CGameMap::CGameMap(int _stage) {
 
 	}
@@ -127,23 +125,7 @@ namespace game_framework {
 
 	CGameMap::~CGameMap() {
 	}
-
-=======
-	void RedPlayer::Initialize()
-	{
-		const int X_POS = 20;
-		const int Y_POS = 540;
-		floor = 580;
-		x = X_POS;
-		y = Y_POS;
-		gem = 0;
-		character = "fire";
-		setFloorEnable = true;
-		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
-
-	}
->>>>>>> 52a6d6f4db2373a0e866e1f487e33a3ebf64072a
-
+	
 	RedPlayer::RedPlayer()
 	{
 		Initialize();
@@ -161,15 +143,13 @@ namespace game_framework {
 
 	int RedPlayer::GetX2()
 	{
-		return x + 28;
+		return x + animation.Width();
 	}
 
 	int RedPlayer::GetY2()
 	{
-		return y + 40;
+		return y + animation.Height();
 	}
-
-<<<<<<< HEAD
 	void RedPlayer::Initialize()
 	{
 		gamemap.~CGameMap();
@@ -241,14 +221,15 @@ namespace game_framework {
 		}
 	}
 	void RedPlayer::LoadBitmap()
-=======
-
-	string RedPlayer::Getcharacteristic()
->>>>>>> 52a6d6f4db2373a0e866e1f487e33a3ebf64072a
 	{
-		return character;
+		animation.AddBitmap(FIRE_RIGHT_RUN_1, RGB(255, 255, 255));
+		animation.AddBitmap(FIRE_RIGHT_RUN_2, RGB(255, 255, 255));
+		animation.AddBitmap(FIRE_RIGHT_RUN_3, RGB(255, 255, 255));
+		animation1.AddBitmap(FIRE_LEFT_RUN_1, RGB(255, 255, 255));
+		animation1.AddBitmap(FIRE_LEFT_RUN_2, RGB(255, 255, 255));
+		animation1.AddBitmap(FIRE_LEFT_RUN_3, RGB(255, 255, 255));
+		bit.LoadBitmap(FIRE_FRONT, RGB(255, 255, 255));
 	}
-<<<<<<< HEAD
 	bool RedPlayer::frontBox(int bx,int by)
 	{
 		int x1 = bx;
@@ -326,16 +307,9 @@ namespace game_framework {
 			}
 		}
 		return x_coord;
-=======
-
-	void RedPlayer::Addgem()
-	{
-		gem++;
->>>>>>> 52a6d6f4db2373a0e866e1f487e33a3ebf64072a
 	}
-	int RedPlayer::getgem()
+	int RedPlayer::getCoordY(int x, int y)
 	{
-<<<<<<< HEAD
 		int x_coord = 0, ycoord = 0;
 		for (int i = 0; i < 600; i++)
 		{
@@ -465,35 +439,79 @@ namespace game_framework {
 		}*/
 	}
 	void RedPlayer::OnMove()
-=======
-		return gem;
-	}
-
-	void RedPlayer::LoadBitmap()
->>>>>>> 52a6d6f4db2373a0e866e1f487e33a3ebf64072a
 	{
-		/*animation.AddBitmap(IDB_FIRE, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_FIRE_L1, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_FIRE_L2, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_FIRE_R1, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_FIRE_R2, RGB(255, 255, 255));*/
+		const int STEP_SIZE = 7;
+		animation.OnMove();
+		animation1.OnMove();
 		/*
-		animation.AddBitmap(IDB_BITMAP11, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_BITMAP13, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_BITMAP17, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_BITMAP14, RGB(255, 255, 255));
-		animation.AddBitmap(IDB_BITMAP15, RGB(255, 255, 255));*/
+		if (isLeftRightEmpty(x, y+55)&&y+55<578)
+		{
+			int  ycoord = 0;
+			for (int i = 0; i < 19; i++)
+			{
+				if (y >= y_edge[i]) {
+					ycoord = i;
+				}
+			}
+			floor = y_edge[ycoord + 1]-50;
+		}
+		*/
+		if (!rising && velocity == initial_velocity) {
+			y = floor;
+		}
 
-		animation.AddBitmap(GOOD, RGB(255, 255, 255));
-		animation.AddBitmap(GOOD, RGB(255, 255, 255));
-		animation.AddBitmap(GOOD, RGB(255, 255, 255));
-		animation.AddBitmap(GOOD, RGB(255, 255, 255));
-		animation.AddBitmap(GOOD, RGB(255, 255, 255));
-	}
+		if (isMovingLeft)
+			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20) {
+				x -= STEP_SIZE;
+				setfloor();
+			}
+		if (isMovingRight)
+			if (isLeftRightEmpty(x + 45 + STEP_SIZE, y, 1) && x < 778) {
+				x += STEP_SIZE;
+				setfloor();
+			}
+		if (isMovingUp) {
+			rising = true;
+			isMovingUp = false;
+		}
+		if (rising) {			// 上升狀態
+			if (velocity > 0) {
+				if (!isLeftRightEmpty(x, y - 1, 0))
+				{
+					velocity -= 2;
+					setfloor();
+				}
+				else
+				{
+					y -= velocity;	// 當速度 > 0時，y軸上升(移動velocity個點，velocity的單位為 點/次)
+					velocity--;		// 受重力影響，下次的上升速度降低
+					setfloor();
+				}
 
-	void RedPlayer::SetXY(int nx, int ny)
-	{
-		x = nx; y = ny;
+			}
+			else {
+				rising = false; // 當速度 <= 0，上升終止，下次改為下降
+				velocity = 1;	// 下降的初速(velocity)為1
+			}
+
+		}
+		else {				// 下降狀態
+			if (y < floor - 1) {  // 當y座標還沒碰到地板
+				y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
+				velocity++;		// 受重力影響，下次的下降速度增加
+				setfloor();
+			}
+			else {
+				setfloor();
+				y = floor - 1;  // 當y座標低於地板，更正為地板上
+				rising = false;	// 探底反彈，下次改為上升
+				velocity = initial_velocity;
+				// 重設上升初始速度
+			}
+			isMovingUp = false;
+		};
+		if (isMovingDown)
+			y = floor;
 	}
 
 	void RedPlayer::SetMovingDown(bool flag)
@@ -515,54 +533,31 @@ namespace game_framework {
 	{
 		isMovingUp = flag;
 	}
-	void RedPlayer::OnMove()
+
+	void RedPlayer::SetXY(int nx, int ny)
 	{
+		x = nx; y = ny;
+	}
 
-		if (isMovingLeft)
-		{
-			x -= step_size;
-		}
-		if (isMovingRight)
-		{
-			x += step_size;
-		}
-		if (isMovingUp) {			// 上升狀態
-			upEnable = true;
-			velocity = initial_velocity;
-		}
-
-		if (upEnable) {
-			isMovingUp = false;
-			if ((velocity > 0) && (y > ceil + 1)) {
-				y -= velocity;	// 當速度 > 0時，y軸上升(移動velocity個點，velocity的單位為 點/次)
-				velocity--;		// 受重力影響，下次的上升速度降低
-				animation.OnMove();
-			}
-			else {
-				velocity = 1;	// 下降的初速(velocity)為1
-				upEnable = false;
-				isMovingDown = true;
-			}
-
-		}
-		else if (isMovingDown) {				// 下降狀態
-			if ((this->GetY2()) < floor - 1) {  // 當y座標還沒碰到地板
-				y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
-				velocity++;		// 受重力影響，下次的下降速度增加
-				animation.OnMove();
-			}
-			else {
-				y = floor - 1;  // 當y座標低於地板，更正為地板上
-				isMovingDown = false;
-				//rising = true;	// 探底反彈，下次改為上升
-				velocity = initial_velocity; // 重設上升初始速度
-			}
-		}
-		if (!(isMovingDown || isMovingLeft || isMovingRight || isMovingUp))
-			animation.Reset();
+	void RedPlayer::SetVelocity(int velocity) {
+		this->velocity = velocity;
+		this->initial_velocity = velocity;
 	}
 	void RedPlayer::OnShow() {
-		animation.SetTopLeft(x, y);
-		animation.OnShow();
+		if (isMovingLeft) {
+			animation1.SetTopLeft(x, y);
+			animation1.OnShow();
+		}
+		else if (isMovingRight)
+		{
+			animation.SetTopLeft(x, y);
+			animation.OnShow();
+		}
+
+		else if (!isMovingRight && !isMovingLeft)
+		{
+			bit.SetTopLeft(x, y);
+			bit.ShowBitmap();
+		}
 	}
 }

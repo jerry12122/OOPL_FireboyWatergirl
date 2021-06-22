@@ -6,9 +6,6 @@ namespace game_framework {
 	// 這個class提供可以用鍵盤或滑鼠控制的擦子
 	// 看懂就可以改寫成自己的程式了
 	/////////////////////////////////////////////////////////////////////////////
-
-<<<<<<< HEAD
-
 	class CGameMap {
 	public:
 		CGameMap();
@@ -39,13 +36,9 @@ namespace game_framework {
 		int stage;
 	};
 
-	class RedPlayer
-	{
-=======
-	
 
 	class RedPlayer {
->>>>>>> 52a6d6f4db2373a0e866e1f487e33a3ebf64072a
+
 	public:
 		void SetMovingDown(bool flag);	// 設定是否正在往下移動
 		void SetMovingLeft(bool flag);	// 設定是否正在往左移動
@@ -61,7 +54,6 @@ namespace game_framework {
 		void OnMove();					// 移動擦子
 		void OnShow();					// 將擦子圖形貼到畫面
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
-<<<<<<< HEAD
 		void SetFloor(int);
 		void SetVelocity(int);
 		bool isLeftRightEmpty(int x, int y, int value);
@@ -75,21 +67,16 @@ namespace game_framework {
 		int map[60][80];
 		int x_edge[800];
 		int y_edge[600];
-
 	protected:
 		CAnimation animation, animation1;		// 擦子的動畫
 		CMovingBitmap bit;
 		CGameMap gamemap;
 		static CGameMap getMap();
-=======
+		int x, y;					// 擦子左上角座標
+		int gem = 0;
 		void Addgem();
 		int getgem();
 		string Getcharacteristic();
-	protected:
->>>>>>> 52a6d6f4db2373a0e866e1f487e33a3ebf64072a
-		int x, y;					// 擦子左上角座標
-		int gem = 0;
-		CAnimation animation;
 		string character;
 		bool upEnable;
 		bool setFloorEnable;
@@ -102,19 +89,7 @@ namespace game_framework {
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動
 		bool isMovingUp;			// 是否正在往上移動
-<<<<<<< HEAD
 		bool isFrontBox;
 		bool isOnBox;
-		int floor;				// 地板的Y座標
-		bool rising;			// true表上升、false表下降
-		int initial_velocity;	// 初始速度
-		int velocity;			// 目前的速度(點/次)
-=======
-		int direction;
-		int times;
-		int step_size;
-		int stop_down;
-
->>>>>>> 52a6d6f4db2373a0e866e1f487e33a3ebf64072a
 	};
 }

@@ -58,9 +58,6 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
-<<<<<<< HEAD
-
-=======
 #include <iostream>     // std::cout
 #include <fstream> 
 #include <string.h>
@@ -71,187 +68,6 @@
 #include <thread>
 #include <stdio.h>
 #include <sstream>
-template <class P1, class P2, class M>
-void setMoving(P1 *player1, P2 *player2, M *map) {
->>>>>>> 52a6d6f4db2373a0e866e1f487e33a3ebf64072a
-
-	int x_start = 0;
-	int x_end = 0;
-	int y_start = 0;
-	int y_end = 0;
-
-	int x_start_fireman = 0;
-	int x_end_fireman = 0;
-	int y_start_fireman = 0;
-	int y_end_fireman = 0;
-
-	int x1_water = (*player1).GetX1();
-	int x2_water = (*player1).GetX2();
-	int y1_water = (*player1).GetY1();
-	int y2_water = (*player1).GetY2();
-
-	int x1_fire = (*player2).GetX1();
-	int x2_fire = (*player2).GetX2();
-	int y1_fire = (*player2).GetY1();
-	int y2_fire = (*player2).GetY2();
-
-	int X = (*map).GetX();
-	int Y = (*map).GetY();
-	int sizeX = (*map).GetSizeX();
-	int sizeY = (*map).GetSizeY();
-
-	int i = 0;
-
-	if (x1_water % X == 0) {
-		x_start = ((int)x1_water / X) + 1;
-	}
-	else {
-		x_start = ((int)x1_water / X);
-	}
-	if (x_start_fireman % X == 0) {
-		x_start_fireman = ((int)x1_fire / X) + 1;
-	}
-	else {
-		x_start_fireman = ((int)x1_fire / X);
-	}
-
-	if (y1_water % Y == 0) {
-		y_start = ((int)y1_water / Y);
-	}
-	else {
-		y_start = ((int)y1_water / Y) + 1;
-	}
-	if (y1_fire % Y == 0) {
-		y_start_fireman = ((int)y1_fire / Y);
-	}
-	else {
-		y_start_fireman = ((int)y1_fire / Y) + 1;
-	}
-
-	if (x2_water % X == 0) {
-		x_end = (x2_water / X);
-	}
-	else {
-		x_end = ((int)x2_water / X) + 1;
-	}
-	if (x2_fire % X == 0) {
-		x_end_fireman = (x2_fire / X);
-	}
-	else {
-		x_end_fireman = ((int)x2_fire
-			/ X) + 1;
-	}
-
-	//y_start = ((int)y1_water / gamemap.GetY());
-	if (y2_water % Y == 0) {
-		y_end = (y2_water / Y);
-	}
-	else {
-		y_end = ((int)y2_water / Y) + 1;
-	}
-	//y_start_fireman = ((int)y1_fire / gamemap.GetY());
-	if (y2_fire % Y == 0) {
-		y_end_fireman = (y2_fire / Y);
-	}
-	else {
-		y_end_fireman = ((int)y2_fire / Y) + 1;
-	}
-
-	for (i = y_start; i <= y_end; i++) {
-		if ((*map).mapCoordinate(x_start, i - 1) == 1) {
-			(*player1).SetMovingLeft(false);
-		}
-		if ((*map).mapCoordinate(x_end, i - 1) == 1) {
-			(*player1).SetMovingRight(false);
-		}
-	}
-	for (i = y_start_fireman; i < y_end_fireman; i++) {
-		if ((*map).mapCoordinate(x_start_fireman, i) == 1) {
-			(*player2).SetMovingLeft(false);
-		}
-		if ((*map).mapCoordinate(x_end_fireman, i) == 1) {
-			(*player2).SetMovingRight(false);
-		}
-	}
-	for (i = y_end; i < (*map).GetSizeX(); i++) {
-		if ((*map).mapCoordinate(x_end, i) == 1) {
-			(*player1).SetStopDown(i);
-			break;
-		}
-	}
-	/*for (int i = y_start; i >= 0; i--) {
-		if (gamemap.mapCoordinate(x_start, i+1) == 1) {
-			P1.setceil(i * Y);
-			break;
-		}
-	}
-	for (int i = y_end; i < gamemap.GetSizeX(); i++) {
-		if (gamemap.mapCoordinate(x_start, i) == 1) {
-			P1.setfloor(i * Y);
-			break;
-		}
-	}*/
-	int stop = 0;
-	for (i = y_start - 1; i >= 0; i--) {
-		for (int j = x_start; j <= x_end; j++)
-			if ((*map).mapCoordinate(j, i) == 1) {
-				(*player1).setceil(i * Y);
-				stop = 1;
-				break;
-			}
-		if (stop == 1)
-			break;
-	}
-	stop = 0;
-	for (i = y_end; i < 59; i++) {
-		for (int j = x_start; j <= x_end; j++)
-			if ((*map).mapCoordinate(j, i) == 1) {
-				(*player1).setfloor(i * Y);
-				stop = 1;
-				break;
-			}
-		if (stop == 1)
-			break;
-	}
-	stop = 0;
-	for (i = y_start_fireman - 1; i >= 0; i--) {
-		for (int j = x_start_fireman; j <= x_end_fireman; j++)
-			if ((*map).mapCoordinate(j, i) == 1) {
-				(*player2).setceil(i * Y);
-				stop = 1;
-				break;
-			}
-		if (stop == 1)
-			break;
-	}
-	stop = 0;
-	for (i = y_end_fireman + 1; i < 59; i++) {
-		for (int j = x_start_fireman; j <= x_end_fireman; j++)
-			if ((*map).mapCoordinate(j, i) == 1) {
-				(*player2).setfloor(i * Y);
-				stop = 1;
-				break;
-			}
-		if (stop == 1)
-			break;
-	}
-
-	if (!(*player1).GetUpEnable()) {
-		if ((*map).mapCoordinate(x_end, y_end) == 1 || y_end >= sizeX)
-			(*player1).SetMovingDown(false);
-		else {
-			(*player1).SetMovingDown(true);
-		}
-	}
-
-	if (!(*player2).GetUpEnable()) {
-		if ((*map).mapCoordinate(x_end_fireman, y_end_fireman) == 1 || (*player2).GetY2() >= 580)
-			(*player2).SetMovingDown(false);
-		else {
-			(*player2).SetMovingDown(true);
-		}
-	}
-}
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲開頭畫面物件
@@ -475,8 +291,6 @@ CGameStateRun::~CGameStateRun()
 
 void CGameStateRun::OnBeginState()
 {
-	gamemap.~CGameMap();
-	gamemap.ReadFile();
 	const int BALL_GAP = 90;
 	const int BALL_XY_OFFSET = 45;
 	const int BALL_PER_ROW = 7;
@@ -517,11 +331,9 @@ void CGameStateRun::OnBeginState()
 		mood[i].SetIsAlive(true);
 	}
 	
-	gamemap.SetStage(1);
 	gamemap.ReadFile();
 	player1.Initialize();
 	player2.Initialize();
-	player1.SetXY(200,340);
 	reddoor.SetIsAlive(true);
 	reddoor.SetXY(690, 60);
 	icedoor.SetIsAlive(true);
@@ -939,9 +751,5 @@ void CGameStateRun::OnShow()
 	}
 	player1.OnShow();
 	player2.OnShow();
-	//reddoor.OnShow();
-	//
-	//  貼上左上及右下角落的圖
-	//
 }
 }
