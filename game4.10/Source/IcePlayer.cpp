@@ -276,7 +276,7 @@ namespace game_framework {
 		}
 
 		if (isMovingLeft)
-			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20 && isFrontBox == false) {
+			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20 ) {
 				x -= STEP_SIZE;
 				setfloor();
 			}
