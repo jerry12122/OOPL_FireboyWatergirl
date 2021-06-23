@@ -351,6 +351,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\res\1.bmp" />
     <Image Include="..\res\1.png" />
     <Image Include="..\res\bad.bmp" />
     <Image Include="..\res\bitmap7.bmp" />
@@ -361,6 +362,7 @@
     <Image Include="..\res\demo_map.bmp" />
     <Image Include="..\res\DIM.bmp" />
     <Image Include="..\res\DOOR_OPEN.bmp" />
+    <Image Include="..\res\dot.bmp" />
     <Image Include="..\res\FIRE_DIAMOND.bmp" />
     <Image Include="..\res\FIRE_DOOR_CLOSE.bmp" />
     <Image Include="..\res\FIRE_FRONT.bmp" />

@@ -112,7 +112,7 @@ IDB_GREEN               BITMAP                  "..\\res\\bitmap5.bmp"
 
 IDB_GAME_MENU           BITMAP                  "..\\..\\res\\GAME_MENU.bmp"
 
-IDB_MAP1                BITMAP                  "..\\..\\res\\demo_map.bmp"
+IDB_MAP1                BITMAP                  "..\\..\\res\\1.bmp"
 
 ICE_DIAMOND             BITMAP                  "..\\..\\res\\ICE_DIAMOND.bmp"
 
@@ -189,6 +189,8 @@ BAD                     BITMAP                  "..\\..\\res\\bad.bmp"
 GOOD                    BITMAP                  "..\\..\\res\\GOOD.bmp"
 
 CONTI                   BITMAP                  "..\\..\\res\\CONTINUE.bmp"
+
+DOT                     BITMAP                  "..\\..\\res\\dot.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

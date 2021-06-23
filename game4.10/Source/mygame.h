@@ -57,6 +57,7 @@
 extern bool current_rank;
 
 
+
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -72,35 +73,6 @@ namespace game_framework {
 	// 這個class為遊戲的遊戲開頭畫面物件
 	// 每個Member function的Implementation都要弄懂
 	/////////////////////////////////////////////////////////////////////////////
-
-	class CGameMap {
-	public:
-		CGameMap();
-		CGameMap(int _stage);
-		~CGameMap();
-		void LoadBitmap();
-		void OnShow();
-		void setMap(int x, int y, int v);
-		void SetStage(int _stage);
-		void ReadFile();
-		int mapCoordinate(int x, int y);
-		int GetX();
-		int GetY();
-		int GetMW();
-		int GetMH();
-		int GetSizeX();
-		int GetSizeY();
-		int GetStage();
-	protected:
-		CMovingBitmap blue, green;
-		int map[60][80];
-		//int **map;
-		//bool map[60][80];
-		int X, Y;
-		int MW, MH;
-		int sizeX, sizeY;
-		int stage;
-	};
 
 	class CGameStateInit : public CGameState {
 	public:
@@ -126,6 +98,7 @@ namespace game_framework {
 	public:
 		CGameStateRun(CGame *g);
 		~CGameStateRun();
+		CGameMap gamemap;
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();  								// 遊戲的初值及圖形設定
 		void OnKeyDown(UINT, UINT, UINT);
@@ -139,6 +112,8 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
+		bool JUMP, UP;
+		static CGameMap getMap();
 		const int		NUMRED;	// 球的總數
 		const int		NUMICE;
 		const int		LAKERED;	// 水的總數

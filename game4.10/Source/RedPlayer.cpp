@@ -6,17 +6,131 @@
 #include "gamelib.h"
 #include "RedPlayer.h"
 #include "box.h"
+#include <iostream>     // std::cout
+#include <fstream> 
+#include <string.h>
+#include <conio.h>
+#include <time.h>
+#include <atomic>
+#include <chrono>
+#include <thread>
+#include <stdio.h>
+#include <sstream>
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// RedPlayer: RedPlayer class
 	/////////////////////////////////////////////////////////////////////////////
+	CGameMap::CGameMap(int _stage) {
 
+	}
 
+	CGameMap::CGameMap() :X(10), Y(10), MW(10), MH(10) {
+		//map = (int**)malloc(sizeof(int*) * X);
+		sizeX = 600 / X;
+		sizeY = 800 / Y;
+		//int map_init[60][80];
+
+		/*  allocate storage for an array of pointers */
+		//map = (int**)malloc(sizeX * sizeof(int*));
+
+		/* for each pointer, allocate storage for an array of ints */
+		/*for (int i = 0; i < sizeX; i++) {
+			map[i] = (int*)malloc(sizeY * sizeof(int));
+		}*/
+		stage = 1;
+	}
+
+	void CGameMap::ReadFile() {
+		std::stringstream filename;
+		filename << "map\\Run" << "1" << ".txt";
+		ifstream is(filename.str(), std::ifstream::binary);
+		std::string line;
+		int i = 0;
+		while (getline(is, line)) {
+			for (int j = 0; j < sizeY; j++) {
+				map[i][j] = line[j] - '0';
+				/*if (line[j] - '0' == 0)
+					map[i][j] = 0;
+				else
+					map[i][j] = 1;	*/
+					//*(*(map + i) + j) = line[j] - '0';
+					//cout << map_init[i][j];
+			}
+			i++;
+		}
+		is.close();
+		/*
+		for (i = 0; i < 60; i++) {
+			for (int j = 0; j < 80; j++) {
+				map[i][j] = map_init[i][j];
+			}
+		}*/
+	}
+
+	void CGameMap::LoadBitmap() {
+		blue.LoadBitmap(DOT, 1);
+	}
+
+	void CGameMap::OnShow() {
+		for (int i = 0; i < 80; i++) {
+			for (int j = 0; j < 60; j++) {
+				switch (map[j][i]) {
+				case 1:
+					break;
+				case 0:
+					blue.SetTopLeft((10 * i), (10 * j));
+					blue.ShowBitmap();
+					break;
+				}
+			}
+		}
+	}
+
+	void CGameMap::setMap(int x, int y, int v) {
+		map[y][x] = v;
+	}
+
+	void CGameMap::SetStage(int _stage) {
+		stage = _stage;
+	}
+
+	int CGameMap::mapCoordinate(int x, int y) {
+		return map[y][x];
+	}
+
+	int CGameMap::GetX() {
+		return X;
+	}
+
+	int CGameMap::GetY() {
+		return Y;
+	}
+
+	int CGameMap::GetMH() {
+		return MH;
+	}
+
+	int CGameMap::GetMW() {
+		return MW;
+	}
+
+	int CGameMap::GetSizeX() {
+		return sizeX;
+	}
+
+	int CGameMap::GetSizeY() {
+		return sizeY;
+	}
+
+	CGameMap::~CGameMap() {
+	}
+	
 	RedPlayer::RedPlayer()
 	{
 		Initialize();
 	}
+
 	int RedPlayer::GetX1()
 	{
 		return x;
@@ -36,15 +150,15 @@ namespace game_framework {
 	{
 		return y + animation.Height();
 	}
-
 	void RedPlayer::Initialize()
 	{
+		gamemap.~CGameMap();
+		gamemap.ReadFile();
 		const int INITIAL_VELOCITY = 11;	// 初始上升速度
 		const int FLOOR = 578 - 40;	
 		// 地板座標
 		const int X_POS = 42;
 		const int Y_POS = 530;
-
 		floor = FLOOR;
 		x = X_POS;
 		y = Y_POS;
@@ -52,6 +166,7 @@ namespace game_framework {
 		rising = false;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
+		/*
 		int map_init[18][14] = {
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{1,1,1,0,0,1,1,1,1,1,1,1,1,1},
@@ -88,6 +203,21 @@ namespace game_framework {
 		for (int j = 0; j < 19; j++)
 		{
 			y_edge[j] = y_edge_init[j];
+		}*/
+		for (int i = 0; i < 60; i++)
+		{
+			for (int j = 0; j < 80; j++)
+			{
+				map[i][j] = gamemap.mapCoordinate(j,i);
+			}
+		}
+		for (int j = 0; j < 800; j++)
+		{
+			x_edge[j] = j+1;
+		}
+		for (int j = 0; j < 600; j++)
+		{
+			y_edge[j] = j+1;
 		}
 	}
 	void RedPlayer::LoadBitmap()
@@ -123,29 +253,29 @@ namespace game_framework {
 	bool RedPlayer::isLeftRightEmpty(int x, int y, int value)
 	{
 		int x_coord = 0, ycoord = 0;
-		if (x < 21 || x>778 || y < 21 || y>578)
+		if (x < 21 || x>788 || y < 21 || y>578)
 		{
 			return 0;
 		}
 		bool result = 1;
 		if (value == 0) {
-			for (int i = 0; i < 15; i++)
+			for (int i = 0; i < 800; i++)
 			{
 				if (x >= x_edge[i]) {
 					x_coord = i;
 				}
 			}
-			for (int i = 0; i < 19; i++)
+			for (int i = 0; i < 600; i++)
 			{
 				if (y + value >= y_edge[i]) {
 					ycoord = i;
 				}
 			}
-			result = map[ycoord][x_coord] && result;
+			result = map[ycoord/10][x_coord/10] && result;
 		}
 		else 
 		{
-			for (int i = 0; i < 15; i++)
+			for (int i = 0; i < 800; i++)
 			{
 				if (x >= x_edge[i]) {
 					x_coord = i;
@@ -154,23 +284,23 @@ namespace game_framework {
 			
 			for (int j = 5; j < 35; j+=3)
 			{
-				for (int i = 0; i < 19; i++)
+				for (int i = 0; i < 600; i++)
 				{
 					if (y + j >= y_edge[i]) {
 						ycoord = i;
 					}
 				}
-				result = map[ycoord][x_coord] && result;
+				result = map[ycoord/10][x_coord/10] && result;
 			}
 
 		}
 
-		return map[ycoord][x_coord];
+		return map[ycoord/10][x_coord/10];
 	}
 	int RedPlayer::getCoordX(int x, int y)
 	{
 		int x_coord = 0, ycoord = 0;
-		for (int i = 0; i < 15; i++)
+		for (int i = 0; i < 800; i++)
 		{
 			if (x >= x_edge[i]) {
 				x_coord = i;
@@ -181,7 +311,7 @@ namespace game_framework {
 	int RedPlayer::getCoordY(int x, int y)
 	{
 		int x_coord = 0, ycoord = 0;
-		for (int i = 0; i < 19; i++)
+		for (int i = 0; i < 600; i++)
 		{
 			if (y >= y_edge[i]) {
 				ycoord = i;
@@ -191,7 +321,56 @@ namespace game_framework {
 	}
 	void RedPlayer::setfloor()
 	{
-		if ((x + 20 >= 20 && x + 20 < 266 && y + 40 < 578 && y + 40 >= 515) || \
+		if ((map[(y+40)/10][(x+40)/10] )|| (map[(y + 40) / 10][(x + 40) / 10])== 1) {
+			if ((map[(y + 50) / 10][(x ) / 10] ) || (map[(y + 50) / 10][(x+40) / 10]) ==1) {
+				if ((map[(y + 60) / 10][(x) / 10]) || (map[(y + 60) / 10][(x + 40) / 10]) == 1) {
+					if ((map[(y + 70) / 10][(x) / 10]) || (map[(y + 70) / 10][(x + 40) / 10]) == 1) {
+						if ((map[(y + 80) / 10][(x) / 10]) || (map[(y + 80) / 10][(x + 40) / 10]) == 1) {
+							if ((map[(y + 90) / 10][(x) / 10]) || (map[(y + 90) / 10][(x + 40) / 10]) == 1) {
+								if ((map[(y + 100) / 10][(x) / 10]) || (map[(y + 100) / 10][(x + 40) / 10]) == 1) {
+									if ((map[(y + 110) / 10][(x) / 10]) || (map[(y + 110) / 10][(x + 40) / 10]) == 1) {
+										if ((map[(y + 120) / 10][(x) / 10]) || (map[(y + 120) / 10][(x + 40) / 10]) == 1) {
+											floor = ((y / 10) + 9) * 10;
+										}
+										else {
+											floor = ((y / 10) + 8) * 10;
+										}
+									}
+									else {
+										floor = ((y / 10) + 7) * 10;
+									}
+								}
+								else {
+									floor = ((y / 10) + 6) * 10;
+								}
+							}
+							else {
+								floor = ((y / 10) + 5) * 10;
+							}
+						}
+						else {
+							floor = ((y / 10) + 4) * 10;
+						}
+					}
+					else {
+						floor = ((y / 10) + 3) * 10;
+					}
+				}
+				else {
+					floor = ((y / 10) + 2) * 10+5;
+				}
+			}
+			else {
+				floor = ((y / 10)+1) * 10+5;
+			}
+		}
+		else {
+			floor = (y / 10) * 10+5;
+		}
+		if (floor > 540) {
+			floor = 540;
+		}
+		/*if ((x + 20 >= 20 && x + 20 < 266 && y + 40 < 578 && y + 40 >= 515) || \
 			(x + 20 >= 266 && x + 20 < 717 && y + 40 >= 474 && y + 40 < 578) || \
 			(x + 20 >= 266 && x + 20 < 370 && y + 40 >= 433 && y + 40 < 474) || \
 			(x + 20 >= 695 && x + 20 < 717 && y + 40 >= 350 && y + 40 < 517))
@@ -257,7 +436,7 @@ namespace game_framework {
 		else if ((x + 20 >= 269 && x + 20 < 778 && y + 40 >= 21 && y + 40 < 102))
 		{
 			floor = 102 - 18;
-		}
+		}*/
 	}
 	void RedPlayer::OnMove()
 	{
@@ -279,16 +458,15 @@ namespace game_framework {
 		*/
 		if (!rising && velocity == initial_velocity) {
 			y = floor;
-
 		}
 
 		if (isMovingLeft)
-			if (isLeftRightEmpty(x- STEP_SIZE,y,1) && x > 20 && isFrontBox==false) {
+			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20) {
 				x -= STEP_SIZE;
 				setfloor();
 			}
 		if (isMovingRight)
-			if (isLeftRightEmpty(x+45+STEP_SIZE, y,1) && x < 778) {
+			if (isLeftRightEmpty(x + 45 + STEP_SIZE, y, 1) && x < 778) {
 				x += STEP_SIZE;
 				setfloor();
 			}
@@ -298,12 +476,12 @@ namespace game_framework {
 		}
 		if (rising) {			// 上升狀態
 			if (velocity > 0) {
-				if (!isLeftRightEmpty(x, y - 1,0))
+				if (!isLeftRightEmpty(x, y - 1, 0))
 				{
-					velocity-=2;
+					velocity -= 2;
 					setfloor();
 				}
-				else 
+				else
 				{
 					y -= velocity;	// 當速度 > 0時，y軸上升(移動velocity個點，velocity的單位為 點/次)
 					velocity--;		// 受重力影響，下次的上升速度降低
@@ -317,8 +495,7 @@ namespace game_framework {
 			}
 
 		}
-		else 
-		{
+		else {				// 下降狀態
 			if (y < floor - 1) {  // 當y座標還沒碰到地板
 				y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
 				velocity++;		// 受重力影響，下次的下降速度增加
@@ -326,18 +503,17 @@ namespace game_framework {
 			}
 			else {
 				setfloor();
-				y = floor - 1;
+				y = floor - 1;  // 當y座標低於地板，更正為地板上
 				rising = false;	// 探底反彈，下次改為上升
 				velocity = initial_velocity;
 				// 重設上升初始速度
 			}
 			isMovingUp = false;
-		}
+		};
 		if (isMovingDown)
-		{ 
-			y = floor - 1;
-		}
+			y = floor;
 	}
+
 	void RedPlayer::SetMovingDown(bool flag)
 	{
 		isMovingDown = flag;
@@ -363,20 +539,11 @@ namespace game_framework {
 		x = nx; y = ny;
 	}
 
-	void RedPlayer::SetFloor(int floor)
-	{
-		this->floor = floor;
-	}
-	void RedPlayer::setOnBox(bool a)
-	{
-		isOnBox = a;
-	}
 	void RedPlayer::SetVelocity(int velocity) {
 		this->velocity = velocity;
 		this->initial_velocity = velocity;
 	}
-	void RedPlayer::OnShow()
-	{
+	void RedPlayer::OnShow() {
 		if (isMovingLeft) {
 			animation1.SetTopLeft(x, y);
 			animation1.OnShow();

@@ -82,14 +82,14 @@ namespace game_framework {
 	void Mood::OnMove1()
 	{
 		if (is_alive)
-			if (y > 308) {
+			if (y >= 310) {
 				y -= 1;
 			}
 			else {
 				y = y;
 			}
 		else {
-			if (y <370) {
+			if (y <=370) {
 				y += 1;
 			}
 			else {
