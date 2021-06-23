@@ -382,8 +382,6 @@ CGameStateRun::CGameStateRun(CGame *g)
 	Lake3 = new Greenlake[LAKEGREEN];
 	mood = new Mood[NUMMOD];
 	button = new Button[NUMBUT];
-	//reddoor = new RedDoor();
-	//icedoor = new IceDoor();
 }
 
 CGameStateRun::~CGameStateRun()
