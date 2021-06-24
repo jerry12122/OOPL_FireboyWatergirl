@@ -252,6 +252,9 @@ namespace game_framework {
 		int y2 = y1 + 40;
 		return (x + 40 >= x1 && x <= x2 && y + 40 >= y1 && y <= y2);
 	}
+	void RedPlayer::setOnBox(bool a) {
+		isOnBox = a;
+	}
 	void RedPlayer::setFront(bool a)
 	{
 		isFrontBox = a;
@@ -336,6 +339,7 @@ namespace game_framework {
 								if ((map[(y + 98) / 10][(x) / 10]) || (map[(y + 98) / 10][(x + 30) / 10]) == 1) {
 									if ((map[(y + 108) / 10][(x) / 10]) || (map[(y + 108) / 10][(x + 30) / 10]) == 1) {
 										if ((map[(y + 118) / 10][(x) / 10]) || (map[(y + 118) / 10][(x + 30) / 10]) == 1) {
+											
 											floor = (((y + 38) / 10) + 9) * 10;
 										}
 										else {
@@ -442,6 +446,10 @@ namespace game_framework {
 		{
 			floor = 102 - 18;
 		}*/
+		if(x + 20 >= 122 && x + 20 < 157 && y + 40 >= 21 && y + 40 < 229)
+		{
+			floor = 194;
+		}
 	}
 	void RedPlayer::OnMove1() {
 		int a = MY / 10;
@@ -498,10 +506,11 @@ namespace game_framework {
 		*/
 		if (!rising && velocity == initial_velocity) {
 			y = floor - 38;
+			
 		}
 
 		if (isMovingLeft)
-			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20) {
+			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20 && isFrontBox == false) {
 				x -= STEP_SIZE;
 				setfloor();
 			}
@@ -541,6 +550,7 @@ namespace game_framework {
 					y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
 					velocity++;		// 受重力影響，下次的下降速度增加
 					setfloor();
+
 				}
 				else {
 					y += velocity;
