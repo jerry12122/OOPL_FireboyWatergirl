@@ -183,7 +183,7 @@ namespace game_framework {
 		RedDoor			reddoor;
 		IceDoor			icedoor;
 		Mood			*mood;
-		box				box;
+		//box				box;
 		Button			*button;
 	};
 	/////////////////////////////////////////////////////////////////////////////
