@@ -44,6 +44,9 @@ namespace game_framework {
 		void SetMovingLeft(bool flag);	// 設定是否正在往左移動
 		void SetMovingRight(bool flag); // 設定是否正在往右移動
 		void SetMovingUp(bool flag);	// 設定是否正在往上移動
+		void SetButton(bool flag);
+		void SetMood(bool flag);
+		void MoodY(int MY);
 		RedPlayer();
 		int GetX1();
 		int GetY1();
@@ -52,6 +55,7 @@ namespace game_framework {
 		void Initialize();				// 設定擦子為初始值
 		void LoadBitmap();				// 載入圖形
 		void OnMove();					// 移動擦子
+		void OnMove1();
 		void OnShow();					// 將擦子圖形貼到畫面
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
 		void SetFloor(int);
@@ -91,5 +95,8 @@ namespace game_framework {
 		bool isMovingUp;			// 是否正在往上移動
 		bool isFrontBox;
 		bool isOnBox;
+		bool isButton;
+		bool isMood;
+		int  MY;
 	};
 }
