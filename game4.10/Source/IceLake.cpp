@@ -24,9 +24,9 @@ namespace game_framework {
 
 	bool IceLake::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
-		int x1 = x+5;				// 球的左上角x座標
+		int x1 = x+15;				// 球的左上角x座標
 		int y1 = y-5;				// 球的左上角y座標
-		int x2 = x1 + LAKE.Width()-10;	// 球的右下角x座標
+		int x2 = x1 + LAKE.Width()-30;	// 球的右下角x座標
 		int y2 = y1 + LAKE.Height();	// 球的右下角y座標
 									//
 									// 檢測球的矩形與參數矩形是否有交集

@@ -5,64 +5,48 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "box.h"
-
+#include <iostream>     // std::cout
+#include <fstream> 
+#include <string.h>
+#include <conio.h>
+#include <time.h>
+#include <atomic>
+#include <chrono>
+#include <thread>
+#include <stdio.h>
+#include <sstream>
 namespace game_framework {
-	/////////////////////////////////////////////////////////////////////////////
-	// box: Ball class
-	/////////////////////////////////////////////////////////////////////////////
-
 	box::box()
 	{
 		init();
 	}
 	void box::init()
 	{
+		gamemap.~CGameMap();
+		gamemap.ReadFile();
 		const int INITIAL_VELOCITY = 6;
 		x = y = index = delay_counter = 0;
 		dx = dy = 35;
-		floor = 0;
+		floor = 100;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
 		inertia = false;
 		isMovingLeft = false;
-		int map_init[18][14] = {
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,1,1,0,0,1,1,1,1,1,1,1,1,1},
-			{1,1,1,1,0,1,1,1,1,1,1,1,1,1},
-			{1,1,1,1,0,0,0,0,0,0,0,0,0,0},
-			{0,0,1,1,0,0,1,1,1,1,1,1,1,1},
-			{0,0,1,1,1,1,1,1,1,0,1,1,1,1},
-			{0,0,0,0,0,0,0,0,0,0,0,0,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,0,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,0,0,0,0,0,0,0,0,1,1,1,1,1},
-			{1,1,1,1,1,1,1,1,0,0,0,0,0,0},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,0,0,0,0,0,0,0,1,1,1,1,1,1},
-			{1,1,1,1,1,1,1,0,1,1,1,1,1,1},
-			{1,1,1,1,1,1,1,0,0,0,0,0,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,0,0,0,0,1,1,1,1,1,1,1,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,0}
-		};
-		for (int i = 0; i < 19; i++)
+		for (int i = 0; i < 60; i++)
 		{
-			for (int j = 0; j < 15; j++)
+			for (int j = 0; j < 80; j++)
 			{
-				map[i][j] = map_init[i][j];
+				map[i][j] = gamemap.mapCoordinate(j, i);
 			}
 		}
-		int x_edge_init[15] = { 20,103,122,203,246,269,348,370,390,411,553,591,694,717,778 };
-		for (int j = 0; j < 15; j++)
+		for (int j = 0; j < 800; j++)
 		{
-			x_edge[j] = x_edge_init[j];
+			x_edge[j] = j + 1;
 		}
-		int y_edge_init[19] = { 21,84,102,127,148,187,229,247,267,311,328,349,413,432,458,474,496,515,578 };
-		for (int j = 0; j < 19; j++)
+		for (int j = 0; j < 600; j++)
 		{
-			y_edge[j] = y_edge_init[j];
+			y_edge[j] = j + 1;
 		}
-
 	}
 	bool box::HitEraser(RedPlayer *redplayer)
 	{
@@ -90,73 +74,60 @@ namespace game_framework {
 	}
 	bool box::OnBox(int tx1, int ty1, int tx2, int ty2)
 	{
-		int x1 = x + dx;				
-		int y1 = y + dy;				
-		int x2 = x1 + bmp.Width();	
-		int y2 = y1 + bmp.Height();	
+		int x1 = x + dx;
+		int y1 = y + dy;
+		int x2 = x1 + bmp.Width();
+		int y2 = y1 + bmp.Height();
 
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 	void box::setfloor()
 	{
-		if ((x + 20 >= 20 && x + 20 < 266 && y + 35 < 578 && y + 35 >= 515) || \
-			(x + 20 >= 266 && x + 20 < 717 && y + 35 >= 474 && y + 35 < 578) || \
-			(x + 20 >= 266 && x + 20 < 370 && y + 35 >= 433 && y + 35 < 474) || \
-			(x + 20 >= 695 && x + 20 < 717 && y + 35 >= 350 && y + 35 < 517))
-		{
-			floor = 578 - 35;
+		if ((map[(y + 38) / 10][(x + 40) / 10]) || (map[(y + 38) / 10][(x + 30) / 10]) == 1) {
+			if ((map[(y + 48) / 10][(x) / 10]) || (map[(y + 48) / 10][(x + 30) / 10]) == 1) {
+				if ((map[(y + 58) / 10][(x) / 10]) || (map[(y + 58) / 10][(x + 30) / 10]) == 1) {
+					if ((map[(y + 68) / 10][(x) / 10]) || (map[(y + 68) / 10][(x + 30) / 10]) == 1) {
+						if ((map[(y + 78) / 10][(x) / 10]) || (map[(y + 78) / 10][(x + 30) / 10]) == 1) {
+							if ((map[(y + 88) / 10][(x) / 10]) || (map[(y + 88) / 10][(x + 30) / 10]) == 1) {
+								if ((map[(y + 98) / 10][(x) / 10]) || (map[(y + 98) / 10][(x + 30) / 10]) == 1) {
+									if ((map[(y + 108) / 10][(x) / 10]) || (map[(y + 108) / 10][(x + 30) / 10]) == 1) {
+										if ((map[(y + 118) / 10][(x) / 10]) || (map[(y + 118) / 10][(x + 30) / 10]) == 1) {
+											floor = (((y + 38) / 10) + 9) * 10;
+										}
+										else {
+											floor = (((y + 38) / 10) + 8) * 10;
+										}
+									}
+									else {
+										floor = (((y + 38) / 10) + 7) * 10;
+									}
+								}
+								else {
+									floor = (((y + 38) / 10) + 6) * 10;
+								}
+							}
+							else {
+								floor = (((y + 38) / 10) + 5) * 10;
+							}
+						}
+						else {
+							floor = (((y + 38) / 10) + 4) * 10;
+						}
+					}
+					else {
+						floor = (((y + 38) / 10) + 3) * 10;
+					}
+				}
+				else {
+					floor = (((y + 38) / 10) + 2) * 10;
+				}
+			}
+			else {
+				floor = (((y + 38) / 10) + 1) * 10;
+			}
 		}
-		else if (x + 20 >= 717 && x + 20 < 778 && y + 35 < 578 && y + 35 >= 350)
-		{
-			floor = 517 - 35;
-		}
-		else if ((x + 20 >= 20 && x + 20 < 266 && y + 35 >= 432 && y + 35 < 496))
-		{
-			floor = 496 - 35;
-		}
-		else if ((x + 20 >= 389 && x + 20 < 695 && y + 35 >= 350 && y + 35 < 458))
-		{
-			floor = 458 - 35;
-		}
-		else if ((x + 20 >= 20 && x + 20 < 392 && y + 35 >= 329 && y + 35 < 413) || \
-			(x + 20 >= 20 && x + 20 < 103 && y + 35 >= 247 && y + 35 < 329))
-		{
-			floor = 413 - 35;
-		}
-		else if ((x + 20 >= 103 && x + 20 < 414 && y + 35 >= 247 && y + 35 < 311))
-		{
-			floor = 311 - 35;
-		}
-		else if ((x + 20 >= 414 && x + 20 < 591 && y + 35 >= 247 && y + 35 < 331) || \
-			(x + 20 >= 591 && x + 20 < 778 && y + 40 >= 267 && y + 35 < 331) || \
-			(x + 20 >= 694 && x + 20 < 778 && y + 40 >= 144 && y + 35 < 267))
-		{
-			floor = 331 - 35;
-		}
-		else if ((x + 20 >= 553 && x + 20 < 591 && y + 35 >= 144 && y + 35 < 247) || \
-			(x + 20 >= 591 && x + 20 < 694 && y + 35 >= 144 && y + 35 < 267) || \
-			(x + 20 >= 348 && x + 20 < 411 && y + 35 >= 144 && y + 35 < 229) || \
-			(x + 20 >= 246 && x + 20 < 348 && y + 35 >= 186 && y + 35 < 229) || \
-			(x + 20 >= 122 && x + 20 < 246 && y + 35 >= 102 && y + 35 < 229) || \
-			(x + 20 >= 122 && x + 20 < 203 && y + 35 >= 21 && y + 35 < 102))
-		{
-			floor = 229 - 35;
-		}
-		else if ((x + 20 >= 411 && x + 20 < 553 && y + 40 >= 144 && y + 40 < 188))
-		{
-			floor = 188 - 35;
-		}
-		else if ((x + 20 >= 21 && x + 20 < 203 && y + 40 >= 21 && y + 40 < 229))
-		{
-			floor = 148 - 35;
-		}
-		else if ((x + 20 >= 203 && x + 20 < 269 && y + 40 >= 21 && y + 40 < 84))
-		{
-			floor = 84 - 35;
-		}
-		else if ((x + 20 >= 269 && x + 20 < 778 && y + 40 >= 21 && y + 40 < 102))
-		{
-			floor = 102 - 18;
+		else {
+			floor = ((y + 38) / 10) * 10;
 		}
 	}
 	void box::LoadBitmap()
@@ -172,43 +143,43 @@ namespace game_framework {
 		}
 		bool result = 1;
 		if (value == 0) {
-			for (int i = 0; i < 15; i++)
+			for (int i = 0; i < 800; i++)
 			{
-				if (x >= x_edge[i]) {
+				if (x == x_edge[i]) {
 					x_coord = i;
 				}
 			}
-			for (int i = 0; i < 19; i++)
+			for (int i = 0; i < 600; i++)
 			{
-				if (y + value >= y_edge[i]) {
+				if (y + value == y_edge[i]) {
 					ycoord = i;
 				}
 			}
-			result = map[ycoord][x_coord] && result;
+			result = map[ycoord/10][x_coord/10] && result;
 		}
 		else
 		{
-			for (int i = 0; i < 15; i++)
+			for (int i = 0; i < 800; i++)
 			{
-				if (x >= x_edge[i]) {
+				if (x == x_edge[i]) {
 					x_coord = i;
 				}
 			}
 
 			for (int j = 5; j < 35; j += 3)
 			{
-				for (int i = 0; i < 19; i++)
+				for (int i = 0; i <600 ; i++)
 				{
 					if (y + j >= y_edge[i]) {
 						ycoord = i;
 					}
 				}
-				result = map[ycoord][x_coord] && result;
+				result = map[ycoord/10][x_coord/10] && result;
 			}
 
 		}
 
-		return map[ycoord][x_coord];
+		return map[ycoord/10][x_coord/10];
 	}
 	void box::OnMove()
 	{
@@ -241,7 +212,7 @@ namespace game_framework {
 				inertia = false;
 				velocity = initial_velocity;
 			}
-		}	
+		}
 	}
 	void box::SetIsAlive(bool alive)
 	{

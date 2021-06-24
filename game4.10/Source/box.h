@@ -1,6 +1,7 @@
 #include "IcePlayer.h"
 #include "RedPlayer.h"
-
+#include <fstream> 
+extern bool current_rank;
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// 這個class提供繞圈圈的球
@@ -28,7 +29,7 @@ namespace game_framework {
 		int GetY1();
 	protected:
 		CMovingBitmap bmp;			// 球的圖	
-
+		CGameMap gamemap;
 		bool isMovingDown;			// 是否正在往下移動
 		bool isMovingLeft;			// 是否正在往左移動
 		bool isMovingRight;			// 是否正在往右移動
@@ -38,9 +39,9 @@ namespace game_framework {
 		int index;					// 球的「角度」，0-17表示0-360度
 		int delay_counter;			// 調整旋轉速度的計數器
 		int delay;					// 旋轉的速度
-		int map[18][14];
-		int x_edge[15];
-		int y_edge[19];
+		int map[60][80];
+		int x_edge[800];
+		int y_edge[600];
 		bool is_alive;				// 是否活著
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	// 是否碰到參數範圍的矩形
