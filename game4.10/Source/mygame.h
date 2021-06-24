@@ -114,6 +114,7 @@ namespace game_framework {
 	private:
 		bool JUMP, UP;
 		static CGameMap getMap();
+		
 		const int		NUMRED;	// 球的總數
 		const int		NUMICE;
 		const int		LAKERED;	// 水的總數
@@ -122,7 +123,7 @@ namespace game_framework {
 		const int		NUMMOD;
 		const int		NUMBUT;
 		CMovingBitmap	background;	// 背景圖
-		CMovingBitmap	help;		// 說明圖
+
 		RedDiamond		*diamond1;	// 鑽石的陣列
 		IceDiamond		*diamond2;
 		CInteger		hits_left;
@@ -139,6 +140,53 @@ namespace game_framework {
 		box				box;
 		Button			*button;
 	};
+	class CGameStateRun2 : public CGameState {
+	public:
+		CGameStateRun2(CGame *g);
+		~CGameStateRun2();
+		CGameMap gamemap;
+		void OnBeginState();							// 設定每次重玩所需的變數
+		void OnInit();  								// 遊戲的初值及圖形設定
+		void OnKeyDown(UINT, UINT, UINT);
+		void OnKeyUp(UINT, UINT, UINT);
+		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
+		void OnLButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
+		void OnMouseMove(UINT nFlags, CPoint point);	// 處理滑鼠的動作 
+		void OnRButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
+		void OnRButtonUp(UINT nFlags, CPoint point);	// 處理滑鼠的動作
+	protected:
+		void OnMove();									// 移動遊戲元素
+		void OnShow();									// 顯示這個狀態的遊戲畫面
+	private:
+		bool JUMP, UP;
+		static CGameMap getMap();
+
+		const int		NUMRED;	// 球的總數
+		const int		NUMICE;
+		const int		LAKERED;	// 水的總數
+		const int		LAKEICE;
+		const int		LAKEGREEN;
+		const int		NUMMOD;
+		const int		NUMBUT;
+		CMovingBitmap	background;	// 背景圖
+
+		RedDiamond		*diamond1;	// 鑽石的陣列
+		IceDiamond		*diamond2;
+		CInteger		hits_left;
+		CInteger		hits_lake;// 剩下的撞擊數
+		CInteger		hits_door;
+		RedPlayer		player1;
+		IcePlayer		player2;
+		RedLake			*Lake1;
+		IceLake			*Lake2;
+		Greenlake		*Lake3;
+		RedDoor			reddoor;
+		IceDoor			icedoor;
+		Mood			*mood;
+		box				box;
+		Button			*button;
+	};
+	/////////////////////////////////////////////////////////////////////////////
 
 	/////////////////////////////////////////////////////////////////////////////
 	// 這個class為遊戲的結束狀態(Game Over)
@@ -192,5 +240,5 @@ namespace game_framework {
 		int counter;	// 倒數之計數器
 		CMovingBitmap bg;
 	};
-
+	
 }

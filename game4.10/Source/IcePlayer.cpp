@@ -42,7 +42,7 @@ namespace game_framework {
 		const int FLOOR = 496 - 52;				// ¦aªO®y¼Ð
 		const int X_POS = 42;
 		const int Y_POS = 446;
-		gamemap.ReadFile();
+		gamemap.ReadFile(1);
 		floor = FLOOR;
 		x = X_POS;
 		y = Y_POS;
