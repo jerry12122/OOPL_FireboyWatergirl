@@ -168,7 +168,7 @@ namespace game_framework {
 		floor = FLOOR;
 		//x = X_POS;
 		//y = Y_POS;
-		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
+		isMovingLeft = isMovingRight = isMovingUp = isMovingDown=isOnBox=isFrontBox = false;
 		rising = false;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
@@ -446,7 +446,7 @@ namespace game_framework {
 		{
 			floor = 102 - 18;
 		}*/
-		if(x + 20 >= 122 && x + 20 < 157 && y + 40 >= 21 && y + 40 < 229)
+		if((x + 20 >= 122 && x + 20 < 157 && y + 40 >= 21 && y + 40 < 229)&&isOnBox)
 		{
 			floor = 194;
 		}
