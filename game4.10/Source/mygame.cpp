@@ -989,14 +989,11 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 			}
 		}
 	}
-<<<<<<< HEAD
 	if (box.HitEraser(&player1) || box.HitEraser(&player2)) {
 		box.SetMovingLeft(true);
 		player1.SetFloor(box.GetX1(), box.GetY1());
 		player1.SetBox(true);
 	}
-=======
->>>>>>> e79f27376976c788b549df7471c79a4ad01e9b90
 
 
 	/*
