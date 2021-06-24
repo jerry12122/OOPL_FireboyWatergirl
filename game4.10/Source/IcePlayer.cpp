@@ -186,6 +186,25 @@ namespace game_framework {
 		}
 
 		return map[ycoord / 10][x_coord / 10];
+<<<<<<< HEAD
+=======
+	}
+	bool IcePlayer::frontBox(int bx, int by)
+	{
+		int x1 = bx;
+		int y1 = by;
+		int x2 = x1 + 35;
+		int y2 = y1 + 35;
+		return (x + 40 >= x1 && x <= x2 && y + 40 >= y1 && y <= y2);
+	}
+	bool IcePlayer::onBox(int bx, int by)
+	{
+		int x1 = bx;
+		int y1 = by - 20;
+		int x2 = x1 + 35;
+		int y2 = y1 + 40;
+		return (x + 40 >= x1 && x <= x2 && y + 40 >= y1 && y <= y2);
+>>>>>>> 8777f74c3ec76684f4c9fe2472b3ce5220342c9c
 	}
 	int IcePlayer::getCoordX(int x, int y)
 	{
@@ -325,7 +344,11 @@ namespace game_framework {
 		}
 
 		if (isMovingLeft)
+<<<<<<< HEAD
 			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20 && isFrontBox == false) {
+=======
+			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20) {
+>>>>>>> 8777f74c3ec76684f4c9fe2472b3ce5220342c9c
 				x -= STEP_SIZE;
 				setfloor();
 			}
