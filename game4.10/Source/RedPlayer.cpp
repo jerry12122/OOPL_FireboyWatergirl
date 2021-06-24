@@ -568,6 +568,22 @@ namespace game_framework {
 		MY = MY;
 	}
 
+	void RedPlayer::SetFloor(int xx, int yy) {
+		int pot = xx;
+		int dot = yy;
+		for (int i = pot; i < (pot + 4); i++) {
+			if (i > pot + 1) {
+				map[dot][i] = 1;
+				map[dot + 1][i] = 1;
+				map[dot + 2][i] = 1;
+			}
+			else {
+				map[dot][i] = 0;
+				map[dot + 1][i] = 0;
+				map[dot + 2][i] = 0;
+			}
+		}
+	}
 	void RedPlayer::SetMovingDown(bool flag)
 	{
 		isMovingDown = flag;

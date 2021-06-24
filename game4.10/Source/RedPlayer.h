@@ -15,7 +15,7 @@ namespace game_framework {
 		void OnShow();
 		void setMap(int x, int y, int v);
 		void SetStage(int _stage);
-		void ReadFile(int stages);
+		void ReadFile();
 		int remap();
 		int mapCoordinate(int x, int y);
 		int GetX();
@@ -34,7 +34,6 @@ namespace game_framework {
 		int MW, MH;
 		int sizeX, sizeY;
 		int stage;
-		int success;
 	};
 
 
@@ -53,22 +52,23 @@ namespace game_framework {
 		int GetY1();
 		int GetX2();
 		int GetY2();
-		void Initialize(int stages);				// 設定擦子為初始值
+		void Initialize();				// 設定擦子為初始值
 		void LoadBitmap();				// 載入圖形
 		void OnMove();					// 移動擦子
 		void OnMove1();
 		void OnShow();					// 將擦子圖形貼到畫面
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
-		void SetFloor(int);
+		void SetFloor(int xx, int yy);
 		void SetVelocity(int);
 		bool isLeftRightEmpty(int x, int y, int value);
 		int getCoordX(int x, int y);
 		int getCoordY(int x, int y);
 		void setfloor();
-		bool frontBox(int x,int y);
+		bool frontBox(int x, int y);
 		bool onBox(int x, int y);
 		void setFront(bool a);
 		void setOnBox(bool a);
+		void SetBox(bool flag);
 		int map[60][80];
 		int x_edge[800];
 		int y_edge[600];
@@ -78,6 +78,7 @@ namespace game_framework {
 		CGameMap gamemap;
 		static CGameMap getMap();
 		int x, y;					// 擦子左上角座標
+		int xxx, yyy;
 		int gem = 0;
 		void Addgem();
 		int getgem();
@@ -98,7 +99,7 @@ namespace game_framework {
 		bool isOnBox;
 		bool isButton;
 		bool isMood;
-		int  MY;
-		int stage;
+		bool isBox;
+		int  MY, pot, dot;
 	};
 }

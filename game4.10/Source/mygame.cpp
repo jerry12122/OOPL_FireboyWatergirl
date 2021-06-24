@@ -994,6 +994,8 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 	}
 	if (box.HitEraser(&player1) || box.HitEraser(&player2)) {
 		box.SetMovingLeft(true);
+		player1.SetFloor(box.GetX1(), box.GetY1());
+		player1.SetBox(true);
 	}
 
 
