@@ -449,7 +449,7 @@ namespace game_framework {
 						map[(i + 38) / 10][j] = 0;
 						map[((i + 38) / 10) - 1][j] = 1;
 					}
-					y = MY-38;
+					y += 1;
 					setfloor();
 				}
 			}
@@ -463,7 +463,7 @@ namespace game_framework {
 							map[((i + 38) / 10) + 1][j] = 1;
 						}
 					}
-					y = MY-38;
+					y -= 1;
 					setfloor();
 				}
 			}
