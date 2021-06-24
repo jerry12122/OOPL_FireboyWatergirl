@@ -516,10 +516,12 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			}
 		}
 	}
-	if (box.HitEraser(&player1)||box.HitEraser(&player2)) {
+
+	if (box.HitEraser(&player1) || box.HitEraser(&player2)) {
 		box.SetMovingLeft(true);
 	}
-
+	player1.setFront(player1.frontBox(box.GetX1(), box.GetY1()));
+	player1.setOnBox(player1.onBox(box.GetX1(), box.GetY1()));
 
 	/*
 	if (box.OnBox(player1.GetX1(), player1.GetX2(), player1.GetY1(), player1.GetY2())) {
@@ -998,14 +1000,7 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 			}
 		}
 	}
-<<<<<<< HEAD
-	if (box.HitEraser(&player1) || box.HitEraser(&player2)) {
-		box.SetMovingLeft(true);
-		player1.SetFloor(box.GetX1(), box.GetY1());
-		player1.SetBox(true);
-	}
-=======
->>>>>>> 39f0ffe06b43a40bc143588c5e2b7d82dc85f392
+
 
 
 	/*
