@@ -12,13 +12,17 @@ namespace game_framework {
 		void LoadBitmap();										// 載入圖形
 		void OnMove();											// 移動
 		void OnMove1();
+		void OnMove2();
+		void OnMove3();
 		void OnShow();											// 將圖形貼到畫面
 		void OnShow1();
+		void OnShow2();
+		void OnShow3();
 		void SetXY(int nx, int ny);								// 設定圓心的座標
 		int ReY();
 		void SetIsAlive(bool alive);							// 設定是否活著
 	protected:
-		CMovingBitmap but, mo;			// 球的圖	
+		CMovingBitmap but, mo ,mo2 ,mo3;			// 球的圖	
 		int x, y;					// 圓心的座標
 		bool is_alive;				// 是否活著
 	private:

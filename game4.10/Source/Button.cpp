@@ -50,13 +50,52 @@ namespace game_framework {
 
 		but.LoadBitmap(BUTTON_1, RGB(255, 255, 255));
 		mo.LoadBitmap(MOOD, RGB(255, 255, 255));
-
+		mo2.LoadBitmap(MOOD_2, RGB(255, 255, 255));
+		mo3.LoadBitmap(MOOD_2, RGB(255, 255, 255));
 	}
 	void Button::OnMove()
 	{
 		return;
 	}
 	void Button::OnMove1()
+	{
+		if (is_alive)
+			if (y >= 230) {
+				y -= 1;
+			}
+			else {
+				y = y;
+			}
+		else {
+			if (y <= 320) {
+				y += 1;
+			}
+			else {
+				y = y;
+			}
+		}
+		return;
+	}
+	void Button::OnMove2()
+	{
+		if (is_alive)
+			if (y >= 230) {
+				y -= 1;
+			}
+			else {
+				y = y;
+			}
+		else {
+			if (y <= 320) {
+				y += 1;
+			}
+			else {
+				y = y;
+			}
+		}
+		return;
+	}
+	void Button::OnMove3()
 	{
 		if (is_alive)
 			if (y >= 230) {
@@ -110,6 +149,28 @@ namespace game_framework {
 		else {
 			mo.SetTopLeft(x, y);
 			mo.ShowBitmap();
+		}
+	}
+	void Button::OnShow2()
+	{
+		if (is_alive) {
+			mo2.SetTopLeft(x, y);
+			mo2.ShowBitmap();
+		}
+		else {
+			mo2.SetTopLeft(x, y);
+			mo2.ShowBitmap();
+		}
+	}
+	void Button::OnShow3()
+	{
+		if (is_alive) {
+			mo3.SetTopLeft(x, y);
+			mo3.ShowBitmap();
+		}
+		else {
+			mo3.SetTopLeft(x, y);
+			mo3.ShowBitmap();
 		}
 	}
 }

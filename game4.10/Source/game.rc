@@ -194,6 +194,8 @@ DOT                     BITMAP                  "..\\..\\res\\dot.bmp"
 
 IDB_MENU                BITMAP                  "..\\..\\res\\menu.bmp"
 
+MOOD_2                  BITMAP                  "..\\..\\res\\mood2.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

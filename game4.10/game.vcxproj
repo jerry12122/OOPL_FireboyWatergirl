@@ -395,6 +395,7 @@
     <Image Include="..\res\menu.bmp" />
     <Image Include="..\res\midmood.bmp" />
     <Image Include="..\res\mood1.bmp" />
+    <Image Include="..\res\mood2.bmp" />
     <Image Include="..\res\NEXT.bmp" />
     <Image Include="..\res\rightmood.bmp" />
     <Image Include="..\res\time.bmp" />
