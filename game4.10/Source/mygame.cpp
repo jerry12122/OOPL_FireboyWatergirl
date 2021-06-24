@@ -1298,7 +1298,7 @@ void CGameStateRun2::OnShow()
 	}
 	button[0].OnShow();
 	button[1].OnShow2();
-	button[2].OnShow();
+	button[2].OnShow2();
 	for (int i = 0; i < LAKERED; i++)
 	{
 		Lake1[i].OnShow();				// 貼上第i號球
