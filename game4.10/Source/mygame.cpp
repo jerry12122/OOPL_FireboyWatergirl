@@ -183,7 +183,15 @@ void CGameStateOver::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 	if ((point.x > 444 && point.x < 556) && (point.y > 337 && point.y < 376))
 	{
-		GotoGameState(GAME_STATE_RUN);
+		if (stage == 0)
+		{
+			GotoGameState(GAME_STATE_RUN);
+		}
+		
+		if (stage == 1)
+		{
+			GotoGameState(GAME_STATE_RUN2);
+		}
 	}
 }
 void CGameStateOver::OnMove()
