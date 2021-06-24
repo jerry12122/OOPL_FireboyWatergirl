@@ -15,7 +15,7 @@ namespace game_framework {
 		void OnShow();
 		void setMap(int x, int y, int v);
 		void SetStage(int _stage);
-		void ReadFile();
+		void ReadFile(int stages);
 		int remap();
 		int mapCoordinate(int x, int y);
 		int GetX();
@@ -52,7 +52,7 @@ namespace game_framework {
 		int GetY1();
 		int GetX2();
 		int GetY2();
-		void Initialize();				// 設定擦子為初始值
+		void Initialize(int stages);				// 設定擦子為初始值
 		void LoadBitmap();				// 載入圖形
 		void OnMove();					// 移動擦子
 		void OnMove1();
@@ -101,5 +101,6 @@ namespace game_framework {
 		bool isMood;
 		bool isBox;
 		int  MY, pot, dot;
+		int stage;
 	};
 }
