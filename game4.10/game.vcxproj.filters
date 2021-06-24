@@ -373,41 +373,5 @@
     <Image Include="..\res\GREEN_RAKE.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\res\WIN.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\BOYGIRL.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\DIM.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\time.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\NEXT.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\GOLD.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\bad.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\GOOD.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\CONTINUE.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\dot.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\res\menu.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>

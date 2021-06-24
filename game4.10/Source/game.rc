@@ -112,7 +112,7 @@ IDB_GREEN               BITMAP                  "..\\res\\bitmap5.bmp"
 
 IDB_GAME_MENU           BITMAP                  "..\\..\\res\\GAME_MENU.bmp"
 
-IDB_MAP1                BITMAP                  "..\\..\\res\\1.bmp"
+IDB_MAP1                BITMAP                  "..\\..\\res\\demo_map.bmp"
 
 ICE_DIAMOND             BITMAP                  "..\\..\\res\\ICE_DIAMOND.bmp"
 
@@ -171,28 +171,6 @@ MOOD                    BITMAP                  "..\\..\\res\\mood1.bmp"
 BUTTON_1                BITMAP                  "..\\..\\res\\BUTTON.bmp"
 
 GREEN_LAKE              BITMAP                  "..\\..\\res\\GREEN_RAKE.bmp"
-
-Win                     BITMAP                  "..\\..\\res\\WIN.bmp"
-
-BOYGIRL                 BITMAP                  "..\\..\\res\\BOYGIRL.bmp"
-
-DIM                     BITMAP                  "..\\..\\res\\DIM.bmp"
-
-Alarm                   BITMAP                  "..\\..\\res\\time.bmp"
-
-NEXT                    BITMAP                  "..\\..\\res\\NEXT.bmp"
-
-GOLD                    BITMAP                  "..\\..\\res\\GOLD.bmp"
-
-BAD                     BITMAP                  "..\\..\\res\\bad.bmp"
-
-GOOD                    BITMAP                  "..\\..\\res\\GOOD.bmp"
-
-CONTI                   BITMAP                  "..\\..\\res\\CONTINUE.bmp"
-
-DOT                     BITMAP                  "..\\..\\res\\dot.bmp"
-
-IDB_MENU                BITMAP                  "..\\..\\res\\menu.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////
