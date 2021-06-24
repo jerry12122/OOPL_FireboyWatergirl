@@ -89,7 +89,7 @@ static int	stage2_diamond1[8][2] = { {161,550},{247,550},{484,487} ,{576,487}, {
 			stage2_Lake2_position[2][2] = { {453,579}, {125,517} },
 			stage2_Lake3_position[2][2] = { {164,310},{474,310} },
 			stage2_mood_position[2][2] = { {260,380} ,{300,300}  },
-			stage2_button_position[3][2] = { {140,390},{400,300},(500,300)};
+			stage2_button_position[3][2] = { {140,390},{400,300},(300,300)};
 //NUMRED,NUMICE, LAKERED, LAKEICE, LAKEGREEN, NUMMOD, NUMBUT
 CGameStateInit::CGameStateInit(CGame *g)
 : CGameState(g)

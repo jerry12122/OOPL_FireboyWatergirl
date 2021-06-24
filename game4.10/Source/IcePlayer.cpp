@@ -134,7 +134,7 @@ namespace game_framework {
 					ycoord = i;
 				}
 			}
-			result = map[ycoord/10][x_coord/10] && result;
+			result = map[ycoord / 10][x_coord / 10] && result;
 		}
 		else
 		{
@@ -153,12 +153,12 @@ namespace game_framework {
 						ycoord = i;
 					}
 				}
-				result = map[ycoord/10][x_coord/10] && result;
+				result = map[ycoord / 10][x_coord / 10] && result;
 			}
 
 		}
 
-		return map[ycoord/10][x_coord/10];
+		return map[ycoord / 10][x_coord / 10];
 	}
 	bool IcePlayer::frontBox(int bx, int by)
 	{
@@ -276,7 +276,7 @@ namespace game_framework {
 		}
 
 		if (isMovingLeft)
-			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20 ) {
+			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20) {
 				x -= STEP_SIZE;
 				setfloor();
 			}
@@ -285,15 +285,15 @@ namespace game_framework {
 				x += STEP_SIZE;
 				setfloor();
 			}
-		if (isMovingUp){
+		if (isMovingUp) {
 			rising = true;
 			isMovingUp = false;
-		} 
+		}
 		if (rising) {			// ¤W¤Éª¬ºA
 			if (velocity > 0) {
 				if (!isLeftRightEmpty(x, y - 1, 0))
 				{
-					velocity-=2;
+					velocity -= 2;
 					setfloor();
 				}
 				else
