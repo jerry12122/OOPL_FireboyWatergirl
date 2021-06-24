@@ -23,9 +23,10 @@ namespace game_framework {
 		void OnShow();											// 將圖形貼到畫面
 		void SetXY(int nx, int ny);								// 設定圓心的座標
 		void SetIsAlive(bool alive);							// 設定是否活著
-		bool isLeftRightEmpty(int x, int y, int value);	
+		bool isLeftRightEmpty(int x, int y, int value);
 		void setfloor();// 設定旋轉的速度
 		bool OnBox(int tx1, int ty1, int tx2, int ty2);
+		int GetX1();
 		int GetY1();
 	protected:
 		CMovingBitmap bmp;			// 球的圖	
@@ -45,7 +46,7 @@ namespace game_framework {
 		bool is_alive;				// 是否活著
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	// 是否碰到參數範圍的矩形
-		
+
 		bool inertia;
 		int initial_velocity;	// 初始速度
 		int velocity;			// 目前的速度(點/次)

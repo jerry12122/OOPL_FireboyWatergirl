@@ -23,11 +23,11 @@ namespace game_framework {
 	void box::init()
 	{
 		gamemap.~CGameMap();
-		gamemap.ReadFile();
+		gamemap.ReadFile(1);
 		const int INITIAL_VELOCITY = 6;
 		x = y = index = delay_counter = 0;
 		dx = dy = 35;
-		floor = 100;
+		floor = 190;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
 		inertia = false;
@@ -65,8 +65,8 @@ namespace game_framework {
 	{
 		int x1 = x;				// 球的左上角x座標
 		int y1 = y;				// 球的左上角y座標
-		int x2 = x1 + dx;	// 球的右下角x座標
-		int y2 = y1 + dy;	// 球的右下角y座標
+		int x2 = x1 + 45;	// 球的右下角x座標
+		int y2 = y1 + 30;	// 球的右下角y座標
 									//
 									// 檢測球的矩形與參數矩形是否有交集
 									//
@@ -83,51 +83,34 @@ namespace game_framework {
 	}
 	void box::setfloor()
 	{
-		if ((map[(y + 38) / 10][(x + 40) / 10]) || (map[(y + 38) / 10][(x + 30) / 10]) == 1) {
-			if ((map[(y + 48) / 10][(x) / 10]) || (map[(y + 48) / 10][(x + 30) / 10]) == 1) {
-				if ((map[(y + 58) / 10][(x) / 10]) || (map[(y + 58) / 10][(x + 30) / 10]) == 1) {
-					if ((map[(y + 68) / 10][(x) / 10]) || (map[(y + 68) / 10][(x + 30) / 10]) == 1) {
-						if ((map[(y + 78) / 10][(x) / 10]) || (map[(y + 78) / 10][(x + 30) / 10]) == 1) {
-							if ((map[(y + 88) / 10][(x) / 10]) || (map[(y + 88) / 10][(x + 30) / 10]) == 1) {
-								if ((map[(y + 98) / 10][(x) / 10]) || (map[(y + 98) / 10][(x + 30) / 10]) == 1) {
-									if ((map[(y + 108) / 10][(x) / 10]) || (map[(y + 108) / 10][(x + 30) / 10]) == 1) {
-										if ((map[(y + 118) / 10][(x) / 10]) || (map[(y + 118) / 10][(x + 30) / 10]) == 1) {
-											floor = (((y + 38) / 10) + 9) * 10;
-										}
-										else {
-											floor = (((y + 38) / 10) + 8) * 10;
-										}
-									}
-									else {
-										floor = (((y + 38) / 10) + 7) * 10;
-									}
-								}
-								else {
-									floor = (((y + 38) / 10) + 6) * 10;
-								}
-							}
-							else {
-								floor = (((y + 38) / 10) + 5) * 10;
-							}
+		if ((map[(y + 30) / 10][(x) / 10]) && (map[(y + 30) / 10][(x + 30) / 10]) == 1) {
+			if ((map[(y + 40) / 10][(x) / 10]) && (map[(y + 40) / 10][(x + 30) / 10]) == 1) {
+				if ((map[(y + 50) / 10][(x) / 10]) && (map[(y + 50) / 10][(x + 30) / 10]) == 1) {
+					if ((map[(y + 60) / 10][(x) / 10]) && (map[(y + 60) / 10][(x + 30) / 10]) == 1) {
+						if ((map[(y + 70) / 10][(x) / 10]) && (map[(y + 70) / 10][(x + 30) / 10]) == 1) {
+							floor = (((y + 30) / 10) + 5) * 10;
 						}
 						else {
-							floor = (((y + 38) / 10) + 4) * 10;
+							floor = (((y + 30) / 10) + 4) * 10;
 						}
 					}
 					else {
-						floor = (((y + 38) / 10) + 3) * 10;
+						floor = (((y + 30) / 10) + 3) * 10;
 					}
 				}
 				else {
-					floor = (((y + 38) / 10) + 2) * 10;
+					floor = (((y + 30) / 10) + 2) * 10;
 				}
 			}
 			else {
-				floor = (((y + 38) / 10) + 1) * 10;
+				floor = (((y + 30) / 10) + 1) * 10;
 			}
 		}
 		else {
-			floor = ((y + 38) / 10) * 10;
+			floor = ((y + 30) / 10) * 10;
+		}
+		if (floor >= 580) {
+			floor = 579;
 		}
 	}
 	void box::LoadBitmap()
@@ -155,7 +138,7 @@ namespace game_framework {
 					ycoord = i;
 				}
 			}
-			result = map[ycoord/10][x_coord/10] && result;
+			result = map[ycoord / 10][x_coord / 10] && result;
 		}
 		else
 		{
@@ -168,22 +151,22 @@ namespace game_framework {
 
 			for (int j = 5; j < 35; j += 3)
 			{
-				for (int i = 0; i <600 ; i++)
+				for (int i = 0; i < 600; i++)
 				{
 					if (y + j >= y_edge[i]) {
 						ycoord = i;
 					}
 				}
-				result = map[ycoord/10][x_coord/10] && result;
+				result = map[ycoord / 10][x_coord / 10] && result;
 			}
 
 		}
 
-		return map[ycoord/10][x_coord/10];
+		return map[ycoord / 10][x_coord / 10];
 	}
 	void box::OnMove()
 	{
-		y = floor;
+		y = floor - 30;
 		if (isMovingLeft) {
 			if (isLeftRightEmpty(x - 7, y, 1) && x > 20) {
 				x -= 7;
@@ -223,8 +206,10 @@ namespace game_framework {
 	{
 		x = nx;
 		y = ny;
-		setfloor();
-		floor = ny;
+	}
+	int box::GetX1()
+	{
+		return x;
 	}
 	int box::GetY1()
 	{
