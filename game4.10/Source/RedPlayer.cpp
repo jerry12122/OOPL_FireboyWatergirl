@@ -125,7 +125,7 @@ namespace game_framework {
 
 	CGameMap::~CGameMap() {
 	}
-	
+
 	RedPlayer::RedPlayer()
 	{
 		Initialize();
@@ -155,7 +155,7 @@ namespace game_framework {
 		gamemap.~CGameMap();
 		gamemap.ReadFile();
 		const int INITIAL_VELOCITY = 11;	// 初始上升速度
-		const int FLOOR = 579;	
+		const int FLOOR = 579;
 		// 地板座標
 		const int X_POS = 42;
 		const int Y_POS = 542;
@@ -209,16 +209,16 @@ namespace game_framework {
 		{
 			for (int j = 0; j < 80; j++)
 			{
-				map[i][j] = gamemap.mapCoordinate(j,i);
+				map[i][j] = gamemap.mapCoordinate(j, i);
 			}
 		}
 		for (int j = 0; j < 800; j++)
 		{
-			x_edge[j] = j+1;
+			x_edge[j] = j + 1;
 		}
 		for (int j = 0; j < 600; j++)
 		{
-			y_edge[j] = j+1;
+			y_edge[j] = j + 1;
 		}
 	}
 	void RedPlayer::LoadBitmap()
@@ -231,18 +231,18 @@ namespace game_framework {
 		animation1.AddBitmap(FIRE_LEFT_RUN_3, RGB(255, 255, 255));
 		bit.LoadBitmap(FIRE_FRONT, RGB(255, 255, 255));
 	}
-	bool RedPlayer::frontBox(int bx,int by)
+	bool RedPlayer::frontBox(int bx, int by)
 	{
 		int x1 = bx;
 		int y1 = by;
 		int x2 = x1 + 35;
 		int y2 = y1 + 35;
-		return (x+40 >= x1 && x <= x2 && y+40 >= y1 && y <= y2);
+		return (x + 40 >= x1 && x <= x2 && y + 40 >= y1 && y <= y2);
 	}
 	bool RedPlayer::onBox(int bx, int by)
 	{
 		int x1 = bx;
-		int y1 = by-20;
+		int y1 = by - 20;
 		int x2 = x1 + 35;
 		int y2 = y1 + 40;
 		return (x + 40 >= x1 && x <= x2 && y + 40 >= y1 && y <= y2);
@@ -272,9 +272,9 @@ namespace game_framework {
 					ycoord = i;
 				}
 			}
-			result = map[ycoord/10][x_coord/10] && result;
+			result = map[ycoord / 10][x_coord / 10] && result;
 		}
-		else 
+		else
 		{
 			for (int i = 0; i < 800; i++)
 			{
@@ -282,8 +282,8 @@ namespace game_framework {
 					x_coord = i;
 				}
 			}
-			
-			for (int j = 5; j < 35; j+=3)
+
+			for (int j = 5; j < 35; j += 3)
 			{
 				for (int i = 0; i < 600; i++)
 				{
@@ -291,12 +291,12 @@ namespace game_framework {
 						ycoord = i;
 					}
 				}
-				result = map[ycoord/10][x_coord/10] && result;
+				result = map[ycoord / 10][x_coord / 10] && result;
 			}
 
 		}
 
-		return map[ycoord/10][x_coord/10];
+		return map[ycoord / 10][x_coord / 10];
 	}
 	int RedPlayer::getCoordX(int x, int y)
 	{
@@ -322,8 +322,8 @@ namespace game_framework {
 	}
 	void RedPlayer::setfloor()
 	{
-		if ((map[(y+38)/10][(x+40)/10] )|| (map[(y + 38) / 10][(x + 30) / 10])== 1) {
-			if ((map[(y + 48) / 10][(x ) / 10] ) || (map[(y + 48) / 10][(x+30) / 10]) ==1) {
+		if ((map[(y + 38) / 10][(x + 40) / 10]) || (map[(y + 38) / 10][(x + 30) / 10]) == 1) {
+			if ((map[(y + 48) / 10][(x) / 10]) || (map[(y + 48) / 10][(x + 30) / 10]) == 1) {
 				if ((map[(y + 58) / 10][(x) / 10]) || (map[(y + 58) / 10][(x + 30) / 10]) == 1) {
 					if ((map[(y + 68) / 10][(x) / 10]) || (map[(y + 68) / 10][(x + 30) / 10]) == 1) {
 						if ((map[(y + 78) / 10][(x) / 10]) || (map[(y + 78) / 10][(x + 30) / 10]) == 1) {
@@ -362,11 +362,11 @@ namespace game_framework {
 				}
 			}
 			else {
-				floor = (((y + 38) / 10)+1) * 10;
+				floor = (((y + 38) / 10) + 1) * 10;
 			}
 		}
 		else {
-			floor = ((y +38)/ 10) * 10;
+			floor = ((y + 38) / 10) * 10;
 		}
 		if (floor >= 580) {
 			floor = 579;
@@ -420,7 +420,7 @@ namespace game_framework {
 			{
 				floor = 229 - 40;
 			}
-			
+
 		}
 		else if ((x + 20 >= 411 && x + 20 < 553 && y + 40 >= 144 && y + 40 < 188))
 		{
@@ -440,35 +440,29 @@ namespace game_framework {
 		}*/
 	}
 	void RedPlayer::OnMove1() {
-		const int STEP_SIZE = 7;
-		int a = 0;
+		int a = MY / 10;
 		if (isButton) {
-			if (x > 710 && x < 780 && y >= 192 && y < 292) {
-				for (int i = y; i < 282; i++) {
-					for (int j = 71; j <= 77; j++) {
-						map[(i + 38) / 10][j] = 0;
-						map[((i + 38) / 10) - 1][j] = 1;
-					}
-					y = i;
-					setfloor();
+			if (x > 710 && x < 780 && y >= 192 && y < 282) {
+				for (int j = 71; j <= 77; j++) {
+					map[a][j] = 0;
+					map[a - 1][j] = 1;
 				}
+				y = a * 10 - 38;
+				setfloor();
 			}
 		}
 		else {
-			if (x > 710 && x < 780 && y >= 192 && y < 292) {
-				for (int i = y; i >=192; i--) {
-					for (int j = 71; j <= 77; j++) {
-						map[(i + 38) / 10][j] = 0;
-						if ((((i + 38) / 10)) <= 31) {
-							map[((i + 38) / 10) + 1][j] = 1;
-						}
+			if (x > 710 && x < 780 && y >= 192 && y < 282) {
+				for (int j = 71; j <= 77; j++) {
+					map[a][j] = 0;
+					if (a <= 31) {
+						map[a + 1][j] = 1;
 					}
-					y = i;
+					y = a * 10 - 38;
 					setfloor();
 				}
 			}
 		}
-
 	}
 	void RedPlayer::OnMove()
 	{
