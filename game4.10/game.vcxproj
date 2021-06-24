@@ -351,12 +351,18 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\res\1.bmp" />
     <Image Include="..\res\1.png" />
+    <Image Include="..\res\bad.bmp" />
     <Image Include="..\res\bitmap7.bmp" />
     <Image Include="..\res\box.bmp" />
+    <Image Include="..\res\BOYGIRL.bmp" />
     <Image Include="..\res\BUTTON.bmp" />
+    <Image Include="..\res\CONTINUE.bmp" />
     <Image Include="..\res\demo_map.bmp" />
+    <Image Include="..\res\DIM.bmp" />
     <Image Include="..\res\DOOR_OPEN.bmp" />
+    <Image Include="..\res\dot.bmp" />
     <Image Include="..\res\FIRE_DIAMOND.bmp" />
     <Image Include="..\res\FIRE_DOOR_CLOSE.bmp" />
     <Image Include="..\res\FIRE_FRONT.bmp" />
@@ -369,6 +375,8 @@
     <Image Include="..\res\FIRE_RIGHT_RUN_3.bmp" />
     <Image Include="..\res\GAMEOVER.bmp" />
     <Image Include="..\res\GAME_MENU.bmp" />
+    <Image Include="..\res\GOLD.bmp" />
+    <Image Include="..\res\GOOD.bmp" />
     <Image Include="..\res\GREEN_RAKE.bmp" />
     <Image Include="..\res\ICE_DIAMOND.bmp" />
     <Image Include="..\res\ICE_DOOR_CLOSE.bmp" />
@@ -384,9 +392,13 @@
     <Image Include="..\res\ICE_RIGHT_RUN_2.bmp" />
     <Image Include="..\res\ICE_RIGHT_RUN_3.bmp" />
     <Image Include="..\res\leftmood.bmp" />
+    <Image Include="..\res\menu.bmp" />
     <Image Include="..\res\midmood.bmp" />
     <Image Include="..\res\mood1.bmp" />
+    <Image Include="..\res\NEXT.bmp" />
     <Image Include="..\res\rightmood.bmp" />
+    <Image Include="..\res\time.bmp" />
+    <Image Include="..\res\WIN.bmp" />
     <Image Include="Image.bmp" />
     <Image Include="res\bitmap3.bmp" />
     <Image Include="res\bitmap4.bmp" />

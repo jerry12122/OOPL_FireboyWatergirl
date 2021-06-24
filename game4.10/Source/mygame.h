@@ -53,6 +53,9 @@
 #include "Mood.h"
 #include "box.h"
 #include "Greenlake.h"
+#include <fstream> 
+extern bool current_rank;
+
 
 
 namespace game_framework {
@@ -95,6 +98,7 @@ namespace game_framework {
 	public:
 		CGameStateRun(CGame *g);
 		~CGameStateRun();
+		CGameMap gamemap;
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();  								// 遊戲的初值及圖形設定
 		void OnKeyDown(UINT, UINT, UINT);
@@ -108,6 +112,8 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
+		bool JUMP, UP;
+		static CGameMap getMap();
 		const int		NUMRED;	// 球的總數
 		const int		NUMICE;
 		const int		LAKERED;	// 水的總數
@@ -151,6 +157,40 @@ namespace game_framework {
 	private:
 		int counter;	// 倒數之計數器
 		CMovingBitmap gameover;
+	};
+	class CGameStateWin : public CGameState {
+	public:
+		CGameStateWin(CGame *g);
+		void OnLButtonDown(UINT nFlags, CPoint point);
+		void OnBeginState();							// 設定每次重玩所需的變數
+		void OnInit();
+	protected:
+		void OnMove();									// 移動遊戲元素
+		void OnShow();									// 顯示這個狀態的遊戲畫面
+	private:
+		int counter;	// 倒數之計數器
+		CMovingBitmap gamewinspace;
+		CMovingBitmap alarm;
+		CMovingBitmap boygirl;
+		CMovingBitmap dim;
+		CMovingBitmap good;
+		CMovingBitmap bad;
+		CMovingBitmap next;
+		CMovingBitmap gold;
+		CMovingBitmap conti;
+	};
+	class CGameStateMenu : public CGameState {
+	public:
+		CGameStateMenu(CGame *g);
+		void OnLButtonDown(UINT nFlags, CPoint point);
+		void OnBeginState();							// 設定每次重玩所需的變數
+		void OnInit();
+	protected:
+		void OnMove();									// 移動遊戲元素
+		void OnShow();									// 顯示這個狀態的遊戲畫面
+	private:
+		int counter;	// 倒數之計數器
+		CMovingBitmap bg;
 	};
 
 }

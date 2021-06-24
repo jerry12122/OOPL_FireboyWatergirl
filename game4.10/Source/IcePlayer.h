@@ -1,4 +1,5 @@
 #pragma once
+#include "RedPlayer.h"
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// 這個class提供可以用鍵盤或滑鼠控制的擦子
@@ -33,6 +34,7 @@ namespace game_framework {
 	protected:
 		CAnimation animation, animation1;		// 擦子的動畫
 		CMovingBitmap bit;
+		CGameMap gamemap;
 		int x, y;					// 擦子左上角座標
 		bool isMovingDown;			// 是否正在往下移動
 		bool isMovingLeft;			// 是否正在往左移動
@@ -44,8 +46,8 @@ namespace game_framework {
 		bool rising;			// true表上升、false表下降
 		int initial_velocity;	// 初始速度
 		int velocity;			// 目前的速度(點/次)
-		int map[18][14];
-		int x_edge[15];
-		int y_edge[19];
+		int map[60][80];
+		int x_edge[800];
+		int y_edge[600];
 	};
 }

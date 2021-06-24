@@ -1,7 +1,4 @@
 #include "IcePlayer.h"
-//<<<<<<< HEAD
-
-//=======
 #pragma once
 namespace game_framework {
 	class RedLake
