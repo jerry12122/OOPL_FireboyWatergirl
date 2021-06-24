@@ -892,8 +892,6 @@ void CGameStateRun2::OnBeginState()
 	reddoor.SetXY(34, 52);
 	icedoor.SetIsAlive(true);
 	icedoor.SetXY(106, 52);
-	box.init();
-	box.SetXY(500, 160);
 
 	background.SetTopLeft(0, 0);				// 設定背景的起始座標
 		// 設定說明圖的起始座標
@@ -928,7 +926,6 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 	button[2].OnMove();
 	reddoor.OnMove();
 	icedoor.OnMove();
-	box.OnMove();
 	//
 	// 判斷擦子是否碰到球
 	//
@@ -992,11 +989,14 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 			}
 		}
 	}
+<<<<<<< HEAD
 	if (box.HitEraser(&player1) || box.HitEraser(&player2)) {
 		box.SetMovingLeft(true);
 		player1.SetFloor(box.GetX1(), box.GetY1());
 		player1.SetBox(true);
 	}
+=======
+>>>>>>> e79f27376976c788b549df7471c79a4ad01e9b90
 
 
 	/*
@@ -1101,7 +1101,6 @@ void CGameStateRun2::OnInit()  								// 遊戲的初值及圖形設定
 	for (i = 0; i < NUMBUT; i++) {
 		button[i].LoadBitmap();
 	}
-	box.LoadBitmap();
 	background.LoadBitmap(IDB_MAP1);					// 載入背景的圖形
 	//
 	// 完成部分Loading動作，提高進度
@@ -1295,7 +1294,6 @@ void CGameStateRun2::OnShow()
 	{
 		button[i].OnShow();				// 貼上第i號球
 	}
-	box.OnShow();
 	for (int i = 0; i < LAKERED; i++)
 	{
 		Lake1[i].OnShow();				// 貼上第i號球
