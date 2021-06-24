@@ -887,7 +887,8 @@ void CGameStateRun2::OnBeginState()
 	}
 	player1.Initialize(stage+1);
 	player2.Initialize();
-	player1.SetXY(42, 542);
+	player1.SetXY(28, 542);
+	player2.SetXY(80, 542);
 	reddoor.SetIsAlive(true);
 	reddoor.SetXY(34, 52);
 	icedoor.SetIsAlive(true);
@@ -989,11 +990,14 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 			}
 		}
 	}
+<<<<<<< HEAD
 	if (box.HitEraser(&player1) || box.HitEraser(&player2)) {
 		box.SetMovingLeft(true);
 		player1.SetFloor(box.GetX1(), box.GetY1());
 		player1.SetBox(true);
 	}
+=======
+>>>>>>> 39f0ffe06b43a40bc143588c5e2b7d82dc85f392
 
 
 	/*

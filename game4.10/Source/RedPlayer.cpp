@@ -156,6 +156,7 @@ namespace game_framework {
 	}
 	void RedPlayer::Initialize(int stages)
 	{
+		stage = stages;
 		gamemap.~CGameMap();
 		gamemap.ReadFile(stages);
 		const int INITIAL_VELOCITY = 11;	// 初始上升速度
