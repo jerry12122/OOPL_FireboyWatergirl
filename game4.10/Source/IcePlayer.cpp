@@ -14,8 +14,9 @@ namespace game_framework {
 
 	IcePlayer::IcePlayer()
 	{
-		Initialize();
+		Initialize(stage);
 	}
+
 	int IcePlayer::GetX1()
 	{
 		return x;
@@ -35,22 +36,25 @@ namespace game_framework {
 	{
 		return y + animation.Height();
 	}
-
-	void IcePlayer::Initialize()
+	void IcePlayer::Initialize(int stages)
 	{
-		const int INITIAL_VELOCITY = 12;	// 初始上升速度
-		const int FLOOR = 496 - 52;				// 地板座標
+		stage = stages;
+		gamemap.ReadFile(stages);
+		const int INITIAL_VELOCITY = 13;	// 初始上升速度
+		const int FLOOR = 462;
+		// 地板座標
 		const int X_POS = 42;
-		const int Y_POS = 446;
-		gamemap.ReadFile(1);
+		const int Y_POS = 542;
+		MY = 230;
 		floor = FLOOR;
-		x = X_POS;
-		y = Y_POS;
-		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = false;
+		//x = X_POS;
+		//y = Y_POS;
+		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = isOnBox = isFrontBox = false;
 		rising = false;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
-		/*int map_init[18][14] = {
+		/*
+		int map_init[18][14] = {
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{1,1,1,0,0,1,1,1,1,1,1,1,1,1},
 			{1,1,1,1,0,1,1,1,1,1,1,1,1,1},
@@ -113,53 +117,6 @@ namespace game_framework {
 		animation1.AddBitmap(ICE_LEFT_RUN_3, RGB(255, 255, 255));
 		bit.LoadBitmap(ICE_FRONT, RGB(255, 255, 255));
 	}
-	bool IcePlayer::isLeftRightEmpty(int x, int y, int value)
-	{
-		int x_coord = 0, ycoord = 0;
-		if (x < 21 || x>778 || y < 21 || y>578)
-		{
-			return 0;
-		}
-		bool result = 1;
-		if (value == 0) {
-			for (int i = 0; i < 800; i++)
-			{
-				if (x >= x_edge[i]) {
-					x_coord = i;
-				}
-			}
-			for (int i = 0; i < 600; i++)
-			{
-				if (y + value >= y_edge[i]) {
-					ycoord = i;
-				}
-			}
-			result = map[ycoord/10][x_coord/10] && result;
-		}
-		else
-		{
-			for (int i = 0; i < 800; i++)
-			{
-				if (x >= x_edge[i]) {
-					x_coord = i;
-				}
-			}
-
-			for (int j = 5; j < 35; j += 3)
-			{
-				for (int i = 0; i < 600; i++)
-				{
-					if (y + j >= y_edge[i]) {
-						ycoord = i;
-					}
-				}
-				result = map[ycoord/10][x_coord/10] && result;
-			}
-
-		}
-
-		return map[ycoord/10][x_coord/10];
-	}
 	bool IcePlayer::frontBox(int bx, int by)
 	{
 		int x1 = bx;
@@ -176,81 +133,162 @@ namespace game_framework {
 		int y2 = y1 + 40;
 		return (x + 40 >= x1 && x <= x2 && y + 40 >= y1 && y <= y2);
 	}
+	void IcePlayer::setOnBox(bool a) {
+		isOnBox = a;
+	}
 	void IcePlayer::setFront(bool a)
 	{
 		isFrontBox = a;
 	}
-	void IcePlayer::setOnBox(bool a)
+	bool IcePlayer::isLeftRightEmpty(int x, int y, int value)
 	{
-		isOnBox = a;
+		int x_coord = 0, ycoord = 0;
+		if (x < 21 || x>788 || y < 21 || y>578)
+		{
+			return 0;
+		}
+		bool result = 1;
+		if (value == 0) {
+			for (int i = 0; i < 800; i++)
+			{
+				if (x == x_edge[i]) {
+					x_coord = i;
+				}
+			}
+			for (int i = 0; i < 600; i++)
+			{
+				if (y + value == y_edge[i]) {
+					ycoord = i;
+				}
+			}
+			result = map[ycoord / 10][x_coord / 10] && result;
+		}
+		else
+		{
+			for (int i = 0; i < 800; i++)
+			{
+				if (x == x_edge[i]) {
+					x_coord = i;
+				}
+			}
+
+			for (int j = 5; j < 35; j += 3)
+			{
+				for (int i = 0; i < 600; i++)
+				{
+					if (y + j == y_edge[i]) {
+						ycoord = i;
+					}
+				}
+				result = map[ycoord / 10][x_coord / 10] && result;
+			}
+
+		}
+
+		return map[ycoord / 10][x_coord / 10];
+	}
+	int IcePlayer::getCoordX(int x, int y)
+	{
+		int x_coord = 0, ycoord = 0;
+		for (int i = 0; i < 800; i++)
+		{
+			if (x >= x_edge[i]) {
+				x_coord = i;
+			}
+		}
+		return x_coord;
+	}
+	int IcePlayer::getCoordY(int x, int y)
+	{
+		int x_coord = 0, ycoord = 0;
+		for (int i = 0; i < 600; i++)
+		{
+			if (y >= y_edge[i]) {
+				ycoord = i;
+			}
+		}
+		return ycoord;
 	}
 	void IcePlayer::setfloor()
 	{
-		if ((x + 20 >= 20 && x + 20 < 266 && y + 40 < 578 && y + 40 >= 515) || \
-			(x + 20 >= 266 && x + 20 < 717 && y + 40 >= 474 && y + 40 < 578) || \
-			(x + 20 >= 266 && x + 20 < 370 && y + 40 >= 433 && y + 40 < 474) || \
-			(x + 20 >= 695 && x + 20 < 717 && y + 40 >= 350 && y + 40 < 517))
-		{
-			floor = 578 - 40;
-		}
-		else if (x + 20 >= 717 && x + 20 < 800 && y + 40 < 600 && y + 40 >= 350)
-		{
-			floor = 517 - 40;
-		}
-		else if ((x + 20 >= 20 && x + 20 < 266 && y + 40 >= 432 && y + 40 < 496))
-		{
-			floor = 496 - 40;
-		}
-		else if ((x + 20 >= 389 && x + 20 < 695 && y + 40 >= 350 && y + 40 < 458))
-		{
-			floor = 458 - 40;
-		}
-		else if ((x + 20 >= 20 && x + 20 < 392 && y + 40 >= 329 && y + 40 < 413) || \
-			(x + 20 >= 20 && x + 20 < 103 && y + 40 >= 247 && y + 40 < 329))
-		{
-			floor = 413 - 40;
-		}
-		else if ((x + 20 >= 103 && x + 20 < 414 && y + 40 >= 247 && y + 40 < 311))
-		{
-			floor = 311 - 40;
-		}
-		else if ((x + 20 >= 414 && x + 20 < 591 && y + 40 >= 247 && y + 40 < 331) || \
-			(x + 20 >= 591 && x + 20 < 778 && y + 40 >= 267 && y + 40 < 331) || \
-			(x + 20 >= 694 && x + 20 < 778 && y + 40 >= 144 && y + 40 < 267))
-		{
-			floor = 331 - 40;
-		}
-		else if ((x + 20 >= 553 && x + 20 < 591 && y + 40 >= 144 && y + 40 < 247) || \
-			(x + 20 >= 591 && x + 20 < 694 && y + 40 >= 144 && y + 40 < 267) || \
-			(x + 20 >= 348 && x + 20 < 411 && y + 40 >= 144 && y + 40 < 229) || \
-			(x + 20 >= 246 && x + 20 < 348 && y + 40 >= 186 && y + 40 < 229) || \
-			(x + 20 >= 122 && x + 20 < 246 && y + 40 >= 102 && y + 40 < 229) || \
-			(x + 20 >= 122 && x + 20 < 203 && y + 40 >= 21 && y + 40 < 102))
-		{
-			if (isOnBox)
-			{
-				floor = 229 - 40 - 35;
+		if ((map[(y + 38) / 10][(x) / 10]) || (map[(y + 38) / 10][(x + 30) / 10]) == 1) {
+			if ((map[(y + 48) / 10][(x) / 10]) || (map[(y + 48) / 10][(x + 30) / 10]) == 1) {
+				if ((map[(y + 58) / 10][(x) / 10]) || (map[(y + 58) / 10][(x + 30) / 10]) == 1) {
+					if ((map[(y + 68) / 10][(x) / 10]) || (map[(y + 68) / 10][(x + 30) / 10]) == 1) {
+						if ((map[(y + 78) / 10][(x) / 10]) || (map[(y + 78) / 10][(x + 30) / 10]) == 1) {
+							if ((map[(y + 88) / 10][(x) / 10]) || (map[(y + 88) / 10][(x + 30) / 10]) == 1) {
+								if ((map[(y + 98) / 10][(x) / 10]) || (map[(y + 98) / 10][(x + 30) / 10]) == 1) {
+									if ((map[(y + 108) / 10][(x) / 10]) || (map[(y + 108) / 10][(x + 30) / 10]) == 1) {
+										if ((map[(y + 118) / 10][(x) / 10]) || (map[(y + 118) / 10][(x + 30) / 10]) == 1) {
+
+											floor = (((y + 38) / 10) + 9) * 10;
+										}
+										else {
+											floor = (((y + 38) / 10) + 8) * 10;
+										}
+									}
+									else {
+										floor = (((y + 38) / 10) + 7) * 10;
+									}
+								}
+								else {
+									floor = (((y + 38) / 10) + 6) * 10;
+								}
+							}
+							else {
+								floor = (((y + 38) / 10) + 5) * 10;
+							}
+						}
+						else {
+							floor = (((y + 38) / 10) + 4) * 10;
+						}
+					}
+					else {
+						floor = (((y + 38) / 10) + 3) * 10;
+					}
+				}
+				else {
+					floor = (((y + 38) / 10) + 2) * 10;
+				}
 			}
-			else
-			{
-				floor = 229 - 40;
+			else {
+				floor = (((y + 38) / 10) + 1) * 10;
 			}
 		}
-		else if ((x + 20 >= 411 && x + 20 < 553 && y + 40 >= 144 && y + 40 < 188))
-		{
-			floor = 188 - 40;
+		else {
+			floor = ((y + 38) / 10) * 10;
 		}
-		else if ((x + 20 >= 21 && x + 20 < 203 && y + 40 >= 21 && y + 40 < 229))
-		{
-			floor = 148 - 40;
+		if (floor >= 580) {
+			floor = 579;
 		}
-		else if ((x + 20 >= 203 && x + 20 < 269 && y + 40 >= 21 && y + 40 < 84))
+		if ((x + 20 >= 122 && x + 20 < 157 && y + 40 >= 21 && y + 40 < 229) && isOnBox)
 		{
-			floor = 84 - 40;
+			floor = 194;
 		}
-		else if ((x + 20 >= 269 && x + 20 < 778 && y + 40 >= 21 && y + 40 < 102))
-		{
-			floor = 102 - 18;
+	}
+	void IcePlayer::OnMove1() {
+		int a = MY / 10;
+		if (isButton) {
+			if (x > 710 && x < 780 && y >= 192 && y < 282) {
+				for (int j = 71; j <= 77; j++) {
+					map[a][j] = 0;
+					map[a - 1][j] = 1;
+				}
+				y = a * 10 - 38;
+				setfloor();
+			}
+		}
+		else {
+			if (x > 710 && x < 780 && y >= 192 && y < 282) {
+				for (int j = 71; j <= 77; j++) {
+					map[a][j] = 0;
+					if (a <= 31) {
+						map[a + 1][j] = 1;
+					}
+					y = a * 10 - 38;
+					setfloor();
+				}
+			}
 		}
 	}
 	void IcePlayer::OnMove()
@@ -258,6 +296,16 @@ namespace game_framework {
 		const int STEP_SIZE = 7;
 		animation.OnMove();
 		animation1.OnMove();
+		if (isMood) {
+			for (int i = 2; i <= 8; i++) {
+				map[37][i] = 0;
+			}
+		}
+		else {
+			for (int i = 2; i <= 8; i++) {
+				map[37][i] = 1;
+			}
+		}
 		/*
 		if (isLeftRightEmpty(x, y+55)&&y+55<578)
 		{
@@ -272,28 +320,29 @@ namespace game_framework {
 		}
 		*/
 		if (!rising && velocity == initial_velocity) {
-			y = floor;
+			y = floor - 38;
+
 		}
 
 		if (isMovingLeft)
-			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20 ) {
+			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20 && isFrontBox == false) {
 				x -= STEP_SIZE;
 				setfloor();
 			}
 		if (isMovingRight)
-			if (isLeftRightEmpty(x + 45 + STEP_SIZE, y, 1) && x < 778) {
+			if (isLeftRightEmpty(x + 38 + STEP_SIZE, y, 1) && x < 778) {
 				x += STEP_SIZE;
 				setfloor();
 			}
-		if (isMovingUp){
+		if (isMovingUp) {
 			rising = true;
 			isMovingUp = false;
-		} 
+		}
 		if (rising) {			// 上升狀態
 			if (velocity > 0) {
 				if (!isLeftRightEmpty(x, y - 1, 0))
 				{
-					velocity-=2;
+					velocity -= 2;
 					setfloor();
 				}
 				else
@@ -311,14 +360,21 @@ namespace game_framework {
 
 		}
 		else {				// 下降狀態
-			if (y < floor - 1) {  // 當y座標還沒碰到地板
-				y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
-				velocity++;		// 受重力影響，下次的下降速度增加
-				setfloor();
+			if (y < floor - 39) {  // 當y座標還沒碰到地板
+				if (velocity < 9) {
+					y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
+					velocity++;		// 受重力影響，下次的下降速度增加
+					setfloor();
+
+				}
+				else {
+					y += velocity;
+					setfloor();
+				}
 			}
 			else {
 				setfloor();
-				y = floor - 1;  // 當y座標低於地板，更正為地板上
+				y = floor - 38;  // 當y座標低於地板，更正為地板上
 				rising = false;	// 探底反彈，下次改為上升
 				velocity = initial_velocity;
 				// 重設上升初始速度
@@ -326,7 +382,33 @@ namespace game_framework {
 			isMovingUp = false;
 		};
 		if (isMovingDown)
-			y = floor;
+			y = floor - 38;
+	}
+	void IcePlayer::SetButton(bool flag) {
+		isButton = flag;
+	}
+	void IcePlayer::SetMood(bool flag) {
+		isMood = flag;
+	}
+	void IcePlayer::MoodY(int MY) {
+		MY = MY;
+	}
+
+	void IcePlayer::SetFloor(int xx, int yy) {
+		int pot = xx;
+		int dot = yy;
+		for (int i = pot; i < (pot + 4); i++) {
+			if (i > pot + 1) {
+				map[dot][i] = 1;
+				map[dot + 1][i] = 1;
+				map[dot + 2][i] = 1;
+			}
+			else {
+				map[dot][i] = 0;
+				map[dot + 1][i] = 0;
+				map[dot + 2][i] = 0;
+			}
+		}
 	}
 	void IcePlayer::SetMovingDown(bool flag)
 	{
@@ -357,12 +439,7 @@ namespace game_framework {
 		this->velocity = velocity;
 		this->initial_velocity = velocity;
 	}
-	void IcePlayer::SetFloor(int floor)
-	{
-		this->floor = floor;
-	}
-	void IcePlayer::OnShow()
-	{
+	void IcePlayer::OnShow() {
 		if (isMovingLeft) {
 			animation1.SetTopLeft(x, y);
 			animation1.OnShow();
