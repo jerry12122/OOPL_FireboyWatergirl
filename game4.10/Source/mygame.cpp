@@ -887,7 +887,8 @@ void CGameStateRun2::OnBeginState()
 	}
 	player1.Initialize(stage+1);
 	player2.Initialize();
-	player1.SetXY(42, 542);
+	player1.SetXY(28, 542);
+	player2.SetXY(80, 542);
 	reddoor.SetIsAlive(true);
 	reddoor.SetXY(34, 52);
 	icedoor.SetIsAlive(true);
