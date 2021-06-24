@@ -88,8 +88,8 @@ static int	stage2_diamond1[8][2] = { {161,550},{247,550},{484,487} ,{576,487}, {
 			stage2_Lake1_position[2][2] = { {125,579} ,{454,517} },
 			stage2_Lake2_position[2][2] = { {453,579}, {125,517} },
 			stage2_Lake3_position[2][2] = { {164,310},{474,310} },
-			stage2_mood_position[1][2] = { {260,380} },
-			stage2_button_position[2][2] = { {101,402},{644,402} };
+			stage2_mood_position[2][2] = { {260,380} ,{300,300}  },
+			stage2_button_position[3][2] = { {140,390},{644,402},(300,300)};
 //NUMRED,NUMICE, LAKERED, LAKEICE, LAKEGREEN, NUMMOD, NUMBUT
 CGameStateInit::CGameStateInit(CGame *g)
 : CGameState(g)
@@ -510,7 +510,9 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 	if (box.HitEraser(&player1)||box.HitEraser(&player2)) {
 		box.SetMovingLeft(true);
+		player1.SetFloor(box.GetX1(), box.GetY1());
 	}
+
 
 
 	/*
@@ -822,7 +824,7 @@ void CGameStateRun::OnShow()
 	player2.OnShow();
 }
 CGameStateRun2::CGameStateRun2(CGame *g)
-	: CGameState(g), NUMRED(8), NUMICE(8), LAKERED(2), LAKEICE(2), LAKEGREEN(2), NUMMOD(1), NUMBUT(2)
+	: CGameState(g), NUMRED(8), NUMICE(8), LAKERED(2), LAKEICE(2), LAKEGREEN(2), NUMMOD(1), NUMBUT(3)
 {
 	diamond1 = new RedDiamond[NUMRED];
 	diamond2 = new IceDiamond[NUMICE];
@@ -920,6 +922,7 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 	mood[1].OnMove1();
 	button[0].OnMove();
 	button[1].OnMove1();
+	button[2].OnMove();
 	player1.MoodY(button[1].ReY());
 	player1.OnMove();
 	player2.OnMove();
@@ -990,14 +993,7 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 			}
 		}
 	}
-<<<<<<< HEAD
-	if (box.HitEraser(&player1) || box.HitEraser(&player2)) {
-		box.SetMovingLeft(true);
-		player1.SetFloor(box.GetX1(), box.GetY1());
-		player1.SetBox(true);
-	}
-=======
->>>>>>> 39f0ffe06b43a40bc143588c5e2b7d82dc85f392
+	
 
 
 	/*
@@ -1291,10 +1287,9 @@ void CGameStateRun2::OnShow()
 	{
 		mood[i].OnShow();				// 貼上第i號球
 	}
-	for (int i = 0; i < NUMBUT; i++)
-	{
-		button[i].OnShow();				// 貼上第i號球
-	}
+	button[0].OnShow();
+	button[1].OnShow1();
+	button[2].OnShow();
 	for (int i = 0; i < LAKERED; i++)
 	{
 		Lake1[i].OnShow();				// 貼上第i號球
