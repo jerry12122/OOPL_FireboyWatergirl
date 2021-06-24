@@ -861,37 +861,37 @@ void CGameStateRun2::OnBeginState()
 	//const int STAGE = 1;
 	gamemap.ReadFile(stage+1);
 	for (int i = 0; i < NUMRED; i++) {				// 設定球的起始座標
-		diamond1[i].SetXY(stage1_diamond1[i][0], stage1_diamond1[i][1]);
+		diamond1[i].SetXY(stage2_diamond1[i][0], stage2_diamond1[i][1]);
 		diamond1[i].SetIsAlive(true);
 	}
 	for (int i = 0; i < NUMICE; i++) {				// 設定球的起始座標
-		diamond2[i].SetXY(stage1_diamond2[i][0], stage1_diamond2[i][1]);
+		diamond2[i].SetXY(stage2_diamond2[i][0], stage2_diamond2[i][1]);
 		diamond2[i].SetIsAlive(true);
 	}
 	for (int i = 0; i < LAKERED; i++) {				// 設定球的起始座標
-		Lake1[i].SetXY(stage1_Lake1_position[i][0], stage1_Lake1_position[i][1]);
+		Lake1[i].SetXY(stage2_Lake1_position[i][0], stage2_Lake1_position[i][1]);
 	}
 	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
-		Lake2[i].SetXY(stage1_Lake2_position[i][0], stage1_Lake2_position[i][1]);
+		Lake2[i].SetXY(stage2_Lake2_position[i][0], stage2_Lake2_position[i][1]);
 	}
 	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
-		Lake3[i].SetXY(stage1_Lake3_position[i][0], stage1_Lake3_position[i][1]);
+		Lake3[i].SetXY(stage2_Lake3_position[i][0], stage2_Lake3_position[i][1]);
 	}
 	for (int i = 0; i < NUMMOD; i++) {				// 設定球的起始座標
-		mood[i].SetXY(stage1_mood_position[i][0], stage1_mood_position[i][1]);
+		mood[i].SetXY(stage2_mood_position[i][0], stage2_mood_position[i][1]);
 		mood[i].SetIsAlive(true);
 	}
 	for (int i = 0; i < NUMBUT; i++) {				// 設定球的起始座標
-		button[i].SetXY(stage1_button_position[i][0], stage1_button_position[i][1]);
+		button[i].SetXY(stage2_button_position[i][0], stage2_button_position[i][1]);
 		button[i].SetIsAlive(true);
 	}
 	player1.Initialize(stage+1);
 	player2.Initialize();
 	player1.SetXY(42, 542);
 	reddoor.SetIsAlive(true);
-	reddoor.SetXY(690, 60);
+	reddoor.SetXY(34, 52);
 	icedoor.SetIsAlive(true);
-	icedoor.SetXY(600, 60);
+	icedoor.SetXY(106, 52);
 	box.init();
 	box.SetXY(500, 160);
 
@@ -1272,6 +1272,7 @@ void CGameStateRun2::OnShow()
 	//
 	background.ShowBitmap();			// 貼上背景圖
 	gamemap.OnShow();
+	
 	// 貼上說明圖
 	//hits_left.ShowBitmap();
 
@@ -1281,14 +1282,17 @@ void CGameStateRun2::OnShow()
 	{
 		diamond2[i].OnShow();
 	}
-
+	
 	reddoor.OnShow();
 	icedoor.OnShow();
-	mood[0].OnShow();
-	mood[1].OnShow1();
-	button[0].OnShow();
-	button[1].OnShow1();
-	button[2].OnShow();
+	for (int i = 0; i < NUMMOD; i++)
+	{
+		mood[i].OnShow();				// 貼上第i號球
+	}
+	for (int i = 0; i < NUMBUT; i++)
+	{
+		button[i].OnShow();				// 貼上第i號球
+	}
 	box.OnShow();
 	for (int i = 0; i < LAKERED; i++)
 	{
