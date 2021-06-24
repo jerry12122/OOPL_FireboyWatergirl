@@ -521,7 +521,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		player1.SetFloor(box.GetX1(), box.GetY1());
 	}
 
-
+	player1.setFront(player1.frontBox(box.GetX1(), box.GetY1()));
+	player1.setOnBox(player1.onBox(box.GetX1(), box.GetY1()));
 
 	/*
 	if (box.OnBox(player1.GetX1(), player1.GetX2(), player1.GetY1(), player1.GetY2())) {

@@ -446,7 +446,10 @@ namespace game_framework {
 		{
 			floor = 102 - 18;
 		}*/
-
+		if(x + 20 >= 122 && x + 20 < 157 && y + 40 >= 21 && y + 40 < 229)
+		{
+			floor = 194;
+		}
 	}
 	void RedPlayer::OnMove1() {
 		int a = MY / 10;
@@ -502,14 +505,7 @@ namespace game_framework {
 		}
 		*/
 		if (!rising && velocity == initial_velocity) {
-			if (isOnBox)
-			{
-				y = floor - 38-35;
-			}
-			else
-			{
-				y = floor - 38;
-			}
+			y = floor - 38;
 			
 		}
 
@@ -554,6 +550,7 @@ namespace game_framework {
 					y += velocity;	// y軸下降(移動velocity個點，velocity的單位為 點/次)
 					velocity++;		// 受重力影響，下次的下降速度增加
 					setfloor();
+
 				}
 				else {
 					y += velocity;
