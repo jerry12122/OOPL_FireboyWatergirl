@@ -334,12 +334,13 @@ void CGameStateRun::OnBeginState()
 	gamemap.ReadFile();
 	player1.Initialize();
 	player2.Initialize();
+	player1.SetXY(42, 542);
 	reddoor.SetIsAlive(true);
 	reddoor.SetXY(690, 60);
 	icedoor.SetIsAlive(true);
 	icedoor.SetXY(600, 60);
 	box.init();
-	box.SetXY(500, 150);
+	box.SetXY(500, 160);
 	const int button_position[3][2] = { {270,295},{710,230} ,{600,215} };
 	for (int i = 0; i < NUMBUT; i++) {				// 設定球的起始座標
 		button[i].SetXY(button_position[i][0], button_position[i][1]);
@@ -361,7 +362,6 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
-
 	int i;
 	for (i = 0; i < NUMRED; i++)
 		diamond1[i].OnMove();
@@ -369,12 +369,14 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	{
 		diamond2[i].OnMove();
 	}
-	player1.OnMove();
-	player2.OnMove();
 	mood[0].OnMove();
 	mood[1].OnMove1();
 	button[0].OnMove();
 	button[1].OnMove1();
+	player1.MoodY(button[1].ReY());
+	player1.OnMove();
+	player2.OnMove();
+	player1.OnMove1();
 	button[2].OnMove();
 	reddoor.OnMove();
 	icedoor.OnMove();
@@ -470,29 +472,36 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	if ((mood[0].IsAlive()) && (mood[0].HitPlayer(&player2))) {
 		mood[0].SetIsAlive(false);
 		mood[1].SetIsAlive(false);
+		player1.SetMood(true);
 	}
 	if ((mood[0].IsAlive()) && (mood[0].HitPlayer(&player1))) {
 		mood[0].SetIsAlive(false);
 		mood[1].SetIsAlive(false);
+		player1.SetMood(true);
 	}
-	//if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player2))) {
-		//mood[0].SetIsAlive(true);
-		//mood[1].SetIsAlive(true);
-	//}
-	//if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player1))) {
-		//mood[0].SetIsAlive(true);
-		//mood[1].SetIsAlive(true);
-	//}
+	if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player2))) {
+		mood[0].SetIsAlive(true);
+		mood[1].SetIsAlive(true);
+		player1.SetMood(false);
+	}
+	if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player1))) {
+		mood[0].SetIsAlive(true);
+		mood[1].SetIsAlive(true);
+		player1.SetMood(false);
+	}
 	if (button[0].IsAlive() && ((button[0].HitPlayer(&player2)) || button[0].HitPlayer(&player1))) {
 		button[0].SetIsAlive(false);
 		button[1].SetIsAlive(false);
+		player1.SetButton(true);
 	}
 	if (button[2].IsAlive() && ((button[2].HitPlayer(&player2)) || button[2].HitPlayer(&player1))) {
 		button[2].SetIsAlive(false);
 		button[1].SetIsAlive(false);
+		player1.SetButton(true);
 	}
 	if (!((button[0].IsAlive()) && (button[2].IsAlive())) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2)) && !(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
 		button[1].SetIsAlive(true);
+		player1.SetButton(false);
 
 	}
 	if (!(button[0].IsAlive()) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2))) {
