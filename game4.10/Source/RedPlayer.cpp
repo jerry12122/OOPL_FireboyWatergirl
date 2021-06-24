@@ -41,9 +41,13 @@ namespace game_framework {
 		stage = 1;
 	}
 
-	void CGameMap::ReadFile() {
+	void CGameMap::ReadFile(int stages) {
 		std::stringstream filename;
-		filename << "map\\Run" << "1" << ".txt";
+		std::stringstream ss;
+		string str;
+		ss << stages;
+		ss >> str;
+		filename << "map\\Run" << str << ".txt";
 		ifstream is(filename.str(), std::ifstream::binary);
 		std::string line;
 		int i = 0;
@@ -128,7 +132,7 @@ namespace game_framework {
 
 	RedPlayer::RedPlayer()
 	{
-		Initialize();
+		Initialize(stage);
 	}
 
 	int RedPlayer::GetX1()
@@ -150,10 +154,10 @@ namespace game_framework {
 	{
 		return y + animation.Height();
 	}
-	void RedPlayer::Initialize()
+	void RedPlayer::Initialize(int stages)
 	{
 		gamemap.~CGameMap();
-		gamemap.ReadFile();
+		gamemap.ReadFile(stages);
 		const int INITIAL_VELOCITY = 11;	// 初始上升速度
 		const int FLOOR = 579;
 		// 地板座標
@@ -420,7 +424,6 @@ namespace game_framework {
 			{
 				floor = 229 - 40;
 			}
-
 		}
 		else if ((x + 20 >= 411 && x + 20 < 553 && y + 40 >= 144 && y + 40 < 188))
 		{
@@ -493,7 +496,7 @@ namespace game_framework {
 		}
 		*/
 		if (!rising && velocity == initial_velocity) {
-			y = floor-38;
+			y = floor - 38;
 		}
 
 		if (isMovingLeft)
@@ -553,7 +556,7 @@ namespace game_framework {
 			isMovingUp = false;
 		};
 		if (isMovingDown)
-			y = floor-38;
+			y = floor - 38;
 	}
 	void RedPlayer::SetButton(bool flag) {
 		isButton = flag;
@@ -562,7 +565,7 @@ namespace game_framework {
 		isMood = flag;
 	}
 	void RedPlayer::MoodY(int MY) {
-	 	MY = MY;
+		MY = MY;
 	}
 
 	void RedPlayer::SetMovingDown(bool flag)

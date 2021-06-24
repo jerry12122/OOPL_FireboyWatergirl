@@ -1,5 +1,5 @@
-/*
- * mygame.cpp: ¥»ÀÉ®×Àx¹CÀ¸¥»¨­ªºclassªºimplementation
+ï»¿/*
+ * mygame.cpp: æœ¬æª”æ¡ˆå„²éŠæˆ²æœ¬èº«çš„classçš„implementation
  * Copyright (C) 2002-2008 Woei-Kae Chen <wkc@csie.ntut.edu.tw>
  *
  * This file is part of game, a free game development framework for windows.
@@ -70,9 +70,27 @@
 #include <sstream>
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
-// ³o­Óclass¬°¹CÀ¸ªº¹CÀ¸¶}ÀYµe­±ª«¥ó
+// é€™å€‹classç‚ºéŠæˆ²çš„éŠæˆ²é–‹é ­ç•«é¢ç‰©ä»¶
 /////////////////////////////////////////////////////////////////////////////
+static int stage = 0;
+static int count[2][7] = { {3,4,1,1,1,2,3},
+							{8,8,2,2,2,1,2}};
 
+static int	stage1_diamond1[3][2] = { {405,535},{140,260},{223,41} },
+			stage1_diamond2[4][2] = { {570,535},{470,290},{475,87},{35,109} },
+			stage1_Lake1_position[1][2] = { {360,579} },
+			stage1_Lake2_position[1][2] = { {530,579} },
+			stage1_Lake3_position[1][2] = { {460,455} },
+			stage1_mood_position[2][2] = { {260,380},{20,310} },
+			stage1_button_position[3][2] = { {270,295},{710,230} ,{600,215} };
+static int	stage2_diamond1[8][2] = { {161,550},{247,550},{484,487} ,{576,487}, {304,373},{576,373},{376,243} ,{366,67} },
+			stage2_diamond2[8][2] = { {484,550},{576,550},{161,487} ,{247,487}, {202,373},{484,373},{419,243} ,{409,67} },
+			stage2_Lake1_position[2][2] = { {125,579} ,{454,517} },
+			stage2_Lake2_position[2][2] = { {453,579}, {125,517} },
+			stage2_Lake3_position[2][2] = { {164,310},{474,310} },
+			stage2_mood_position[1][2] = { {260,380} },
+			stage2_button_position[2][2] = { {101,402},{644,402} };
+//NUMRED,NUMICE, LAKERED, LAKEICE, LAKEGREEN, NUMMOD, NUMBUT
 CGameStateInit::CGameStateInit(CGame *g)
 : CGameState(g)
 {
@@ -81,17 +99,17 @@ CGameStateInit::CGameStateInit(CGame *g)
 void CGameStateInit::OnInit()
 {
 	//
-	// ·í¹Ï«Ü¦h®É¡AOnInit¸ü¤J©Ò¦³ªº¹Ï­nªá«Ü¦h®É¶¡¡C¬°Á×§Kª±¹CÀ¸ªº¤H
-	//     µ¥ªº¤£­@·Ğ¡A¹CÀ¸·|¥X²{¡uLoading ...¡v¡AÅã¥ÜLoadingªº¶i«×¡C
+	// ç•¶åœ–å¾ˆå¤šæ™‚ï¼ŒOnInitè¼‰å…¥æ‰€æœ‰çš„åœ–è¦èŠ±å¾ˆå¤šæ™‚é–“ã€‚ç‚ºé¿å…ç©éŠæˆ²çš„äºº
+	//     ç­‰çš„ä¸è€ç…©ï¼ŒéŠæˆ²æœƒå‡ºç¾ã€ŒLoading ...ã€ï¼Œé¡¯ç¤ºLoadingçš„é€²åº¦ã€‚
 	//
-	ShowInitProgress(0);	// ¤@¶}©lªºloading¶i«×¬°0%
+	ShowInitProgress(0);	// ä¸€é–‹å§‹çš„loadingé€²åº¦ç‚º0%
 	//
-	// ¶}©l¸ü¤J¸ê®Æ
+	// é–‹å§‹è¼‰å…¥è³‡æ–™
 	//
 	logo.LoadBitmap(IDB_GAME_MENU);
-	//Sleep(300);				// ©ñºC¡A¥H«K¬İ²M·¡¶i«×¡A¹ê»Ú¹CÀ¸½Ğ§R°£¦¹Sleep
+	//Sleep(300);				// æ”¾æ…¢ï¼Œä»¥ä¾¿çœ‹æ¸…æ¥šé€²åº¦ï¼Œå¯¦éš›éŠæˆ²è«‹åˆªé™¤æ­¤Sleep
 	//
-	// ¦¹OnInit°Ê§@·|±µ¨ìCGameStaterRun::OnInit()¡A©Ò¥H¶i«×ÁÙ¨S¨ì100%
+	// æ­¤OnInitå‹•ä½œæœƒæ¥åˆ°CGameStaterRun::OnInit()ï¼Œæ‰€ä»¥é€²åº¦é‚„æ²’åˆ°100%
 	//
 
 }
@@ -104,10 +122,10 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_ESC = 27;
 	//const char KEY_SPACE = ' ';
 	if (nChar == KEY_ESC)
-		PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// Ãö³¬¹CÀ¸
+		PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// é—œé–‰éŠæˆ²
 	/*
-		GotoGameState(GAME_STATE_RUN);						// ¤Á´«¦ÜGAME_STATE_RUN
-	else if (nChar == KEY_ESC)								// Demo Ãö³¬¹CÀ¸ªº¤èªk
+		GotoGameState(GAME_STATE_RUN);						// åˆ‡æ›è‡³GAME_STATE_RUN
+	else if (nChar == KEY_ESC)								// Demo é—œé–‰éŠæˆ²çš„æ–¹æ³•
 		*/
 }
 
@@ -118,24 +136,24 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 		GotoGameState(GAME_STATE_MENU);
 	}
 	
-		// ¤Á´«¦ÜGAME_STATE_RUN
+		// åˆ‡æ›è‡³GAME_STATE_RUN
 }
 
 void CGameStateInit::OnShow()
 {
 	//
-	// ¶K¤Wlogo
+	// è²¼ä¸Šlogo
 	//
 	logo.SetTopLeft(0, 0);
 	logo.ShowBitmap();
 	//
-	// Demo¿Ã¹õ¦r«¬ªº¨Ï¥Î¡A¤£¹L¶}µo®É½ĞºÉ¶qÁ×§Kª½±µ¨Ï¥Î¦r«¬¡A§ï¥ÎCMovingBitmap¤ñ¸û¦n
+	// Demoè¢å¹•å­—å‹çš„ä½¿ç”¨ï¼Œä¸éé–‹ç™¼æ™‚è«‹ç›¡é‡é¿å…ç›´æ¥ä½¿ç”¨å­—å‹ï¼Œæ”¹ç”¨CMovingBitmapæ¯”è¼ƒå¥½
 	//
 	/*
-	CDC *pDC = CDDraw::GetBackCDC();			// ¨ú±o Back Plain ªº CDC 
+	CDC *pDC = CDDraw::GetBackCDC();			// å–å¾— Back Plain çš„ CDC 
 	CFont f,*fp;
-	f.CreatePointFont(160,"Times New Roman");	// ²£¥Í font f; 160ªí¥Ü16 pointªº¦r
-	fp=pDC->SelectObject(&f);					// ¿ï¥Î font f
+	f.CreatePointFont(160,"Times New Roman");	// ç”¢ç”Ÿ font f; 160è¡¨ç¤º16 pointçš„å­—
+	fp=pDC->SelectObject(&f);					// é¸ç”¨ font f
 	pDC->SetBkColor(RGB(0,0,0));
 	pDC->SetTextColor(RGB(255,255,0));
 	pDC->TextOut(120,220,"Please click mouse or press SPACE to begin.");
@@ -143,14 +161,14 @@ void CGameStateInit::OnShow()
 	if (ENABLE_GAME_PAUSE)
 		pDC->TextOut(5,425,"Press Ctrl-Q to pause the Game.");
 	pDC->TextOut(5,455,"Press Alt-F4 or ESC to Quit.");
-	pDC->SelectObject(fp);						// ©ñ±¼ font f (¤d¸U¤£­nº|¤F©ñ±¼)
+	pDC->SelectObject(fp);						// æ”¾æ‰ font f (åƒè¬ä¸è¦æ¼äº†æ”¾æ‰)
 	CDDraw::ReleaseBackCDC();
 	*/
-	// ©ñ±¼ Back Plain ªº CDC
+	// æ”¾æ‰ Back Plain çš„ CDC
 }								
 
 /////////////////////////////////////////////////////////////////////////////
-// ³o­Óclass¬°¹CÀ¸ªºµ²§ôª¬ºA(Game Over)
+// é€™å€‹classç‚ºéŠæˆ²çš„çµæŸç‹€æ…‹(Game Over)
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateOver::CGameStateOver(CGame *g)
@@ -179,17 +197,17 @@ void CGameStateOver::OnBeginState()
 void CGameStateOver::OnInit()
 {
 	//
-	// ·í¹Ï«Ü¦h®É¡AOnInit¸ü¤J©Ò¦³ªº¹Ï­nªá«Ü¦h®É¶¡¡C¬°Á×§Kª±¹CÀ¸ªº¤H
-	//     µ¥ªº¤£­@·Ğ¡A¹CÀ¸·|¥X²{¡uLoading ...¡v¡AÅã¥ÜLoadingªº¶i«×¡C
+	// ç•¶åœ–å¾ˆå¤šæ™‚ï¼ŒOnInitè¼‰å…¥æ‰€æœ‰çš„åœ–è¦èŠ±å¾ˆå¤šæ™‚é–“ã€‚ç‚ºé¿å…ç©éŠæˆ²çš„äºº
+	//     ç­‰çš„ä¸è€ç…©ï¼ŒéŠæˆ²æœƒå‡ºç¾ã€ŒLoading ...ã€ï¼Œé¡¯ç¤ºLoadingçš„é€²åº¦ã€‚
 	//
-	ShowInitProgress(66);	// ±µ­Ó«e¤@­Óª¬ºAªº¶i«×¡A¦¹³B¶i«×µø¬°66%
+	ShowInitProgress(66);	// æ¥å€‹å‰ä¸€å€‹ç‹€æ…‹çš„é€²åº¦ï¼Œæ­¤è™•é€²åº¦è¦–ç‚º66%
 	//
-	// ¶}©l¸ü¤J¸ê®Æ
+	// é–‹å§‹è¼‰å…¥è³‡æ–™
 	//
 	gameover.LoadBitmap(GAMEOVER, RGB(255, 255, 255));
-	//Sleep(300);				// ©ñºC¡A¥H«K¬İ²M·¡¶i«×¡A¹ê»Ú¹CÀ¸½Ğ§R°£¦¹Sleep
+	//Sleep(300);				// æ”¾æ…¢ï¼Œä»¥ä¾¿çœ‹æ¸…æ¥šé€²åº¦ï¼Œå¯¦éš›éŠæˆ²è«‹åˆªé™¤æ­¤Sleep
 	//
-	// ³Ì²×¶i«×¬°100%
+	// æœ€çµ‚é€²åº¦ç‚º100%
 	//
 	ShowInitProgress(100);
 }
@@ -212,7 +230,13 @@ void CGameStateMenu::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 	if ((point.x > 378 && point.x < 422) && (point.y > 492 && point.y < 542))
 	{
+		stage = 0;
 		GotoGameState(GAME_STATE_RUN);
+	}
+	if ((point.x > 409 && point.x < 455) && (point.y > 437 && point.y < 487))
+	{
+		stage = 1;
+		GotoGameState(GAME_STATE_RUN2);
 	}
 }
 void CGameStateMenu::OnMove()
@@ -226,18 +250,18 @@ void CGameStateMenu::OnBeginState()
 void CGameStateMenu::OnInit()
 {
 	//
-	// ·í¹Ï«Ü¦h®É¡AOnInit¸ü¤J©Ò¦³ªº¹Ï­nªá«Ü¦h®É¶¡¡C¬°Á×§Kª±¹CÀ¸ªº¤H
-	//     µ¥ªº¤£­@·Ğ¡A¹CÀ¸·|¥X²{¡uLoading ...¡v¡AÅã¥ÜLoadingªº¶i«×¡C
+	// ç•¶åœ–å¾ˆå¤šæ™‚ï¼ŒOnInitè¼‰å…¥æ‰€æœ‰çš„åœ–è¦èŠ±å¾ˆå¤šæ™‚é–“ã€‚ç‚ºé¿å…ç©éŠæˆ²çš„äºº
+	//     ç­‰çš„ä¸è€ç…©ï¼ŒéŠæˆ²æœƒå‡ºç¾ã€ŒLoading ...ã€ï¼Œé¡¯ç¤ºLoadingçš„é€²åº¦ã€‚
 	//
-	ShowInitProgress(66);	// ±µ­Ó«e¤@­Óª¬ºAªº¶i«×¡A¦¹³B¶i«×µø¬°66%
+	ShowInitProgress(66);	// æ¥å€‹å‰ä¸€å€‹ç‹€æ…‹çš„é€²åº¦ï¼Œæ­¤è™•é€²åº¦è¦–ç‚º66%
 	//
-	// ¶}©l¸ü¤J¸ê®Æ
+	// é–‹å§‹è¼‰å…¥è³‡æ–™
 	//
 	bg.LoadBitmap(IDB_MENU, RGB(255, 255, 255));
 
-	//Sleep(300);				// ©ñºC¡A¥H«K¬İ²M·¡¶i«×¡A¹ê»Ú¹CÀ¸½Ğ§R°£¦¹Sleep
+	//Sleep(300);				// æ”¾æ…¢ï¼Œä»¥ä¾¿çœ‹æ¸…æ¥šé€²åº¦ï¼Œå¯¦éš›éŠæˆ²è«‹åˆªé™¤æ­¤Sleep
 	//
-	// ³Ì²×¶i«×¬°100%
+	// æœ€çµ‚é€²åº¦ç‚º100%
 	//
 	ShowInitProgress(100);
 }
@@ -270,12 +294,12 @@ void CGameStateWin::OnBeginState()
 void CGameStateWin::OnInit()
 {
 	//
-	// ·í¹Ï«Ü¦h®É¡AOnInit¸ü¤J©Ò¦³ªº¹Ï­nªá«Ü¦h®É¶¡¡C¬°Á×§Kª±¹CÀ¸ªº¤H
-	//     µ¥ªº¤£­@·Ğ¡A¹CÀ¸·|¥X²{¡uLoading ...¡v¡AÅã¥ÜLoadingªº¶i«×¡C
+	// ç•¶åœ–å¾ˆå¤šæ™‚ï¼ŒOnInitè¼‰å…¥æ‰€æœ‰çš„åœ–è¦èŠ±å¾ˆå¤šæ™‚é–“ã€‚ç‚ºé¿å…ç©éŠæˆ²çš„äºº
+	//     ç­‰çš„ä¸è€ç…©ï¼ŒéŠæˆ²æœƒå‡ºç¾ã€ŒLoading ...ã€ï¼Œé¡¯ç¤ºLoadingçš„é€²åº¦ã€‚
 	//
-	ShowInitProgress(66);	// ±µ­Ó«e¤@­Óª¬ºAªº¶i«×¡A¦¹³B¶i«×µø¬°66%
+	ShowInitProgress(66);	// æ¥å€‹å‰ä¸€å€‹ç‹€æ…‹çš„é€²åº¦ï¼Œæ­¤è™•é€²åº¦è¦–ç‚º66%
 	//
-	// ¶}©l¸ü¤J¸ê®Æ
+	// é–‹å§‹è¼‰å…¥è³‡æ–™
 	//
 	gamewinspace.LoadBitmap(Win, RGB(255, 255, 255));
 	alarm.LoadBitmap(Alarm, RGB(255, 255, 255));
@@ -286,9 +310,9 @@ void CGameStateWin::OnInit()
 	conti.LoadBitmap(CONTI, RGB(255, 255, 255));
 	next.LoadBitmap(NEXT, RGB(255, 255, 255));
 	gold.LoadBitmap(GOLD, RGB(255, 255, 255));
-	//Sleep(300);				// ©ñºC¡A¥H«K¬İ²M·¡¶i«×¡A¹ê»Ú¹CÀ¸½Ğ§R°£¦¹Sleep
+	//Sleep(300);				// æ”¾æ…¢ï¼Œä»¥ä¾¿çœ‹æ¸…æ¥šé€²åº¦ï¼Œå¯¦éš›éŠæˆ²è«‹åˆªé™¤æ­¤Sleep
 	//
-	// ³Ì²×¶i«×¬°100%
+	// æœ€çµ‚é€²åº¦ç‚º100%
 	//
 	ShowInitProgress(100);
 }
@@ -310,7 +334,7 @@ void CGameStateWin::OnShow()
 	conti.ShowBitmap();
 }
 /////////////////////////////////////////////////////////////////////////////
-// ³o­Óclass¬°¹CÀ¸ªº¹CÀ¸°õ¦æª«¥ó¡A¥D­nªº¹CÀ¸µ{¦¡³£¦b³o¸Ì
+// é€™å€‹classç‚ºéŠæˆ²çš„éŠæˆ²åŸ·è¡Œç‰©ä»¶ï¼Œä¸»è¦çš„éŠæˆ²ç¨‹å¼éƒ½åœ¨é€™è£¡
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
@@ -327,59 +351,57 @@ CGameStateRun::CGameStateRun(CGame *g)
 
 CGameStateRun::~CGameStateRun()
 {
-	delete[] diamond1;
-	delete[] diamond2;
-	delete[] Lake1;
-	delete[] Lake2;
-	delete[] Lake3;
-	delete[] mood;
-	delete[] button;
+	if (diamond1 != NULL)
+		delete[] diamond1;
+	if (diamond2 != NULL)
+		delete[] diamond2;
+	if (Lake1 != NULL)
+		delete[] Lake1;
+	if (Lake2 != NULL)
+		delete[] Lake2;
+	if (Lake3 != NULL)
+		delete[] Lake3;
+	if (mood != NULL)
+		delete[] mood;
+	if (button != NULL)
+		delete[] button;
 }
 
 void CGameStateRun::OnBeginState()
 {
-	const int BALL_GAP = 90;
-	const int BALL_XY_OFFSET = 45;
-	const int BALL_PER_ROW = 7;
 	const int HITS_LEFT = 0;
 	const int HITS_LAKE = 1;
 	const int HITS_DOOR = 1;
 	const int HITS_LEFT_X = 590;
 	const int HITS_LEFT_Y = 0;
-	const int BACKGROUND_X = 60;
-	const int ANIMATION_SPEED = 15;
-	const int STAGE = 1;
-	const int diamond1_position[3][2] = { {405,535},{140,260},{223,41} };
-	for (int i = 0; i < NUMRED; i++) {				// ³]©w²yªº°_©l®y¼Ğ
-		diamond1[i].SetXY(diamond1_position[i][0], diamond1_position[i][1]);
+	//const int STAGE = 1;
+	gamemap.ReadFile(stage+1);
+	for (int i = 0; i < NUMRED; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		diamond1[i].SetXY(stage1_diamond1[i][0], stage1_diamond1[i][1]);
 		diamond1[i].SetIsAlive(true);
 	}
-	const int diamond2_position[4][2] = { {570,535},{470,290},{475,87},{35,109} };
-	for (int i = 0; i < NUMICE; i++) {				// ³]©w²yªº°_©l®y¼Ğ
-		diamond2[i].SetXY(diamond2_position[i][0], diamond2_position[i][1]);
+	for (int i = 0; i < NUMICE; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		diamond2[i].SetXY(stage1_diamond2[i][0], stage1_diamond2[i][1]);
 		diamond2[i].SetIsAlive(true);
 	}
-	const int Lake1_position[1][2] = { {360,579} };
-	for (int i = 0; i < LAKERED; i++) {				// ³]©w²yªº°_©l®y¼Ğ
-		Lake1[i].SetXY(Lake1_position[i][0], Lake1_position[i][1]);
-
+	for (int i = 0; i < LAKERED; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		Lake1[i].SetXY(stage1_Lake1_position[i][0], stage1_Lake1_position[i][1]);
 	}
-	const int Lake2_position[1][2] = { {530,579}};
-	for (int i = 0; i < LAKEICE; i++) {				// ³]©w²yªº°_©l®y¼Ğ
-		Lake2[i].SetXY(Lake2_position[i][0], Lake2_position[i][1]);
+	for (int i = 0; i < LAKEICE; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		Lake2[i].SetXY(stage1_Lake2_position[i][0], stage1_Lake2_position[i][1]);
 	}
-	const int Lake3_position[1][2] = { {460,455} };
-	for (int i = 0; i < LAKEICE; i++) {				// ³]©w²yªº°_©l®y¼Ğ
-		Lake3[i].SetXY(Lake3_position[i][0], Lake3_position[i][1]);
+	for (int i = 0; i < LAKEICE; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		Lake3[i].SetXY(stage1_Lake3_position[i][0], stage1_Lake3_position[i][1]);
 	}
-	const int mood_position[2][2] = { {260,380},{20,310} };
-	for (int i = 0; i < NUMMOD; i++) {				// ³]©w²yªº°_©l®y¼Ğ
-		mood[i].SetXY(mood_position[i][0], mood_position[i][1]);
+	for (int i = 0; i < NUMMOD; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		mood[i].SetXY(stage1_mood_position[i][0], stage1_mood_position[i][1]);
 		mood[i].SetIsAlive(true);
 	}
-	
-	gamemap.ReadFile();
-	player1.Initialize();
+	for (int i = 0; i < NUMBUT; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		button[i].SetXY(stage1_button_position[i][0], stage1_button_position[i][1]);
+		button[i].SetIsAlive(true);
+	}
+	player1.Initialize(stage+1);
 	player2.Initialize();
 	player1.SetXY(42, 542);
 	reddoor.SetIsAlive(true);
@@ -388,26 +410,21 @@ void CGameStateRun::OnBeginState()
 	icedoor.SetXY(600, 60);
 	box.init();
 	box.SetXY(500, 160);
-	const int button_position[3][2] = { {270,295},{710,230} ,{600,215} };
-	for (int i = 0; i < NUMBUT; i++) {				// ³]©w²yªº°_©l®y¼Ğ
-		button[i].SetXY(button_position[i][0], button_position[i][1]);
-		button[i].SetIsAlive(true);
-	}
 
-	background.SetTopLeft(0,0);				// ³]©w­I´ºªº°_©l®y¼Ğ
-	help.SetTopLeft(0, SIZE_Y - help.Height());			// ³]©w»¡©ú¹Ïªº°_©l®y¼Ğ
+	background.SetTopLeft(0,0);				// è¨­å®šèƒŒæ™¯çš„èµ·å§‹åº§æ¨™
+		// è¨­å®šèªªæ˜åœ–çš„èµ·å§‹åº§æ¨™
 	hits_left.SetInteger(HITS_LEFT);
 
 
 	hits_lake.SetInteger(HITS_LAKE);
 	hits_door.SetInteger(HITS_DOOR);
-	hits_left.SetTopLeft(HITS_LEFT_X,HITS_LEFT_Y);		// «ü©w³Ñ¤U¼²À»¼Æªº®y¼Ğ
-	CAudio::Instance()->Play(AUDIO_LAKE, true);			// ¼·©ñ WAVE
-	CAudio::Instance()->Play(AUDIO_DING, false);		// ¼·©ñ WAVE
-	CAudio::Instance()->Play(AUDIO_NTUT, true);			// ¼·©ñ MIDI
+	hits_left.SetTopLeft(HITS_LEFT_X,HITS_LEFT_Y);		// æŒ‡å®šå‰©ä¸‹æ’æ“Šæ•¸çš„åº§æ¨™
+	CAudio::Instance()->Play(AUDIO_LAKE, true);			// æ’¥æ”¾ WAVE
+	CAudio::Instance()->Play(AUDIO_DING, false);		// æ’¥æ”¾ WAVE
+	CAudio::Instance()->Play(AUDIO_NTUT, true);			// æ’¥æ”¾ MIDI
 }
 
-void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
+void CGameStateRun::OnMove()							// ç§»å‹•éŠæˆ²å…ƒç´ 
 {
 	int i;
 	for (i = 0; i < NUMRED; i++)
@@ -429,7 +446,7 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 	icedoor.OnMove();
 	box.OnMove();
 	//
-	// §PÂ_À¿¤l¬O§_¸I¨ì²y
+	// åˆ¤æ–·æ“¦å­æ˜¯å¦ç¢°åˆ°çƒ
 	//
 
 	for (i = 0; i < NUMRED; i++) {
@@ -452,11 +469,11 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
-			// ­Y³Ñ¾l¸I¼²¦¸¼Æ¬°0¡A«h¸õ¨ìGame Overª¬ºA
+			// è‹¥å‰©é¤˜ç¢°æ’æ¬¡æ•¸ç‚º0ï¼Œå‰‡è·³åˆ°Game Overç‹€æ…‹
 			//
 			if (hits_lake.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// °±¤î WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// °±¤î MIDI
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// åœæ­¢ WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// åœæ­¢ MIDI
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
@@ -467,11 +484,11 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
-			// ­Y³Ñ¾l¸I¼²¦¸¼Æ¬°0¡A«h¸õ¨ìGame Overª¬ºA
+			// è‹¥å‰©é¤˜ç¢°æ’æ¬¡æ•¸ç‚º0ï¼Œå‰‡è·³åˆ°Game Overç‹€æ…‹
 			//
 			if (hits_lake.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// °±¤î WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// °±¤î MIDI
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// åœæ­¢ WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// åœæ­¢ MIDI
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
@@ -482,11 +499,11 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
-			// ­Y³Ñ¾l¸I¼²¦¸¼Æ¬°0¡A«h¸õ¨ìGame Overª¬ºA
+			// è‹¥å‰©é¤˜ç¢°æ’æ¬¡æ•¸ç‚º0ï¼Œå‰‡è·³åˆ°Game Overç‹€æ…‹
 			//
 			if (hits_lake.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// °±¤î WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// °±¤î MIDI
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// åœæ­¢ WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// åœæ­¢ MIDI
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
@@ -563,24 +580,24 @@ void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
 	}
 }
 
-void CGameStateRun::OnInit()  								// ¹CÀ¸ªºªì­È¤Î¹Ï§Î³]©w
+void CGameStateRun::OnInit()  								// éŠæˆ²çš„åˆå€¼åŠåœ–å½¢è¨­å®š
 {
 	//
-	// ·í¹Ï«Ü¦h®É¡AOnInit¸ü¤J©Ò¦³ªº¹Ï­nªá«Ü¦h®É¶¡¡C¬°Á×§Kª±¹CÀ¸ªº¤H
-	//     µ¥ªº¤£­@·Ğ¡A¹CÀ¸·|¥X²{¡uLoading ...¡v¡AÅã¥ÜLoadingªº¶i«×¡C
+	// ç•¶åœ–å¾ˆå¤šæ™‚ï¼ŒOnInitè¼‰å…¥æ‰€æœ‰çš„åœ–è¦èŠ±å¾ˆå¤šæ™‚é–“ã€‚ç‚ºé¿å…ç©éŠæˆ²çš„äºº
+	//     ç­‰çš„ä¸è€ç…©ï¼ŒéŠæˆ²æœƒå‡ºç¾ã€ŒLoading ...ã€ï¼Œé¡¯ç¤ºLoadingçš„é€²åº¦ã€‚
 	//
-	ShowInitProgress(33);	// ±µ­Ó«e¤@­Óª¬ºAªº¶i«×¡A¦¹³B¶i«×µø¬°33%
+	ShowInitProgress(33);	// æ¥å€‹å‰ä¸€å€‹ç‹€æ…‹çš„é€²åº¦ï¼Œæ­¤è™•é€²åº¦è¦–ç‚º33%
 	//
-	// ¶}©l¸ü¤J¸ê®Æ
+	// é–‹å§‹è¼‰å…¥è³‡æ–™
 	//
 	int i;
 	for (i = 0; i < NUMRED; i++)	
-		diamond1[i].LoadBitmap();								// ¸ü¤J²Äi­Ó²yªº¹Ï§Î
+		diamond1[i].LoadBitmap();								// è¼‰å…¥ç¬¬iå€‹çƒçš„åœ–å½¢
 	for (i = 0; i < NUMICE; i++) {
 		diamond2[i].LoadBitmap();
 	}
 	for (i = 0; i < LAKERED; i++)
-		Lake1[i].LoadBitmap();								// ¸ü¤J²Äi­Ó²yªº¹Ï§Î
+		Lake1[i].LoadBitmap();								// è¼‰å…¥ç¬¬iå€‹çƒçš„åœ–å½¢
 	for (i = 0; i < LAKEICE; i++) {
 		Lake2[i].LoadBitmap();
 	}
@@ -599,37 +616,33 @@ void CGameStateRun::OnInit()  								// ¹CÀ¸ªºªì­È¤Î¹Ï§Î³]©w
 		button[i].LoadBitmap();
 	}
 	box.LoadBitmap();
-	background.LoadBitmap(IDB_MAP1);					// ¸ü¤J­I´ºªº¹Ï§Î
+	background.LoadBitmap(IDB_MAP1);					// è¼‰å…¥èƒŒæ™¯çš„åœ–å½¢
 	//
-	// §¹¦¨³¡¤ÀLoading°Ê§@¡A´£°ª¶i«×
+	// å®Œæˆéƒ¨åˆ†Loadingå‹•ä½œï¼Œæé«˜é€²åº¦
 	//
 	ShowInitProgress(50);
-	Sleep(300); // ©ñºC¡A¥H«K¬İ²M·¡¶i«×¡A¹ê»Ú¹CÀ¸½Ğ§R°£¦¹Sleep
+	Sleep(300); // æ”¾æ…¢ï¼Œä»¥ä¾¿çœ‹æ¸…æ¥šé€²åº¦ï¼Œå¯¦éš›éŠæˆ²è«‹åˆªé™¤æ­¤Sleep
 	//
-	// Ä~Äò¸ü¤J¨ä¥L¸ê®Æ
+	// ç¹¼çºŒè¼‰å…¥å…¶ä»–è³‡æ–™
 	//
-	help.LoadBitmap(IDB_HELP,RGB(255,255,255));				// ¸ü¤J»¡©úªº¹Ï§Î
+			// è¼‰å…¥èªªæ˜çš„åœ–å½¢
 	hits_left.LoadBitmap();
 
-	CAudio::Instance()->Load(AUDIO_DING,  ".\\sounds\\ding.wav");	// ¸ü¤J½s¸¹0ªºÁn­µding.wav
-	CAudio::Instance()->Load(AUDIO_LAKE,  ".\\sounds\\lake.mp3");	// ¸ü¤J½s¸¹1ªºÁn­µlake.mp3
-	CAudio::Instance()->Load(AUDIO_NTUT,  ".\\sounds\\ntut.mid");	// ¸ü¤J½s¸¹2ªºÁn­µntut.mid
+	CAudio::Instance()->Load(AUDIO_DING,  ".\\sounds\\ding.wav");	// è¼‰å…¥ç·¨è™Ÿ0çš„è²éŸ³ding.wav
+	CAudio::Instance()->Load(AUDIO_LAKE,  ".\\sounds\\lake.mp3");	// è¼‰å…¥ç·¨è™Ÿ1çš„è²éŸ³lake.mp3
+	CAudio::Instance()->Load(AUDIO_NTUT,  ".\\sounds\\LevelMusic.mp3");	// è¼‰å…¥ç·¨è™Ÿ2çš„è²éŸ³ntut.mid
 	//
-	// ¦¹OnInit°Ê§@·|±µ¨ìCGameStaterOver::OnInit()¡A©Ò¥H¶i«×ÁÙ¨S¨ì100%
+	// æ­¤OnInitå‹•ä½œæœƒæ¥åˆ°CGameStaterOver::OnInit()ï¼Œæ‰€ä»¥é€²åº¦é‚„æ²’åˆ°100%
 	//
-
-
-
-
 }
 
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	const char KEY_LEFT  = 0x25; // keyboard¥ª½bÀY
-	const char KEY_UP    = 0x26; // keyboard¤W½bÀY
-	const char KEY_RIGHT = 0x27; // keyboard¥k½bÀY
-	const char KEY_DOWN  = 0x28; // keyboard¤U½bÀY
+	const char KEY_LEFT  = 0x25; // keyboardå·¦ç®­é ­
+	const char KEY_UP    = 0x26; // keyboardä¸Šç®­é ­
+	const char KEY_RIGHT = 0x27; // keyboardå³ç®­é ­
+	const char KEY_DOWN  = 0x28; // keyboardä¸‹ç®­é ­
 	const char KEY_A = 'A';
 	const char KEY_W = 'W';
 	const char KEY_D = 'D';
@@ -690,10 +703,10 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	const char KEY_LEFT  = 0x25; // keyboard¥ª½bÀY
-	const char KEY_UP    = 0x26; // keyboard¤W½bÀY
-	const char KEY_RIGHT = 0x27; // keyboard¥k½bÀY
-	const char KEY_DOWN  = 0x28; // keyboard¤U½bÀY
+	const char KEY_LEFT  = 0x25; // keyboardå·¦ç®­é ­
+	const char KEY_UP    = 0x26; // keyboardä¸Šç®­é ­
+	const char KEY_RIGHT = 0x27; // keyboardå³ç®­é ­
+	const char KEY_DOWN  = 0x28; // keyboardä¸‹ç®­é ­
 	const char KEY_A = 'A';
 	const char KEY_W = 'W';
 	const char KEY_D = 'D';
@@ -738,27 +751,27 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 }
 
-void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // ³B²z·Æ¹«ªº°Ê§@
+void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // è™•ç†æ»‘é¼ çš„å‹•ä½œ
 {
 
 }
 
-void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// ³B²z·Æ¹«ªº°Ê§@
+void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// è™•ç†æ»‘é¼ çš„å‹•ä½œ
 {
 
 }
 
-void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// ³B²z·Æ¹«ªº°Ê§@
+void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// è™•ç†æ»‘é¼ çš„å‹•ä½œ
 {
-	// ¨S¨Æ¡C¦pªG»İ­n³B²z·Æ¹«²¾°Êªº¸Ü¡A¼gcode¦b³o¸Ì
+	// æ²’äº‹ã€‚å¦‚æœéœ€è¦è™•ç†æ»‘é¼ ç§»å‹•çš„è©±ï¼Œå¯«codeåœ¨é€™è£¡
 }
 
-void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // ³B²z·Æ¹«ªº°Ê§@
+void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // è™•ç†æ»‘é¼ çš„å‹•ä½œ
 {
 
 }
 
-void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// ³B²z·Æ¹«ªº°Ê§@
+void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// è™•ç†æ»‘é¼ çš„å‹•ä½œ
 {
 
 }
@@ -766,20 +779,20 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// ³B²z·Æ¹«ªº°Ê§@
 void CGameStateRun::OnShow()
 {
 	//
-	//  ª`·N¡GShow¸Ì­±¤d¸U¤£­n²¾°Ê¥ô¦óª«¥óªº®y¼Ğ¡A²¾°Ê®y¼Ğªº¤u§@À³¥ÑMove°µ¤~¹ï¡A
-	//        §_«h·íµøµ¡­«·sÃ¸¹Ï®É(OnDraw)¡Aª«¥ó´N·|²¾°Ê¡A¬İ°_¨Ó·|«Ü©Ç¡C´«­Ó³N»y
-	//        »¡¡AMove­t³dMVC¤¤ªºModel¡AShow­t³dView¡A¦ÓView¤£À³§ó°ÊModel¡C
+	//  æ³¨æ„ï¼šShowè£¡é¢åƒè¬ä¸è¦ç§»å‹•ä»»ä½•ç‰©ä»¶çš„åº§æ¨™ï¼Œç§»å‹•åº§æ¨™çš„å·¥ä½œæ‡‰ç”±Moveåšæ‰å°ï¼Œ
+	//        å¦å‰‡ç•¶è¦–çª—é‡æ–°ç¹ªåœ–æ™‚(OnDraw)ï¼Œç‰©ä»¶å°±æœƒç§»å‹•ï¼Œçœ‹èµ·ä¾†æœƒå¾ˆæ€ªã€‚æ›å€‹è¡“èª
+	//        èªªï¼ŒMoveè² è²¬MVCä¸­çš„Modelï¼ŒShowè² è²¬Viewï¼Œè€ŒViewä¸æ‡‰æ›´å‹•Modelã€‚
 	//
 	//
-	//  ¶K¤W­I´º¹Ï¡B¼²À»¼Æ¡B²y¡BÀ¿¤l¡B¼u¸õªº²y
+	//  è²¼ä¸ŠèƒŒæ™¯åœ–ã€æ’æ“Šæ•¸ã€çƒã€æ“¦å­ã€å½ˆè·³çš„çƒ
 	//
-	background.ShowBitmap();			// ¶K¤W­I´º¹Ï
+	background.ShowBitmap();			// è²¼ä¸ŠèƒŒæ™¯åœ–
 	gamemap.OnShow();
-	help.ShowBitmap();					// ¶K¤W»¡©ú¹Ï
+					// è²¼ä¸Šèªªæ˜åœ–
 	hits_left.ShowBitmap();
 
 	for (int i=0; i < NUMRED; i++)
-		diamond1[i].OnShow();				// ¶K¤W²Äi¸¹²y
+		diamond1[i].OnShow();				// è²¼ä¸Šç¬¬iè™Ÿçƒ
 	for (int i = 0; i < NUMICE; i++)
 	{
 		diamond2[i].OnShow();
@@ -795,7 +808,491 @@ void CGameStateRun::OnShow()
 	box.OnShow();
 	for (int i = 0; i < LAKERED; i++)
 	{
-		Lake1[i].OnShow();				// ¶K¤W²Äi¸¹²y
+		Lake1[i].OnShow();				// è²¼ä¸Šç¬¬iè™Ÿçƒ
+	}
+	for (int i = 0; i < LAKEICE; i++)
+	{
+		Lake2[i].OnShow();
+	}
+	for (int i = 0; i < LAKEGREEN; i++)
+	{
+		Lake3[i].OnShow();
+	}
+	player1.OnShow();
+	player2.OnShow();
+}
+CGameStateRun2::CGameStateRun2(CGame *g)
+	: CGameState(g), NUMRED(8), NUMICE(8), LAKERED(2), LAKEICE(2), LAKEGREEN(2), NUMMOD(1), NUMBUT(2)
+{
+	diamond1 = new RedDiamond[NUMRED];
+	diamond2 = new IceDiamond[NUMICE];
+	Lake1 = new RedLake[LAKERED];
+	Lake2 = new IceLake[LAKEICE];
+	Lake3 = new Greenlake[LAKEGREEN];
+	mood = new Mood[NUMMOD];
+	button = new Button[NUMBUT];
+}
+
+CGameStateRun2::~CGameStateRun2()
+{
+	if (diamond1 != NULL)
+		delete[] diamond1;
+	if (diamond2 != NULL)
+		delete[] diamond2;
+	if (Lake1 != NULL)
+		delete[] Lake1;
+	if (Lake2 != NULL)
+		delete[] Lake2;
+	if (Lake3 != NULL)
+		delete[] Lake3;
+	if (mood != NULL)
+		delete[] mood;
+	if (button != NULL)
+		delete[] button;
+}
+
+void CGameStateRun2::OnBeginState()
+{
+	//const int HITS_LEFT = 0;
+	const int HITS_LAKE = 1;
+	const int HITS_DOOR = 1;
+	const int HITS_LEFT_X = 590;
+	const int HITS_LEFT_Y = 0;
+	//const int STAGE = 1;
+	gamemap.ReadFile(stage+1);
+	for (int i = 0; i < NUMRED; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		diamond1[i].SetXY(stage1_diamond1[i][0], stage1_diamond1[i][1]);
+		diamond1[i].SetIsAlive(true);
+	}
+	for (int i = 0; i < NUMICE; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		diamond2[i].SetXY(stage1_diamond2[i][0], stage1_diamond2[i][1]);
+		diamond2[i].SetIsAlive(true);
+	}
+	for (int i = 0; i < LAKERED; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		Lake1[i].SetXY(stage1_Lake1_position[i][0], stage1_Lake1_position[i][1]);
+	}
+	for (int i = 0; i < LAKEICE; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		Lake2[i].SetXY(stage1_Lake2_position[i][0], stage1_Lake2_position[i][1]);
+	}
+	for (int i = 0; i < LAKEICE; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		Lake3[i].SetXY(stage1_Lake3_position[i][0], stage1_Lake3_position[i][1]);
+	}
+	for (int i = 0; i < NUMMOD; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		mood[i].SetXY(stage1_mood_position[i][0], stage1_mood_position[i][1]);
+		mood[i].SetIsAlive(true);
+	}
+	for (int i = 0; i < NUMBUT; i++) {				// è¨­å®šçƒçš„èµ·å§‹åº§æ¨™
+		button[i].SetXY(stage1_button_position[i][0], stage1_button_position[i][1]);
+		button[i].SetIsAlive(true);
+	}
+	player1.Initialize(stage+1);
+	player2.Initialize();
+	player1.SetXY(42, 542);
+	reddoor.SetIsAlive(true);
+	reddoor.SetXY(690, 60);
+	icedoor.SetIsAlive(true);
+	icedoor.SetXY(600, 60);
+	box.init();
+	box.SetXY(500, 160);
+
+	background.SetTopLeft(0, 0);				// è¨­å®šèƒŒæ™¯çš„èµ·å§‹åº§æ¨™
+		// è¨­å®šèªªæ˜åœ–çš„èµ·å§‹åº§æ¨™
+	//hits_left.SetInteger(HITS_LEFT);
+
+
+	hits_lake.SetInteger(HITS_LAKE);
+	hits_door.SetInteger(HITS_DOOR);
+	hits_left.SetTopLeft(HITS_LEFT_X, HITS_LEFT_Y);		// æŒ‡å®šå‰©ä¸‹æ’æ“Šæ•¸çš„åº§æ¨™
+	CAudio::Instance()->Play(AUDIO_LAKE, true);			// æ’¥æ”¾ WAVE
+	CAudio::Instance()->Play(AUDIO_DING, false);		// æ’¥æ”¾ WAVE
+	CAudio::Instance()->Play(AUDIO_NTUT, true);			// æ’¥æ”¾ MIDI
+}
+
+void CGameStateRun2::OnMove()							// ç§»å‹•éŠæˆ²å…ƒç´ 
+{
+	int i;
+	for (i = 0; i < NUMRED; i++)
+		diamond1[i].OnMove();
+	for (i = 0; i < NUMICE; i++)
+	{
+		diamond2[i].OnMove();
+	}
+	mood[0].OnMove();
+	mood[1].OnMove1();
+	button[0].OnMove();
+	button[1].OnMove1();
+	player1.MoodY(button[1].ReY());
+	player1.OnMove();
+	player2.OnMove();
+	player1.OnMove1();
+	button[2].OnMove();
+	reddoor.OnMove();
+	icedoor.OnMove();
+	box.OnMove();
+	//
+	// åˆ¤æ–·æ“¦å­æ˜¯å¦ç¢°åˆ°çƒ
+	//
+
+	for (i = 0; i < NUMRED; i++) {
+		if (diamond1[i].IsAlive() && diamond1[i].HitPlayer(&player1)) {
+			diamond1[i].SetIsAlive(false);
+			CAudio::Instance()->Play(AUDIO_DING);
+			hits_left.Add(1);
+		}
+	}
+	for (i = 0; i < NUMICE; i++)
+	{
+		if (diamond2[i].IsAlive() && diamond2[i].HitPlayer(&player2)) {
+			diamond2[i].SetIsAlive(false);
+			CAudio::Instance()->Play(AUDIO_DING);
+			hits_left.Add(1);
+		}
+	}
+	for (i = 0; i < LAKERED; i++) {
+		if (Lake1[i].HitPlayer(&player2) && Lake1[i].hack == false) {
+			CAudio::Instance()->Play(AUDIO_DING);
+			hits_lake.Add(-1);
+			//
+			// è‹¥å‰©é¤˜ç¢°æ’æ¬¡æ•¸ç‚º0ï¼Œå‰‡è·³åˆ°Game Overç‹€æ…‹
+			//
+			if (hits_lake.GetInteger() <= 0) {
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// åœæ­¢ WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// åœæ­¢ MIDI
+				GotoGameState(GAME_STATE_OVER);
+			}
+		}
+	}
+	for (i = 0; i < LAKEICE; i++)
+	{
+		if (Lake2[i].HitPlayer(&player1) && Lake2[i].hack == false) {
+			CAudio::Instance()->Play(AUDIO_DING);
+			hits_lake.Add(-1);
+			//
+			// è‹¥å‰©é¤˜ç¢°æ’æ¬¡æ•¸ç‚º0ï¼Œå‰‡è·³åˆ°Game Overç‹€æ…‹
+			//
+			if (hits_lake.GetInteger() <= 0) {
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// åœæ­¢ WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// åœæ­¢ MIDI
+				GotoGameState(GAME_STATE_OVER);
+			}
+		}
+	}
+	for (i = 0; i < LAKEGREEN; i++)
+	{
+		if (Lake3[i].HitPlayer(&player1) && Lake3[i].hack == false) {
+			CAudio::Instance()->Play(AUDIO_DING);
+			hits_lake.Add(-1);
+			//
+			// è‹¥å‰©é¤˜ç¢°æ’æ¬¡æ•¸ç‚º0ï¼Œå‰‡è·³åˆ°Game Overç‹€æ…‹
+			//
+			if (hits_lake.GetInteger() <= 0) {
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// åœæ­¢ WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// åœæ­¢ MIDI
+				GotoGameState(GAME_STATE_OVER);
+			}
+		}
+	}
+	if (box.HitEraser(&player1) || box.HitEraser(&player2)) {
+		box.SetMovingLeft(true);
+	}
+
+
+	/*
+	if (box.OnBox(player1.GetX1(), player1.GetX2(), player1.GetY1(), player1.GetY2())) {
+		player1.SetFloor(box.GetY1() - 40);
+	}
+	if (box.OnBox(player2.GetX1(), player2.GetX2(), player2.GetY1(), player2.GetY2())) {
+		player2.SetFloor(box.GetY1() - 40);
+	}
+	*/
+	if (reddoor.IsAlive() && (reddoor.HitPlayer(&player1))) {
+		reddoor.SetIsAlive(false);
+	}
+	if (!(reddoor.IsAlive()) && !(reddoor.HitPlayer(&player1))) {
+		reddoor.SetIsAlive(true);
+	}
+	if (icedoor.IsAlive() && icedoor.HitPlayer(&player2)) {
+		icedoor.SetIsAlive(false);
+	}
+	if (!(icedoor.IsAlive()) && !(icedoor.HitPlayer(&player2))) {
+		icedoor.SetIsAlive(true);
+	}
+	if ((mood[0].IsAlive()) && (mood[0].HitPlayer(&player2))) {
+		mood[0].SetIsAlive(false);
+		mood[1].SetIsAlive(false);
+		player1.SetMood(true);
+	}
+	if ((mood[0].IsAlive()) && (mood[0].HitPlayer(&player1))) {
+		mood[0].SetIsAlive(false);
+		mood[1].SetIsAlive(false);
+		player1.SetMood(true);
+	}
+	/*if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player2))) {
+		mood[0].SetIsAlive(true);
+		mood[1].SetIsAlive(true);
+		player1.SetMood(false);
+	}
+	if (!(mood[0].IsAlive()) && (mood[0].HitHitPlayer(&player1))) {
+		mood[0].SetIsAlive(true);
+		mood[1].SetIsAlive(true);
+		player1.SetMood(false);
+	}*/
+	if (button[0].IsAlive() && ((button[0].HitPlayer(&player2)) || button[0].HitPlayer(&player1))) {
+		button[0].SetIsAlive(false);
+		button[1].SetIsAlive(false);
+		player1.SetButton(true);
+	}
+	if (button[2].IsAlive() && ((button[2].HitPlayer(&player2)) || button[2].HitPlayer(&player1))) {
+		button[2].SetIsAlive(false);
+		button[1].SetIsAlive(false);
+		player1.SetButton(true);
+	}
+	if (!((button[0].IsAlive()) && (button[2].IsAlive())) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2)) && !(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
+		button[1].SetIsAlive(true);
+		player1.SetButton(false);
+
+	}
+	if (!(button[0].IsAlive()) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2))) {
+		button[0].SetIsAlive(true);
+	}
+	if (!(button[2].IsAlive()) && !(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
+		button[2].SetIsAlive(true);
+	}
+
+	if (!(icedoor.IsAlive()) && !(reddoor.IsAlive())) {
+		GotoGameState(GAME_STATE_WIN);
+	}
+}
+
+void CGameStateRun2::OnInit()  								// éŠæˆ²çš„åˆå€¼åŠåœ–å½¢è¨­å®š
+{
+	//
+	// ç•¶åœ–å¾ˆå¤šæ™‚ï¼ŒOnInitè¼‰å…¥æ‰€æœ‰çš„åœ–è¦èŠ±å¾ˆå¤šæ™‚é–“ã€‚ç‚ºé¿å…ç©éŠæˆ²çš„äºº
+	//     ç­‰çš„ä¸è€ç…©ï¼ŒéŠæˆ²æœƒå‡ºç¾ã€ŒLoading ...ã€ï¼Œé¡¯ç¤ºLoadingçš„é€²åº¦ã€‚
+	//
+	ShowInitProgress(33);	// æ¥å€‹å‰ä¸€å€‹ç‹€æ…‹çš„é€²åº¦ï¼Œæ­¤è™•é€²åº¦è¦–ç‚º33%
+	//
+	// é–‹å§‹è¼‰å…¥è³‡æ–™
+	//
+	int i;
+	for (i = 0; i < NUMRED; i++)
+		diamond1[i].LoadBitmap();								// è¼‰å…¥ç¬¬iå€‹çƒçš„åœ–å½¢
+	for (i = 0; i < NUMICE; i++) {
+		diamond2[i].LoadBitmap();
+	}
+	for (i = 0; i < LAKERED; i++)
+		Lake1[i].LoadBitmap();								// è¼‰å…¥ç¬¬iå€‹çƒçš„åœ–å½¢
+	for (i = 0; i < LAKEICE; i++) {
+		Lake2[i].LoadBitmap();
+	}
+	for (i = 0; i < LAKEGREEN; i++) {
+		Lake3[i].LoadBitmap();
+	}
+	gamemap.LoadBitmap();
+	player1.LoadBitmap();
+	player2.LoadBitmap();
+	reddoor.LoadBitmap();
+	icedoor.LoadBitmap();
+	for (i = 0; i < NUMMOD; i++) {
+		mood[i].LoadBitmap();
+	}
+	for (i = 0; i < NUMBUT; i++) {
+		button[i].LoadBitmap();
+	}
+	box.LoadBitmap();
+	background.LoadBitmap(IDB_MAP1);					// è¼‰å…¥èƒŒæ™¯çš„åœ–å½¢
+	//
+	// å®Œæˆéƒ¨åˆ†Loadingå‹•ä½œï¼Œæé«˜é€²åº¦
+	//
+	ShowInitProgress(50);
+	Sleep(300); // æ”¾æ…¢ï¼Œä»¥ä¾¿çœ‹æ¸…æ¥šé€²åº¦ï¼Œå¯¦éš›éŠæˆ²è«‹åˆªé™¤æ­¤Sleep
+	//
+	// ç¹¼çºŒè¼‰å…¥å…¶ä»–è³‡æ–™
+	//
+			// è¼‰å…¥èªªæ˜çš„åœ–å½¢
+	//hits_left.LoadBitmap();
+
+	//CAudio::Instance()->Load(AUDIO_DING, ".\\sounds\\ding.wav");	// è¼‰å…¥ç·¨è™Ÿ0çš„è²éŸ³ding.wav
+	//CAudio::Instance()->Load(AUDIO_LAKE, ".\\sounds\\lake.mp3");	// è¼‰å…¥ç·¨è™Ÿ1çš„è²éŸ³lake.mp3
+	//CAudio::Instance()->Load(AUDIO_NTUT, ".\\sounds\\LevelMusic.mp3");	// è¼‰å…¥ç·¨è™Ÿ2çš„è²éŸ³ntut.mid
+	//
+	// æ­¤OnInitå‹•ä½œæœƒæ¥åˆ°CGameStaterOver::OnInit()ï¼Œæ‰€ä»¥é€²åº¦é‚„æ²’åˆ°100%
+	//
+}
+
+
+void CGameStateRun2::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	const char KEY_LEFT = 0x25; // keyboardå·¦ç®­é ­
+	const char KEY_UP = 0x26; // keyboardä¸Šç®­é ­
+	const char KEY_RIGHT = 0x27; // keyboardå³ç®­é ­
+	const char KEY_DOWN = 0x28; // keyboardä¸‹ç®­é ­
+	const char KEY_A = 'A';
+	const char KEY_W = 'W';
+	const char KEY_D = 'D';
+	const char KEY_S = 'S';
+	const char KEY_P = 'P';
+
+	if (nChar == KEY_LEFT)
+	{
+
+		player1.SetMovingLeft(true);
+
+	}
+	if (nChar == KEY_RIGHT) {
+
+		player1.SetMovingRight(true);
+	}
+	if (nChar == KEY_UP)
+	{
+		player1.SetMovingUp(true);
+	}
+	if (nChar == KEY_DOWN)
+	{
+		player1.SetMovingDown(true);
+	}
+	if (nChar == KEY_A)
+	{
+		player2.SetMovingLeft(true);
+	}
+	if (nChar == KEY_D) {
+
+		player2.SetMovingRight(true);
+	}
+	if (nChar == KEY_W)
+	{
+
+		player2.SetMovingUp(true);
+	}
+	if (nChar == KEY_S)
+	{
+
+		player2.SetMovingDown(true);
+	}
+	if (nChar == KEY_P)
+	{
+		for (int i = 0; i < LAKERED; i++) {
+			Lake1[i].hack = true;
+		}
+		for (int i = 0; i < LAKEICE; i++) {
+			Lake2[i].hack = true;
+		}
+		for (int i = 0; i < LAKEGREEN; i++) {
+			Lake3[i].hack = true;
+		}
+		hits_left.Add(10000);
+	}
+	//gamemap.OnKeyDown(nChar);
+}
+
+void CGameStateRun2::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	const char KEY_LEFT = 0x25; // keyboardå·¦ç®­é ­
+	const char KEY_UP = 0x26; // keyboardä¸Šç®­é ­
+	const char KEY_RIGHT = 0x27; // keyboardå³ç®­é ­
+	const char KEY_DOWN = 0x28; // keyboardä¸‹ç®­é ­
+	const char KEY_A = 'A';
+	const char KEY_W = 'W';
+	const char KEY_D = 'D';
+	const char KEY_S = 'S';
+	if (nChar == KEY_LEFT)
+	{
+
+		player1.SetMovingLeft(false);
+	}
+	if (nChar == KEY_RIGHT) {
+
+		player1.SetMovingRight(false);
+	}
+	if (nChar == KEY_UP)
+	{
+
+		player1.SetMovingUp(false);
+	}
+	if (nChar == KEY_DOWN)
+	{
+
+		player1.SetMovingDown(false);
+	}
+	if (nChar == KEY_A)
+	{
+
+		player2.SetMovingLeft(false);
+
+	}
+	if (nChar == KEY_D) {
+
+		player2.SetMovingRight(false);
+	}
+	if (nChar == KEY_W)
+	{
+
+		player2.SetMovingUp(false);
+	}
+	if (nChar == KEY_S)
+	{
+		player2.SetMovingDown(false);
+	}
+}
+
+void CGameStateRun2::OnLButtonDown(UINT nFlags, CPoint point)  // è™•ç†æ»‘é¼ çš„å‹•ä½œ
+{
+
+}
+
+void CGameStateRun2::OnLButtonUp(UINT nFlags, CPoint point)	// è™•ç†æ»‘é¼ çš„å‹•ä½œ
+{
+
+}
+
+void CGameStateRun2::OnMouseMove(UINT nFlags, CPoint point)	// è™•ç†æ»‘é¼ çš„å‹•ä½œ
+{
+	// æ²’äº‹ã€‚å¦‚æœéœ€è¦è™•ç†æ»‘é¼ ç§»å‹•çš„è©±ï¼Œå¯«codeåœ¨é€™è£¡
+}
+
+void CGameStateRun2::OnRButtonDown(UINT nFlags, CPoint point)  // è™•ç†æ»‘é¼ çš„å‹•ä½œ
+{
+
+}
+
+void CGameStateRun2::OnRButtonUp(UINT nFlags, CPoint point)	// è™•ç†æ»‘é¼ çš„å‹•ä½œ
+{
+
+}
+
+void CGameStateRun2::OnShow()
+{
+	//
+	//  æ³¨æ„ï¼šShowè£¡é¢åƒè¬ä¸è¦ç§»å‹•ä»»ä½•ç‰©ä»¶çš„åº§æ¨™ï¼Œç§»å‹•åº§æ¨™çš„å·¥ä½œæ‡‰ç”±Moveåšæ‰å°ï¼Œ
+	//        å¦å‰‡ç•¶è¦–çª—é‡æ–°ç¹ªåœ–æ™‚(OnDraw)ï¼Œç‰©ä»¶å°±æœƒç§»å‹•ï¼Œçœ‹èµ·ä¾†æœƒå¾ˆæ€ªã€‚æ›å€‹è¡“èª
+	//        èªªï¼ŒMoveè² è²¬MVCä¸­çš„Modelï¼ŒShowè² è²¬Viewï¼Œè€ŒViewä¸æ‡‰æ›´å‹•Modelã€‚
+	//
+	//
+	//  è²¼ä¸ŠèƒŒæ™¯åœ–ã€æ’æ“Šæ•¸ã€çƒã€æ“¦å­ã€å½ˆè·³çš„çƒ
+	//
+	background.ShowBitmap();			// è²¼ä¸ŠèƒŒæ™¯åœ–
+	gamemap.OnShow();
+	// è²¼ä¸Šèªªæ˜åœ–
+	//hits_left.ShowBitmap();
+
+	for (int i = 0; i < NUMRED; i++)
+		diamond1[i].OnShow();				// è²¼ä¸Šç¬¬iè™Ÿçƒ
+	for (int i = 0; i < NUMICE; i++)
+	{
+		diamond2[i].OnShow();
+	}
+
+	reddoor.OnShow();
+	icedoor.OnShow();
+	mood[0].OnShow();
+	mood[1].OnShow1();
+	button[0].OnShow();
+	button[1].OnShow1();
+	button[2].OnShow();
+	box.OnShow();
+	for (int i = 0; i < LAKERED; i++)
+	{
+		Lake1[i].OnShow();				// è²¼ä¸Šç¬¬iè™Ÿçƒ
 	}
 	for (int i = 0; i < LAKEICE; i++)
 	{
