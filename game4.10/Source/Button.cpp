@@ -79,14 +79,14 @@ namespace game_framework {
 	void Button::OnMove2()
 	{
 		if (is_alive)
-			if (y >= 230) {
+			if (y >= 250) {
 				y -= 1;
 			}
 			else {
 				y = y;
 			}
 		else {
-			if (y <= 320) {
+			if (y <= 330) {
 				y += 1;
 			}
 			else {
