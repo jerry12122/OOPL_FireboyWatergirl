@@ -179,5 +179,18 @@ namespace game_framework {
 		CMovingBitmap gold;
 		CMovingBitmap conti;
 	};
+	class CGameStateMenu : public CGameState {
+	public:
+		CGameStateMenu(CGame *g);
+		void OnLButtonDown(UINT nFlags, CPoint point);
+		void OnBeginState();							// 設定每次重玩所需的變數
+		void OnInit();
+	protected:
+		void OnMove();									// 移動遊戲元素
+		void OnShow();									// 顯示這個狀態的遊戲畫面
+	private:
+		int counter;	// 倒數之計數器
+		CMovingBitmap bg;
+	};
 
 }

@@ -392,6 +392,7 @@
     <Image Include="..\res\ICE_RIGHT_RUN_2.bmp" />
     <Image Include="..\res\ICE_RIGHT_RUN_3.bmp" />
     <Image Include="..\res\leftmood.bmp" />
+    <Image Include="..\res\menu.bmp" />
     <Image Include="..\res\midmood.bmp" />
     <Image Include="..\res\mood1.bmp" />
     <Image Include="..\res\NEXT.bmp" />

@@ -115,7 +115,7 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	if ((point.x > 303 && point.x < 485) && (point.y > 311 && point.y < 375))
 	{
-		GotoGameState(GAME_STATE_RUN);
+		GotoGameState(GAME_STATE_MENU);
 	}
 	
 		// 切換至GAME_STATE_RUN
@@ -161,7 +161,7 @@ void CGameStateOver::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	if ((point.x > 254 && point.x < 367) && (point.y > 337 && point.y < 376))
 	{
-		GotoGameState(GAME_STATE_INIT);
+		GotoGameState(GAME_STATE_MENU);
 	}
 	if ((point.x > 444 && point.x < 556) && (point.y > 337 && point.y < 376))
 	{
@@ -199,6 +199,55 @@ void CGameStateOver::OnShow()
 	gameover.ShowBitmap();
 
 }
+////////////////////////////////////////////////////
+CGameStateMenu::CGameStateMenu(CGame *g)
+	: CGameState(g)
+{
+}
+void CGameStateMenu::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	if ((point.x > 39 && point.x < 210) && (point.y > 492 && point.y < 588))
+	{
+		GotoGameState(GAME_STATE_INIT);
+	}
+	if ((point.x > 378 && point.x < 422) && (point.y > 492 && point.y < 542))
+	{
+		GotoGameState(GAME_STATE_RUN);
+	}
+}
+void CGameStateMenu::OnMove()
+{
+
+}
+void CGameStateMenu::OnBeginState()
+{
+
+}
+void CGameStateMenu::OnInit()
+{
+	//
+	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
+	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
+	//
+	ShowInitProgress(66);	// 接個前一個狀態的進度，此處進度視為66%
+	//
+	// 開始載入資料
+	//
+	bg.LoadBitmap(IDB_MENU, RGB(255, 255, 255));
+
+	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	//
+	// 最終進度為100%
+	//
+	ShowInitProgress(100);
+}
+void CGameStateMenu::OnShow()
+{
+	bg.SetTopLeft(0, 0);
+	bg.ShowBitmap();
+
+}
+/////////////////////////////////////////////////////
 CGameStateWin::CGameStateWin(CGame *g)
 	: CGameState(g)
 {

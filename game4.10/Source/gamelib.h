@@ -84,7 +84,9 @@ enum GAME_STATES {
 	GAME_STATE_INIT,
 	GAME_STATE_RUN,
 	GAME_STATE_OVER,
-	GAME_STATE_WIN
+	GAME_STATE_WIN,
+	GAME_STATE_MENU
+
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -279,7 +281,7 @@ class CGameStateInit;
 class CGameStateRun;
 class CGameStateOver;
 class CGameStateWin;
-
+class CGameStateMenu;
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的各種狀態之Base class(是一個abstract class)
 // 每個Public Interface的用法都要懂，Implementation可以不懂
@@ -347,7 +349,7 @@ private:
 	bool            suspended;			// 遊戲是否被suspended
 	const int		NUM_GAME_STATES;	// 遊戲的狀態數(3個狀態)
 	CGameState		*gameState;			// pointer指向目前的遊戲狀態
-	CGameState		*gameStateTable[4];	// 遊戲狀態物件的pointer
+	CGameState		*gameStateTable[5];	// 遊戲狀態物件的pointer
 	static CGame	instance;			// 遊戲唯一的instance
 };
 

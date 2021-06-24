@@ -406,5 +406,8 @@
     <Image Include="..\res\1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\res\menu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

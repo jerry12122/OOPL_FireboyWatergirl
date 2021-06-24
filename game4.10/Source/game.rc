@@ -192,6 +192,8 @@ CONTI                   BITMAP                  "..\\..\\res\\CONTINUE.bmp"
 
 DOT                     BITMAP                  "..\\..\\res\\dot.bmp"
 
+IDB_MENU                BITMAP                  "..\\..\\res\\menu.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
