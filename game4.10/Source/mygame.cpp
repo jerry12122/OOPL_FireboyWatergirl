@@ -288,7 +288,7 @@ void CGameStateWin::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	if ((point.x > 320 && point.x < 510) && (point.y > 350 && point.y < 404))
 	{
-		GotoGameState(GAME_STATE_INIT);
+		GotoGameState(GAME_STATE_MENU);
 	}
 }
 void CGameStateWin::OnMove()
