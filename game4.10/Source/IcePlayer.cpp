@@ -314,6 +314,20 @@ namespace game_framework {
 				map[37][i] = 1;
 			}
 		}
+		if (isButton2) {
+			for (int i = 11; i <= 12; i++) {
+				for (int j = 35; j <= 44; j++) {
+					map[i][j] = 0;
+				}
+			}
+		}
+		else {
+			for (int i = 11; i <= 12; i++) {
+				for (int j = 35; j <= 44; j++) {
+					map[i][j] = 1;
+				}
+			}
+		}
 		/*
 		if (isLeftRightEmpty(x, y+55)&&y+55<578)
 		{
@@ -394,6 +408,9 @@ namespace game_framework {
 	}
 	void IcePlayer::SetButton(bool flag) {
 		isButton = flag;
+	}
+	void IcePlayer::SetButton2(bool flag) {
+		isButton2 = flag;
 	}
 	void IcePlayer::SetMood(bool flag) {
 		isMood = flag;
