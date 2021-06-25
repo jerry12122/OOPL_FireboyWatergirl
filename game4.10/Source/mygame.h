@@ -168,6 +168,7 @@ namespace game_framework {
 		const int		LAKEGREEN;
 		const int		NUMMOD;
 		const int		NUMBUT;
+		const int		NUMBUT1;
 		CMovingBitmap	background;	// ­I´º¹Ï
 
 		RedDiamond		*diamond1;	// Æp¥Ûªº°}¦C
@@ -185,6 +186,7 @@ namespace game_framework {
 		Mood			*mood;
 		//box				box;
 		Button			*button;
+		Button			*button1;
 	};
 	/////////////////////////////////////////////////////////////////////////////
 
