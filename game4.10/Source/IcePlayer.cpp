@@ -40,7 +40,15 @@ namespace game_framework {
 	{
 		stage = stages;
 		gamemap.ReadFile(stages);
-		const int INITIAL_VELOCITY = 13;	// 初始上升速度
+		int INITIAL_VELOCITY;	// 初始上升速度
+		if (stages == 1)
+		{
+			INITIAL_VELOCITY = 12;
+		}
+		else
+		{
+			INITIAL_VELOCITY = 15;
+		}
 		const int FLOOR = 462;
 		// 地板座標
 		const int X_POS = 42;
