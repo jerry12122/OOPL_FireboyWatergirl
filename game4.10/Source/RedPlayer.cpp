@@ -596,7 +596,7 @@ namespace game_framework {
 		isButton = flag;
 	}
 	void RedPlayer::SetButton2(bool flag) {
-		isButton = flag;
+		isButton2 = flag;
 	}
 	void RedPlayer::SetMood(bool flag) {
 		isMood = flag;
