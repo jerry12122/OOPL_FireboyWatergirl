@@ -314,17 +314,33 @@ namespace game_framework {
 				map[37][i] = 1;
 			}
 		}
-		if (isButton2) {
-			for (int i = 11; i <= 12; i++) {
-				for (int j = 35; j <= 44; j++) {
-					map[i][j] = 0;
+		if (stage == 2) {
+			if (isButton2) {
+				for (int i = 11; i <= 12; i++) {
+					for (int j = 35; j <= 44; j++) {
+						map[i][j] = 0;
+					}
 				}
 			}
-		}
-		else {
-			for (int i = 11; i <= 12; i++) {
-				for (int j = 35; j <= 44; j++) {
-					map[i][j] = 1;
+			else {
+				for (int i = 11; i <= 12; i++) {
+					for (int j = 35; j <= 44; j++) {
+						map[i][j] = 1;
+					}
+				}
+			}
+			if (isButton3) {
+				for (int i = 33; i <= 40; i++) {
+					for (int j = 40; j <= 41; j++) {
+						map[i][j] = 1;
+					}
+				}
+			}
+			else {
+				for (int i = 33; i <= 40; i++) {
+					for (int j = 40; j <= 41; j++) {
+						map[i][j] = 0;
+					}
 				}
 			}
 		}
@@ -411,6 +427,9 @@ namespace game_framework {
 	}
 	void IcePlayer::SetButton2(bool flag) {
 		isButton2 = flag;
+	}
+	void IcePlayer::SetButton3(bool flag) {
+		isButton3 = flag;
 	}
 	void IcePlayer::SetMood(bool flag) {
 		isMood = flag;
