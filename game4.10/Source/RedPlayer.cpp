@@ -500,6 +500,20 @@ namespace game_framework {
 				map[37][i] = 1;
 			}
 		}
+		if (isButton2) {
+			for (int i = 11; i <= 12; i++) {
+				for (int j = 35; j <= 44; j++) {
+					map[i][j] = 0;
+				}
+			}
+		}
+		else {
+			for (int i = 11; i <= 12; i++) {
+				for (int j = 35; j <= 44; j++) {
+					map[i][j] = 1;
+				}
+			}
+		}
 		/*
 		if (isLeftRightEmpty(x, y+55)&&y+55<578)
 		{
@@ -579,6 +593,9 @@ namespace game_framework {
 			y = floor - 38;
 	}
 	void RedPlayer::SetButton(bool flag) {
+		isButton = flag;
+	}
+	void RedPlayer::SetButton2(bool flag) {
 		isButton = flag;
 	}
 	void RedPlayer::SetMood(bool flag) {
