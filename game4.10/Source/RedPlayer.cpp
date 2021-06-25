@@ -159,7 +159,7 @@ namespace game_framework {
 		stage = stages;
 		gamemap.~CGameMap();
 		gamemap.ReadFile(stages);
-		const int INITIAL_VELOCITY = 15;	// 初始上升速度
+		const int INITIAL_VELOCITY = 13;	// 初始上升速度
 		const int FLOOR = 579;
 		// 地板座標
 		const int X_POS = 42;
@@ -330,7 +330,7 @@ namespace game_framework {
 	}
 	void RedPlayer::setfloor()
 	{
-		if ((map[(y + 38) / 10][(x + 40) / 10]) || (map[(y + 38) / 10][(x + 30) / 10]) == 1) {
+		if ((map[(y + 38) / 10][(x ) / 10]) || (map[(y + 38) / 10][(x + 30) / 10]) == 1) {
 			if ((map[(y + 48) / 10][(x) / 10]) || (map[(y + 48) / 10][(x + 30) / 10]) == 1) {
 				if ((map[(y + 58) / 10][(x) / 10]) || (map[(y + 58) / 10][(x + 30) / 10]) == 1) {
 					if ((map[(y + 68) / 10][(x) / 10]) || (map[(y + 68) / 10][(x + 30) / 10]) == 1) {
@@ -479,8 +479,8 @@ namespace game_framework {
 	void RedPlayer::OnMove()
 	{
 		const int STEP_SIZE = 7;
-		//animation.OnMove();
-		//animation1.OnMove();
+		animation.OnMove();
+		animation1.OnMove();
 		if (isMood) {
 			for (int i = 2; i <= 8; i++) {
 				map[37][i] = 0;
