@@ -459,6 +459,9 @@ namespace game_framework {
 			floor = 194;
 		}
 	}
+	void RedPlayer::setsetfloor(int y) {
+		floor = y;
+	}
 	void RedPlayer::OnMove1() {
 		int a = MY / 10;
 		if (isButton) {
@@ -621,6 +624,14 @@ namespace game_framework {
 	}
 	void RedPlayer::MoodY(int MY) {
 		MY = MY;
+	}
+	bool RedPlayer::butin() {
+		if (x > 710 && x < 780 && y >= 192 && y <= 292) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 
 	void RedPlayer::SetFloor(int xx, int yy) {

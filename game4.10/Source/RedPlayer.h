@@ -66,8 +66,10 @@ namespace game_framework {
 		int getCoordX(int x, int y);
 		int getCoordY(int x, int y);
 		void setfloor();
+		void setsetfloor(int y);
 		bool frontBox(int x, int y);
 		bool onBox(int x, int y);
+		bool butin();
 		void setFront(bool a);
 		void setOnBox(bool a);
 		void SetBox(bool flag);

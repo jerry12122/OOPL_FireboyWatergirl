@@ -631,6 +631,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		player1.SetMood(false);
 		player2.SetMood(false);
 	}*/
+	
 	if (button[0].IsAlive() && ((button[0].HitPlayer(&player2)) || button[0].HitPlayer(&player1))) {
 		button[0].SetIsAlive(false);
 		button[1].SetIsAlive(false);
@@ -647,7 +648,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		button[1].SetIsAlive(true);
 		player1.SetButton(false);
 		player2.SetButton(false);
-
 	}
 	if (!(button[0].IsAlive()) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2))) {
 		button[0].SetIsAlive(true);
@@ -655,7 +655,35 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	if (!(button[2].IsAlive()) && !(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
 		button[2].SetIsAlive(true);
 	}
-	
+
+	if (!button[1].IsAlive()) {
+		if (button[1].ReY() <= 320) {
+			button[1].SetXY(button[1].ReX(), button[1].ReY() + 1);
+		}
+		else {
+			button[1].SetXY(button[1].ReX(), button[1].ReY());
+		}
+		if (player1.butin()) {
+			player1.SetXY(player1.GetX1(), button[1].ReY() - 38);
+			if (button[1].ReY() + 11 >= player1.GetY2()) {
+				player1.setsetfloor(button[1].ReY());
+			}
+		}
+	}
+	else {
+		if (button[1].ReY() >= 230) {
+			button[1].SetXY(button[1].ReX(), button[1].ReY() - 1);
+		}
+		else {
+			button[1].SetXY(button[1].ReX(), button[1].ReY());
+		}
+		if (player1.butin()) {
+			player1.SetXY(player1.GetX1(), button[1].ReY() - 38);
+			if (button[1].ReY() + 11 >= player1.GetY2()) {
+				player1.setsetfloor(button[1].ReY());
+			}
+		}
+	}
 	if (!(icedoor.IsAlive()) && !(reddoor.IsAlive())) {
 		GotoGameState(GAME_STATE_WIN);
 	}
@@ -1017,8 +1045,6 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 	player2.MoodY(button[1].ReY());
 	player1.OnMove();
 	player2.OnMove();
-	player1.OnMove1();
-	player2.OnMove1();
 	reddoor.OnMove();
 	icedoor.OnMove();
 	//

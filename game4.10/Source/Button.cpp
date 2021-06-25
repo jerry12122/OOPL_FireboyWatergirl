@@ -27,8 +27,29 @@ namespace game_framework {
 		return HitRectangle(player->GetX1(), player->GetY1(),
 			player->GetX2(), player->GetY2());
 	}
+	bool Button::HitHitPlayer(IcePlayer *player)
+	{
+		return HitHitRectangle(player->GetX1(), player->GetY2(),
+			player->GetX2(), player->GetY2());
+	}
+	bool Button::HitHitPlayer(RedPlayer *player)
+	{
+		return HitHitRectangle(player->GetX1(), player->GetY2(),
+			player->GetX2(), player->GetY2());
+	}
 
 	bool Button::HitRectangle(int tx1, int ty1, int tx2, int ty2)
+	{
+		int x1 = x;				// 球的左上角x座標
+		int y1 = y;				// 球的左上角y座標
+		int x2 = x1 + but.Width();	// 球的右下角x座標
+		int y2 = y1 + but.Height();	// 球的右下角y座標
+									//
+									// 檢測球的矩形與參數矩形是否有交集
+									//
+		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
+	}
+	bool Button::HitHitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
 		int x1 = x;				// 球的左上角x座標
 		int y1 = y;				// 球的左上角y座標
@@ -59,7 +80,7 @@ namespace game_framework {
 	}
 	void Button::OnMove1()
 	{
-		if (is_alive) {
+		/*if (is_alive) {
 			if (y >= 230) {
 				y -= 1;
 			}
@@ -74,7 +95,7 @@ namespace game_framework {
 			else {
 				y = y;
 			}
-		}
+		}*/
 		return;
 	}
 	void Button::OnMove2()
@@ -131,6 +152,10 @@ namespace game_framework {
 	int Button::ReY()
 	{
 		return y;
+	}
+	int Button::ReX()
+	{
+		return x;
 	}
 
 	void Button::OnShow()

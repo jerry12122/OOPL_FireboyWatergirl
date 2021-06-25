@@ -8,6 +8,8 @@ namespace game_framework {
 		Button();
 		bool HitPlayer(RedPlayer *player);							// 是否碰到擦子
 		bool HitPlayer(IcePlayer *player);
+		bool HitHitPlayer(RedPlayer *player);							// 是否碰到擦子
+		bool HitHitPlayer(IcePlayer *player);
 		bool IsAlive();											// 是否活著
 		void LoadBitmap();										// 載入圖形
 		void OnMove();											// 移動
@@ -20,12 +22,14 @@ namespace game_framework {
 		void OnShow3();
 		void SetXY(int nx, int ny);								// 設定圓心的座標
 		int ReY();
+		int ReX();
 		void SetIsAlive(bool alive);							// 設定是否活著
 	protected:
 		CMovingBitmap but, mo ,mo2 ,mo3;			// 球的圖	
 		int x, y;					// 圓心的座標
 		bool is_alive;				// 是否活著
 	private:
+		bool HitHitRectangle(int tx1, int ty1, int tx2, int ty2);	// 是否碰到參數範圍的矩形
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	// 是否碰到參數範圍的矩形
 	};
 }
