@@ -953,7 +953,6 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 	player2.OnMove();
 	player1.OnMove1();
 	player2.OnMove1();
-	button[2].OnMove();
 	reddoor.OnMove();
 	icedoor.OnMove();
 	//
