@@ -1,5 +1,5 @@
 ﻿/*
- * mygame.cpp: ���ɮ��x�C��������class��implementation
+ * mygame.cpp: 本檔案儲遊戲本身的class的implementation
  * Copyright (C) 2002-2008 Woei-Kae Chen <wkc@csie.ntut.edu.tw>
  *
  * This file is part of game, a free game development framework for windows.
@@ -70,7 +70,7 @@
 #include <sstream>
 namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
-// �o��class���C�����C���}�Y�e������
+// 這個class為遊戲的遊戲開頭畫面物件
 /////////////////////////////////////////////////////////////////////////////
 static int stage = 0;
 static int count[2][7] = { {3,4,1,1,1,2,3},
@@ -101,19 +101,19 @@ CGameStateInit::CGameStateInit(CGame *g)
 void CGameStateInit::OnInit()
 {
 	//
-	// ��ϫܦh�ɡAOnInit���J�Ҧ����ϭn��ܦh�ɶ��C���קK���C�����H
-	//     �������@�СA�C���|�X�{�uLoading ...�v�A���Loading���i�סC
+	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
+	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
-	ShowInitProgress(0);	// �@�}�l��loading�i�׬�0%
+	ShowInitProgress(0);	// 一開始的loading進度為0%
 	//
-	// �}�l���J���
+	// 開始載入資料
 	//
 	logo.LoadBitmap(IDB_GAME_MENU);
 	intro.LoadBitmap(IDB_INTRO);
 	//intro.L
-	//Sleep(300);				// ��C�A�H�K�ݲM���i�סA��ڹC���ЧR����Sleep
+	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
-	// ��OnInit�ʧ@�|����CGameStaterRun::OnInit()�A�ҥH�i���٨S��100%
+	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
 
 
@@ -127,10 +127,10 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	const char KEY_ESC = 27;
 	//const char KEY_SPACE = ' ';
 	if (nChar == KEY_ESC)
-		PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// �����C��
+		PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// 關閉遊戲
 	/*
-		GotoGameState(GAME_STATE_RUN);						// ������GAME_STATE_RUN
-	else if (nChar == KEY_ESC)								// Demo �����C������k
+		GotoGameState(GAME_STATE_RUN);						// 切換至GAME_STATE_RUN
+	else if (nChar == KEY_ESC)								// Demo 關閉遊戲的方法
 		*/
 }
 
@@ -147,16 +147,16 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 	if ((point.x > 165 && point.x < 257) && (point.y > 382 && point.y < 421))
 	{
 		intro_bool = false;
-		GotoGameState(GAME_STATE_RUN);
+		GotoGameState(GAME_STATE_INIT);
 	}
 	
-		// ������GAME_STATE_RUN
+		// 切換至GAME_STATE_RUN
 }
 
 void CGameStateInit::OnShow()
 {
 	//
-	// �K�Wlogo
+	// 貼上logo
 	//
 	logo.SetTopLeft(0, 0);
 	logo.ShowBitmap();
@@ -167,13 +167,13 @@ void CGameStateInit::OnShow()
 	}
 
 	//
-	// Demo�ù��r�����ϥΡA���L�}�o�ɽкɶq�קK�����ϥΦr���A���CMovingBitmap����n
+	// Demo螢幕字型的使用，不過開發時請盡量避免直接使用字型，改用CMovingBitmap比較好
 	//
 	/*
-	CDC *pDC = CDDraw::GetBackCDC();			// ���o Back Plain �� CDC 
+	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC 
 	CFont f,*fp;
-	f.CreatePointFont(160,"Times New Roman");	// ���� font f; 160���16 point���r
-	fp=pDC->SelectObject(&f);					// ��� font f
+	f.CreatePointFont(160,"Times New Roman");	// 產生 font f; 160表示16 point的字
+	fp=pDC->SelectObject(&f);					// 選用 font f
 	pDC->SetBkColor(RGB(0,0,0));
 	pDC->SetTextColor(RGB(255,255,0));
 	pDC->TextOut(120,220,"Please click mouse or press SPACE to begin.");
@@ -181,14 +181,14 @@ void CGameStateInit::OnShow()
 	if (ENABLE_GAME_PAUSE)
 		pDC->TextOut(5,425,"Press Ctrl-Q to pause the Game.");
 	pDC->TextOut(5,455,"Press Alt-F4 or ESC to Quit.");
-	pDC->SelectObject(fp);						// �� font f (�d�U���n�|�F��)
+	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
 	CDDraw::ReleaseBackCDC();
 	*/
-	// �� Back Plain �� CDC
+	// 放掉 Back Plain 的 CDC
 }								
 
 /////////////////////////////////////////////////////////////////////////////
-// �o��class���C����������A(Game Over)
+// 這個class為遊戲的結束狀態(Game Over)
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateOver::CGameStateOver(CGame *g)
@@ -225,17 +225,17 @@ void CGameStateOver::OnBeginState()
 void CGameStateOver::OnInit()
 {
 	//
-	// ��ϫܦh�ɡAOnInit���J�Ҧ����ϭn��ܦh�ɶ��C���קK���C�����H
-	//     �������@�СA�C���|�X�{�uLoading ...�v�A���Loading���i�סC
+	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
+	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
-	ShowInitProgress(66);	// ���ӫe�@�Ӫ��A���i�סA���B�i�׵���66%
+	ShowInitProgress(66);	// 接個前一個狀態的進度，此處進度視為66%
 	//
-	// �}�l���J���
+	// 開始載入資料
 	//
 	gameover.LoadBitmap(GAMEOVER, RGB(255, 255, 255));
-	//Sleep(300);				// ��C�A�H�K�ݲM���i�סA��ڹC���ЧR����Sleep
+	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
-	// �̲׶i�׬�100%
+	// 最終進度為100%
 	//
 	ShowInitProgress(100);
 }
@@ -278,18 +278,18 @@ void CGameStateMenu::OnBeginState()
 void CGameStateMenu::OnInit()
 {
 	//
-	// ��ϫܦh�ɡAOnInit���J�Ҧ����ϭn��ܦh�ɶ��C���קK���C�����H
-	//     �������@�СA�C���|�X�{�uLoading ...�v�A���Loading���i�סC
+	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
+	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
-	ShowInitProgress(66);	// ���ӫe�@�Ӫ��A���i�סA���B�i�׵���66%
+	ShowInitProgress(66);	// 接個前一個狀態的進度，此處進度視為66%
 	//
-	// �}�l���J���
+	// 開始載入資料
 	//
 	bg.LoadBitmap(IDB_MENU, RGB(255, 255, 255));
 
-	//Sleep(300);				// ��C�A�H�K�ݲM���i�סA��ڹC���ЧR����Sleep
+	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
-	// �̲׶i�׬�100%
+	// 最終進度為100%
 	//
 	ShowInitProgress(100);
 }
@@ -322,12 +322,12 @@ void CGameStateWin::OnBeginState()
 void CGameStateWin::OnInit()
 {
 	//
-	// ��ϫܦh�ɡAOnInit���J�Ҧ����ϭn��ܦh�ɶ��C���קK���C�����H
-	//     �������@�СA�C���|�X�{�uLoading ...�v�A���Loading���i�סC
+	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
+	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
-	ShowInitProgress(66);	// ���ӫe�@�Ӫ��A���i�סA���B�i�׵���66%
+	ShowInitProgress(66);	// 接個前一個狀態的進度，此處進度視為66%
 	//
-	// �}�l���J���
+	// 開始載入資料
 	//
 	gamewinspace.LoadBitmap(Win, RGB(255, 255, 255));
 	alarm.LoadBitmap(Alarm, RGB(255, 255, 255));
@@ -338,9 +338,9 @@ void CGameStateWin::OnInit()
 	conti.LoadBitmap(CONTI, RGB(255, 255, 255));
 	next.LoadBitmap(NEXT, RGB(255, 255, 255));
 	gold.LoadBitmap(GOLD, RGB(255, 255, 255));
-	//Sleep(300);				// ��C�A�H�K�ݲM���i�סA��ڹC���ЧR����Sleep
+	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
-	// �̲׶i�׬�100%
+	// 最終進度為100%
 	//
 	ShowInitProgress(100);
 }
@@ -362,7 +362,7 @@ void CGameStateWin::OnShow()
 	conti.ShowBitmap();
 }
 /////////////////////////////////////////////////////////////////////////////
-// �o��class���C�����C�����檫��A�D�n���C���{�����b�o��
+// 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateRun::CGameStateRun(CGame *g)
@@ -404,28 +404,28 @@ void CGameStateRun::OnBeginState()
 	const int HITS_LEFT_Y = 0;
 	//const int STAGE = 1;
 	gamemap.ReadFile(stage+1);
-	for (int i = 0; i < NUMRED; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < NUMRED; i++) {				// 設定球的起始座標
 		diamond1[i].SetXY(stage1_diamond1[i][0], stage1_diamond1[i][1]);
 		diamond1[i].SetIsAlive(true);
 	}
-	for (int i = 0; i < NUMICE; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < NUMICE; i++) {				// 設定球的起始座標
 		diamond2[i].SetXY(stage1_diamond2[i][0], stage1_diamond2[i][1]);
 		diamond2[i].SetIsAlive(true);
 	}
-	for (int i = 0; i < LAKERED; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < LAKERED; i++) {				// 設定球的起始座標
 		Lake1[i].SetXY(stage1_Lake1_position[i][0], stage1_Lake1_position[i][1]);
 	}
-	for (int i = 0; i < LAKEICE; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
 		Lake2[i].SetXY(stage1_Lake2_position[i][0], stage1_Lake2_position[i][1]);
 	}
-	for (int i = 0; i < LAKEICE; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
 		Lake3[i].SetXY(stage1_Lake3_position[i][0], stage1_Lake3_position[i][1]);
 	}
-	for (int i = 0; i < NUMMOD; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < NUMMOD; i++) {				// 設定球的起始座標
 		mood[i].SetXY(stage1_mood_position[i][0], stage1_mood_position[i][1]);
 		mood[i].SetIsAlive(true);
 	}
-	for (int i = 0; i < NUMBUT; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < NUMBUT; i++) {				// 設定球的起始座標
 		button[i].SetXY(stage1_button_position[i][0], stage1_button_position[i][1]);
 		button[i].SetIsAlive(true);
 	}
@@ -441,20 +441,20 @@ void CGameStateRun::OnBeginState()
 	box.init();
 	box.SetXY(500, 160);
 
-	background.SetTopLeft(0,0);				// �]�w�I�����_�l�y��
-		// �]�w�����Ϫ��_�l�y��
+	background.SetTopLeft(0,0);				// 設定背景的起始座標
+		// 設定說明圖的起始座標
 	hits_left.SetInteger(HITS_LEFT);
 
 
 	hits_lake.SetInteger(HITS_LAKE);
 	hits_door.SetInteger(HITS_DOOR);
-	hits_left.SetTopLeft(HITS_LEFT_X,HITS_LEFT_Y);		// ���w�ѤU�����ƪ��y��
-	CAudio::Instance()->Play(AUDIO_LAKE, true);			// ���� WAVE
-	CAudio::Instance()->Play(AUDIO_DING, false);		// ���� WAVE
-	CAudio::Instance()->Play(AUDIO_NTUT, true);			// ���� MIDI
+	hits_left.SetTopLeft(HITS_LEFT_X,HITS_LEFT_Y);		// 指定剩下撞擊數的座標
+	CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
+	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
+	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI
 }
 
-void CGameStateRun::OnMove()							// ���ʹC������
+void CGameStateRun::OnMove()							// 移動遊戲元素
 {
 	int i;
 	for (i = 0; i < NUMRED; i++)
@@ -478,7 +478,7 @@ void CGameStateRun::OnMove()							// ���ʹC������
 	icedoor.OnMove();
 	box.OnMove();
 	//
-	// �P�_���l�O�_�I��y
+	// 判斷擦子是否碰到球
 	//
 
 	for (i = 0; i < NUMRED; i++) {
@@ -501,11 +501,11 @@ void CGameStateRun::OnMove()							// ���ʹC������
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
-			// �Y�Ѿl�I�����Ƭ�0�A�h����Game Over���A
+			// 若剩餘碰撞次數為0，則跳到Game Over狀態
 			//
 			if (hits_lake.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// ���� WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// ���� MIDI
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
@@ -516,11 +516,11 @@ void CGameStateRun::OnMove()							// ���ʹC������
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
-			// �Y�Ѿl�I�����Ƭ�0�A�h����Game Over���A
+			// 若剩餘碰撞次數為0，則跳到Game Over狀態
 			//
 			if (hits_lake.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// ���� WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// ���� MIDI
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
@@ -531,11 +531,11 @@ void CGameStateRun::OnMove()							// ���ʹC������
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
-			// �Y�Ѿl�I�����Ƭ�0�A�h����Game Over���A
+			// 若剩餘碰撞次數為0，則跳到Game Over狀態
 			//
 			if (hits_lake.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// ���� WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// ���� MIDI
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
@@ -626,24 +626,24 @@ void CGameStateRun::OnMove()							// ���ʹC������
 	}
 }
 
-void CGameStateRun::OnInit()  								// �C������Ȥιϧγ]�w
+void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定
 {
 	//
-	// ��ϫܦh�ɡAOnInit���J�Ҧ����ϭn��ܦh�ɶ��C���קK���C�����H
-	//     �������@�СA�C���|�X�{�uLoading ...�v�A���Loading���i�סC
+	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
+	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
-	ShowInitProgress(33);	// ���ӫe�@�Ӫ��A���i�סA���B�i�׵���33%
+	ShowInitProgress(33);	// 接個前一個狀態的進度，此處進度視為33%
 	//
-	// �}�l���J���
+	// 開始載入資料
 	//
 	int i;
 	for (i = 0; i < NUMRED; i++)	
-		diamond1[i].LoadBitmap();								// ���J��i�Ӳy���ϧ�
+		diamond1[i].LoadBitmap();								// 載入第i個球的圖形
 	for (i = 0; i < NUMICE; i++) {
 		diamond2[i].LoadBitmap();
 	}
 	for (i = 0; i < LAKERED; i++)
-		Lake1[i].LoadBitmap();								// ���J��i�Ӳy���ϧ�
+		Lake1[i].LoadBitmap();								// 載入第i個球的圖形
 	for (i = 0; i < LAKEICE; i++) {
 		Lake2[i].LoadBitmap();
 	}
@@ -662,33 +662,33 @@ void CGameStateRun::OnInit()  								// �C������Ȥιϧγ]�w
 		button[i].LoadBitmap();
 	}
 	box.LoadBitmap();
-	background.LoadBitmap(IDB_MAP1);					// ���J�I�����ϧ�
+	background.LoadBitmap(IDB_MAP1);					// 載入背景的圖形
 	//
-	// ��������Loading�ʧ@�A�����i��
+	// 完成部分Loading動作，提高進度
 	//
 	ShowInitProgress(50);
-	Sleep(300); // ��C�A�H�K�ݲM���i�סA��ڹC���ЧR����Sleep
+	Sleep(300); // 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
-	// �~����J��L���
+	// 繼續載入其他資料
 	//
-			// ���J�������ϧ�
+			// 載入說明的圖形
 	hits_left.LoadBitmap();
 
-	CAudio::Instance()->Load(AUDIO_DING,  ".\\sounds\\ding.wav");	// ���J�s��0���n��ding.wav
-	CAudio::Instance()->Load(AUDIO_LAKE,  ".\\sounds\\lake.mp3");	// ���J�s��1���n��lake.mp3
-	CAudio::Instance()->Load(AUDIO_NTUT,  ".\\sounds\\LevelMusic.mp3");	// ���J�s��2���n��ntut.mid
+	CAudio::Instance()->Load(AUDIO_DING,  ".\\sounds\\ding.wav");	// 載入編號0的聲音ding.wav
+	CAudio::Instance()->Load(AUDIO_LAKE,  ".\\sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
+	CAudio::Instance()->Load(AUDIO_NTUT,  ".\\sounds\\LevelMusic.mp3");	// 載入編號2的聲音ntut.mid
 	//
-	// ��OnInit�ʧ@�|����CGameStaterOver::OnInit()�A�ҥH�i���٨S��100%
+	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 	//
 }
 
 
 void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	const char KEY_LEFT  = 0x25; // keyboard���b�Y
-	const char KEY_UP    = 0x26; // keyboard�W�b�Y
-	const char KEY_RIGHT = 0x27; // keyboard�k�b�Y
-	const char KEY_DOWN  = 0x28; // keyboard�U�b�Y
+	const char KEY_LEFT  = 0x25; // keyboard左箭頭
+	const char KEY_UP    = 0x26; // keyboard上箭頭
+	const char KEY_RIGHT = 0x27; // keyboard右箭頭
+	const char KEY_DOWN  = 0x28; // keyboard下箭頭
 	const char KEY_A = 'A';
 	const char KEY_W = 'W';
 	const char KEY_D = 'D';
@@ -749,10 +749,10 @@ void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	const char KEY_LEFT  = 0x25; // keyboard���b�Y
-	const char KEY_UP    = 0x26; // keyboard�W�b�Y
-	const char KEY_RIGHT = 0x27; // keyboard�k�b�Y
-	const char KEY_DOWN  = 0x28; // keyboard�U�b�Y
+	const char KEY_LEFT  = 0x25; // keyboard左箭頭
+	const char KEY_UP    = 0x26; // keyboard上箭頭
+	const char KEY_RIGHT = 0x27; // keyboard右箭頭
+	const char KEY_DOWN  = 0x28; // keyboard下箭頭
 	const char KEY_A = 'A';
 	const char KEY_W = 'W';
 	const char KEY_D = 'D';
@@ -797,27 +797,27 @@ void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 }
 
-void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // �B�z�ƹ����ʧ@
+void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
 
 }
 
-void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// �B�z�ƹ����ʧ@
+void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
 
 }
 
-void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// �B�z�ƹ����ʧ@
+void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	// �S�ơC�p�G�ݭn�B�z�ƹ����ʪ��ܡA�gcode�b�o��
+	// 沒事。如果需要處理滑鼠移動的話，寫code在這裡
 }
 
-void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // �B�z�ƹ����ʧ@
+void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
 
 }
 
-void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// �B�z�ƹ����ʧ@
+void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
 
 }
@@ -825,20 +825,20 @@ void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// �B�z�ƹ��
 void CGameStateRun::OnShow()
 {
 	//
-	//  �`�N�GShow�̭��d�U���n���ʥ�󪫥󪺮y�СA���ʮy�Ъ��u�@����Move���~��A
-	//        �_�h��������sø�Ϯ�(OnDraw)�A����N�|���ʡA�ݰ_�ӷ|�ܩǡC���ӳN�y
-	//        ���AMove�t�dMVC����Model�AShow�t�dView�A��View�������Model�C
+	//  注意：Show裡面千萬不要移動任何物件的座標，移動座標的工作應由Move做才對，
+	//        否則當視窗重新繪圖時(OnDraw)，物件就會移動，看起來會很怪。換個術語
+	//        說，Move負責MVC中的Model，Show負責View，而View不應更動Model。
 	//
 	//
-	//  �K�W�I���ϡB�����ơB�y�B���l�B�u�����y
+	//  貼上背景圖、撞擊數、球、擦子、彈跳的球
 	//
-	background.ShowBitmap();			// �K�W�I����
+	background.ShowBitmap();			// 貼上背景圖
 	gamemap.OnShow();
-					// �K�W������
+					// 貼上說明圖
 	hits_left.ShowBitmap();
 
 	for (int i=0; i < NUMRED; i++)
-		diamond1[i].OnShow();				// �K�W��i���y
+		diamond1[i].OnShow();				// 貼上第i號球
 	for (int i = 0; i < NUMICE; i++)
 	{
 		diamond2[i].OnShow();
@@ -854,7 +854,7 @@ void CGameStateRun::OnShow()
 	box.OnShow();
 	for (int i = 0; i < LAKERED; i++)
 	{
-		Lake1[i].OnShow();				// �K�W��i���y
+		Lake1[i].OnShow();				// 貼上第i號球
 	}
 	for (int i = 0; i < LAKEICE; i++)
 	{
@@ -909,32 +909,32 @@ void CGameStateRun2::OnBeginState()
 	const int HITS_LEFT_Y = 0;
 	//const int STAGE = 1;
 	gamemap.ReadFile(stage+1);
-	for (int i = 0; i < NUMRED; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < NUMRED; i++) {				// 設定球的起始座標
 		diamond1[i].SetXY(stage2_diamond1[i][0], stage2_diamond1[i][1]);
 		diamond1[i].SetIsAlive(true);
 	}
-	for (int i = 0; i < NUMICE; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < NUMICE; i++) {				// 設定球的起始座標
 		diamond2[i].SetXY(stage2_diamond2[i][0], stage2_diamond2[i][1]);
 		diamond2[i].SetIsAlive(true);
 	}
-	for (int i = 0; i < LAKERED; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < LAKERED; i++) {				// 設定球的起始座標
 		Lake1[i].SetXY(stage2_Lake1_position[i][0], stage2_Lake1_position[i][1]);
 	}
-	for (int i = 0; i < LAKEICE; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
 		Lake2[i].SetXY(stage2_Lake2_position[i][0], stage2_Lake2_position[i][1]);
 	}
-	for (int i = 0; i < LAKEICE; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < LAKEICE; i++) {				// 設定球的起始座標
 		Lake3[i].SetXY(stage2_Lake3_position[i][0], stage2_Lake3_position[i][1]);
 	}
-	for (int i = 0; i < NUMMOD; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < NUMMOD; i++) {				// 設定球的起始座標
 		mood[i].SetXY(stage2_mood_position[i][0], stage2_mood_position[i][1]);
 		mood[i].SetIsAlive(true);
 	}
-	for (int i = 0; i < NUMBUT; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < NUMBUT; i++) {				// 設定球的起始座標
 		button[i].SetXY(stage2_button_position[i][0], stage2_button_position[i][1]);
 		button[i].SetIsAlive(true);
 	}
-	for (int i = 0; i < NUMBUT1; i++) {				// �]�w�y���_�l�y��
+	for (int i = 0; i < NUMBUT1; i++) {				// 設定球的起始座標
 		button1[i].SetXY(stage2_button_position1[i][0], stage2_button_position1[i][1]);
 		button1[i].SetIsAlive(true);
 	}
@@ -947,20 +947,20 @@ void CGameStateRun2::OnBeginState()
 	icedoor.SetIsAlive(true);
 	icedoor.SetXY(106, 52);
 
-	background.SetTopLeft(0, 0);				// �]�w�I�����_�l�y��
-		// �]�w�����Ϫ��_�l�y��
+	background.SetTopLeft(0, 0);				// 設定背景的起始座標
+		// 設定說明圖的起始座標
 	//hits_left.SetInteger(HITS_LEFT);
 
 
 	hits_lake.SetInteger(HITS_LAKE);
 	hits_door.SetInteger(HITS_DOOR);
-	hits_left.SetTopLeft(HITS_LEFT_X, HITS_LEFT_Y);		// ���w�ѤU�����ƪ��y��
-	CAudio::Instance()->Play(AUDIO_LAKE, true);			// ���� WAVE
-	CAudio::Instance()->Play(AUDIO_DING, false);		// ���� WAVE
-	CAudio::Instance()->Play(AUDIO_NTUT, true);			// ���� MIDI
+	hits_left.SetTopLeft(HITS_LEFT_X, HITS_LEFT_Y);		// 指定剩下撞擊數的座標
+	CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
+	CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
+	CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI
 }
 
-void CGameStateRun2::OnMove()							// ���ʹC������
+void CGameStateRun2::OnMove()							// 移動遊戲元素
 {
 	int i;
 	for (i = 0; i < NUMRED; i++)
@@ -986,7 +986,7 @@ void CGameStateRun2::OnMove()							// ���ʹC������
 	reddoor.OnMove();
 	icedoor.OnMove();
 	//
-	// �P�_���l�O�_�I��y
+	// 判斷擦子是否碰到球
 	//
 
 	for (i = 0; i < NUMRED; i++) {
@@ -1009,11 +1009,11 @@ void CGameStateRun2::OnMove()							// ���ʹC������
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
-			// �Y�Ѿl�I�����Ƭ�0�A�h����Game Over���A
+			// 若剩餘碰撞次數為0，則跳到Game Over狀態
 			//
 			if (hits_lake.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// ���� WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// ���� MIDI
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
@@ -1024,11 +1024,11 @@ void CGameStateRun2::OnMove()							// ���ʹC������
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
-			// �Y�Ѿl�I�����Ƭ�0�A�h����Game Over���A
+			// 若剩餘碰撞次數為0，則跳到Game Over狀態
 			//
 			if (hits_lake.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// ���� WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// ���� MIDI
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
@@ -1039,11 +1039,11 @@ void CGameStateRun2::OnMove()							// ���ʹC������
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
-			// �Y�Ѿl�I�����Ƭ�0�A�h����Game Over���A
+			// 若剩餘碰撞次數為0，則跳到Game Over狀態
 			//
 			if (hits_lake.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// ���� WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// ���� MIDI
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
@@ -1140,24 +1140,24 @@ void CGameStateRun2::OnMove()							// ���ʹC������
 	}
 }
 
-void CGameStateRun2::OnInit()  								// �C������Ȥιϧγ]�w
+void CGameStateRun2::OnInit()  								// 遊戲的初值及圖形設定
 {
 	//
-	// ��ϫܦh�ɡAOnInit���J�Ҧ����ϭn��ܦh�ɶ��C���קK���C�����H
-	//     �������@�СA�C���|�X�{�uLoading ...�v�A���Loading���i�סC
+	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
+	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
 	//
-	ShowInitProgress(33);	// ���ӫe�@�Ӫ��A���i�סA���B�i�׵���33%
+	ShowInitProgress(33);	// 接個前一個狀態的進度，此處進度視為33%
 	//
-	// �}�l���J���
+	// 開始載入資料
 	//
 	int i;
 	for (i = 0; i < NUMRED; i++)
-		diamond1[i].LoadBitmap();								// ���J��i�Ӳy���ϧ�
+		diamond1[i].LoadBitmap();								// 載入第i個球的圖形
 	for (i = 0; i < NUMICE; i++) {
 		diamond2[i].LoadBitmap();
 	}
 	for (i = 0; i < LAKERED; i++)
-		Lake1[i].LoadBitmap();								// ���J��i�Ӳy���ϧ�
+		Lake1[i].LoadBitmap();								// 載入第i個球的圖形
 	for (i = 0; i < LAKEICE; i++) {
 		Lake2[i].LoadBitmap();
 	}
@@ -1178,33 +1178,33 @@ void CGameStateRun2::OnInit()  								// �C������Ȥιϧγ]�w
 	for (i = 0; i < NUMBUT1; i++) {
 		button1[i].LoadBitmap();
 	}
-	background.LoadBitmap(IDB_MAP1);					// ���J�I�����ϧ�
+	background.LoadBitmap(IDB_MAP1);					// 載入背景的圖形
 	//
-	// ��������Loading�ʧ@�A�����i��
+	// 完成部分Loading動作，提高進度
 	//
 	ShowInitProgress(50);
-	Sleep(300); // ��C�A�H�K�ݲM���i�סA��ڹC���ЧR����Sleep
+	Sleep(300); // 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
-	// �~����J��L���
+	// 繼續載入其他資料
 	//
-			// ���J�������ϧ�
+			// 載入說明的圖形
 	//hits_left.LoadBitmap();
 
-	//CAudio::Instance()->Load(AUDIO_DING, ".\\sounds\\ding.wav");	// ���J�s��0���n��ding.wav
-	//CAudio::Instance()->Load(AUDIO_LAKE, ".\\sounds\\lake.mp3");	// ���J�s��1���n��lake.mp3
-	//CAudio::Instance()->Load(AUDIO_NTUT, ".\\sounds\\LevelMusic.mp3");	// ���J�s��2���n��ntut.mid
+	//CAudio::Instance()->Load(AUDIO_DING, ".\\sounds\\ding.wav");	// 載入編號0的聲音ding.wav
+	//CAudio::Instance()->Load(AUDIO_LAKE, ".\\sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
+	//CAudio::Instance()->Load(AUDIO_NTUT, ".\\sounds\\LevelMusic.mp3");	// 載入編號2的聲音ntut.mid
 	//
-	// ��OnInit�ʧ@�|����CGameStaterOver::OnInit()�A�ҥH�i���٨S��100%
+	// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 	//
 }
 
 
 void CGameStateRun2::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	const char KEY_LEFT = 0x25; // keyboard���b�Y
-	const char KEY_UP = 0x26; // keyboard�W�b�Y
-	const char KEY_RIGHT = 0x27; // keyboard�k�b�Y
-	const char KEY_DOWN = 0x28; // keyboard�U�b�Y
+	const char KEY_LEFT = 0x25; // keyboard左箭頭
+	const char KEY_UP = 0x26; // keyboard上箭頭
+	const char KEY_RIGHT = 0x27; // keyboard右箭頭
+	const char KEY_DOWN = 0x28; // keyboard下箭頭
 	const char KEY_A = 'A';
 	const char KEY_W = 'W';
 	const char KEY_D = 'D';
@@ -1265,10 +1265,10 @@ void CGameStateRun2::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateRun2::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
-	const char KEY_LEFT = 0x25; // keyboard���b�Y
-	const char KEY_UP = 0x26; // keyboard�W�b�Y
-	const char KEY_RIGHT = 0x27; // keyboard�k�b�Y
-	const char KEY_DOWN = 0x28; // keyboard�U�b�Y
+	const char KEY_LEFT = 0x25; // keyboard左箭頭
+	const char KEY_UP = 0x26; // keyboard上箭頭
+	const char KEY_RIGHT = 0x27; // keyboard右箭頭
+	const char KEY_DOWN = 0x28; // keyboard下箭頭
 	const char KEY_A = 'A';
 	const char KEY_W = 'W';
 	const char KEY_D = 'D';
@@ -1313,27 +1313,27 @@ void CGameStateRun2::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	}
 }
 
-void CGameStateRun2::OnLButtonDown(UINT nFlags, CPoint point)  // �B�z�ƹ����ʧ@
+void CGameStateRun2::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
 
 }
 
-void CGameStateRun2::OnLButtonUp(UINT nFlags, CPoint point)	// �B�z�ƹ����ʧ@
+void CGameStateRun2::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
 
 }
 
-void CGameStateRun2::OnMouseMove(UINT nFlags, CPoint point)	// �B�z�ƹ����ʧ@
+void CGameStateRun2::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
-	// �S�ơC�p�G�ݭn�B�z�ƹ����ʪ��ܡA�gcode�b�o��
+	// 沒事。如果需要處理滑鼠移動的話，寫code在這裡
 }
 
-void CGameStateRun2::OnRButtonDown(UINT nFlags, CPoint point)  // �B�z�ƹ����ʧ@
+void CGameStateRun2::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
 
 }
 
-void CGameStateRun2::OnRButtonUp(UINT nFlags, CPoint point)	// �B�z�ƹ����ʧ@
+void CGameStateRun2::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作
 {
 
 }
@@ -1341,21 +1341,21 @@ void CGameStateRun2::OnRButtonUp(UINT nFlags, CPoint point)	// �B�z�ƹ��
 void CGameStateRun2::OnShow()
 {
 	//
-	//  �`�N�GShow�̭��d�U���n���ʥ�󪫥󪺮y�СA���ʮy�Ъ��u�@����Move���~��A
-	//        �_�h��������sø�Ϯ�(OnDraw)�A����N�|���ʡA�ݰ_�ӷ|�ܩǡC���ӳN�y
-	//        ���AMove�t�dMVC����Model�AShow�t�dView�A��View�������Model�C
+	//  注意：Show裡面千萬不要移動任何物件的座標，移動座標的工作應由Move做才對，
+	//        否則當視窗重新繪圖時(OnDraw)，物件就會移動，看起來會很怪。換個術語
+	//        說，Move負責MVC中的Model，Show負責View，而View不應更動Model。
 	//
 	//
-	//  �K�W�I���ϡB�����ơB�y�B���l�B�u�����y
+	//  貼上背景圖、撞擊數、球、擦子、彈跳的球
 	//
-	background.ShowBitmap();			// �K�W�I����
+	background.ShowBitmap();			// 貼上背景圖
 	gamemap.OnShow();
 	
-	// �K�W������
+	// 貼上說明圖
 	//hits_left.ShowBitmap();
 
 	for (int i = 0; i < NUMRED; i++)
-		diamond1[i].OnShow();				// �K�W��i���y
+		diamond1[i].OnShow();				// 貼上第i號球
 	for (int i = 0; i < NUMICE; i++)
 	{
 		diamond2[i].OnShow();
@@ -1365,7 +1365,7 @@ void CGameStateRun2::OnShow()
 	icedoor.OnShow();
 	for (int i = 0; i < NUMMOD; i++)
 	{
-		mood[i].OnShow();				// �K�W��i���y
+		mood[i].OnShow();				// 貼上第i號球
 	}
 	button[0].OnShow();
 	button[1].OnShow2();
@@ -1375,7 +1375,7 @@ void CGameStateRun2::OnShow()
 	button1[2].OnShow();
 	for (int i = 0; i < LAKERED; i++)
 	{
-		Lake1[i].OnShow();				// �K�W��i���y
+		Lake1[i].OnShow();				// 貼上第i號球
 	}
 	for (int i = 0; i < LAKEICE; i++)
 	{
