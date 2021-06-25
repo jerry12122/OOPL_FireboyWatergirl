@@ -229,6 +229,10 @@ namespace game_framework {
 		CMovingBitmap next;
 		CMovingBitmap gold;
 		CMovingBitmap conti;
+		CMovingBitmap fin1;
+		CMovingBitmap fin2;
+		CMovingBitmap fin3;
+		CMovingBitmap fin4;
 	};
 	class CGameStateMenu : public CGameState {
 	public:

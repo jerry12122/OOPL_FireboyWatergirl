@@ -162,7 +162,7 @@ namespace game_framework {
 		int INITIAL_VELOCITY;	// 初始上升速度
 		if (stages == 1)
 		{
-			INITIAL_VELOCITY = 12;
+			INITIAL_VELOCITY = 11;
 		}
 		else
 		{

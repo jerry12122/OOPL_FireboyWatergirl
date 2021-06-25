@@ -73,9 +73,10 @@ namespace game_framework {
 // 這個class為遊戲的遊戲開頭畫面物件
 /////////////////////////////////////////////////////////////////////////////
 static int stage = 0;
+static int findim = 0;
 static int count[2][7] = { {3,4,1,1,1,2,3},
 					{8,8,2,2,2,1,2}};
-
+static bool corr;
 static int	stage1_diamond1[3][2] = { {405,535},{140,260},{223,41} },
 			stage1_diamond2[4][2] = { {570,535},{470,290},{475,87},{35,109} },
 			stage1_Lake1_position[1][2] = { {360,579} },
@@ -313,11 +314,26 @@ void CGameStateWin::OnLButtonDown(UINT nFlags, CPoint point)
 }
 void CGameStateWin::OnMove()
 {
-
+	if (stage == 0) {
+		if (findim == 7) {
+			corr = true;
+		}
+		else {
+			corr = false;
+		}
+	}
+	else {
+		if (findim == 16) {
+			bool corr = true;
+		}
+		else {
+			bool corr = false;
+		}
+	}
 }
 void CGameStateWin::OnBeginState()
 {
-
+	
 }
 void CGameStateWin::OnInit()
 {
@@ -329,6 +345,10 @@ void CGameStateWin::OnInit()
 	//
 	// 開始載入資料
 	//
+	fin1.LoadBitmap(GOOD, RGB(255, 255, 255));
+	fin3.LoadBitmap(BAD, RGB(255, 255, 255));
+	fin2.LoadBitmap(GOOD, RGB(255, 255, 255));
+	fin4.LoadBitmap(BAD, RGB(255, 255, 255));
 	gamewinspace.LoadBitmap(Win, RGB(255, 255, 255));
 	alarm.LoadBitmap(Alarm, RGB(255, 255, 255));
 	boygirl.LoadBitmap(BOYGIRL, RGB(255, 255, 255));
@@ -360,6 +380,18 @@ void CGameStateWin::OnShow()
 	gold.ShowBitmap();
 	conti.SetTopLeft(320, 350);
 	conti.ShowBitmap();
+	fin1.SetTopLeft(320, 180);
+	fin1.ShowBitmap();
+	fin3.SetTopLeft(320, 280);
+	fin3.ShowBitmap();
+	if (corr) {
+		fin2.SetTopLeft(320, 230);
+		fin2.ShowBitmap();
+	}
+	else {
+		fin4.SetTopLeft(320, 230);
+		fin4.ShowBitmap();
+	}
 }
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
@@ -397,6 +429,7 @@ CGameStateRun::~CGameStateRun()
 
 void CGameStateRun::OnBeginState()
 {
+	findim = 0;
 	const int HITS_LEFT = 0;
 	const int HITS_LAKE = 1;
 	const int HITS_DOOR = 1;
@@ -486,6 +519,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			diamond1[i].SetIsAlive(false);
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_left.Add(1);
+			findim = findim + 1;
 		}
 	}
 	for (i = 0; i < NUMICE; i++)
@@ -494,6 +528,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 			diamond2[i].SetIsAlive(false);
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_left.Add(1);
+			findim = findim + 1;
 		}
 	}
 	for (i = 0; i < LAKERED; i++) {
@@ -905,6 +940,7 @@ void CGameStateRun2::OnBeginState()
 	//const int HITS_LEFT = 0;
 	const int HITS_LAKE = 1;
 	const int HITS_DOOR = 1;
+	findim = 0;
 	const int HITS_LEFT_X = 590;
 	const int HITS_LEFT_Y = 0;
 	//const int STAGE = 1;
@@ -994,6 +1030,7 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 			diamond1[i].SetIsAlive(false);
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_left.Add(1);
+			findim = findim + 1;
 		}
 	}
 	for (i = 0; i < NUMICE; i++)
@@ -1002,6 +1039,7 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 			diamond2[i].SetIsAlive(false);
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_left.Add(1);
+			findim = findim + 1;
 		}
 	}
 	for (i = 0; i < LAKERED; i++) {
@@ -1135,7 +1173,7 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 		player2.SetButton2(false);
 	}
 	if (!(button1[0].IsAlive()) && !(button1[0].HitPlayer(&player1)) && !(button1[0].HitPlayer(&player2))) {
-		button[0].SetIsAlive(true);
+		button1[0].SetIsAlive(true);
 	}
 	if (!(button1[2].IsAlive()) && !(button1[2].HitPlayer(&player1)) && !(button1[2].HitPlayer(&player2))) {
 		button1[2].SetIsAlive(true);
@@ -1355,6 +1393,7 @@ void CGameStateRun2::OnShow()
 	//  貼上背景圖、撞擊數、球、擦子、彈跳的球
 	//
 	background.ShowBitmap();			// 貼上背景圖
+	button1[1].OnShow3();
 	gamemap.OnShow();
 	
 	// 貼上說明圖
@@ -1377,7 +1416,6 @@ void CGameStateRun2::OnShow()
 	button[1].OnShow2();
 	button[2].OnShow();
 	button1[0].OnShow();
-	button1[1].OnShow3();
 	button1[2].OnShow();
 	for (int i = 0; i < LAKERED; i++)
 	{
