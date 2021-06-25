@@ -904,12 +904,9 @@ void CGameStateRun2::OnBeginState()
 	reddoor.SetXY(34, 52);
 	icedoor.SetIsAlive(true);
 	icedoor.SetXY(106, 52);
-
 	background.SetTopLeft(0, 0);				// 設定背景的起始座標
-		// 設定說明圖的起始座標
+	// 設定說明圖的起始座標
 	//hits_left.SetInteger(HITS_LEFT);
-
-
 	hits_lake.SetInteger(HITS_LAKE);
 	hits_door.SetInteger(HITS_DOOR);
 	hits_left.SetTopLeft(HITS_LEFT_X, HITS_LEFT_Y);		// 指定剩下撞擊數的座標
