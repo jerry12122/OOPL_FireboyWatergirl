@@ -89,12 +89,13 @@ static int	stage2_diamond1[8][2] = { {161,550},{247,550},{484,487} ,{576,487}, {
 			stage2_Lake2_position[2][2] = { {453,579}, {125,517} },
 			stage2_Lake3_position[2][2] = { {164,310},{474,310} },
 			stage2_mood_position[2][2] = { {260,380} ,{300,300}  },
-			stage2_button_position[3][2] = { {140,390},{400,330},(500,300)},
-			stage2_button_position1[3][2] = { {200,100},{450,110},(200,300) };
+			stage2_button_position[3][2] = { {140,390},{400,330},{500,300} },
+			stage2_button_position1[3][2] = { {200,100},{450,110},{200,300} };
 //NUMRED,NUMICE, LAKERED, LAKEICE, LAKEGREEN, NUMMOD, NUMBUT
 CGameStateInit::CGameStateInit(CGame *g)
 : CGameState(g)
 {
+	intro_bool = false;
 }
 
 void CGameStateInit::OnInit()
@@ -108,10 +109,13 @@ void CGameStateInit::OnInit()
 	// 開始載入資料
 	//
 	logo.LoadBitmap(IDB_GAME_MENU);
+	intro.LoadBitmap(IDB_INTRO);
+	//intro.L
 	//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 	//
 	// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
 	//
+
 
 }
 void CGameStateInit::OnBeginState()
@@ -136,6 +140,15 @@ void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 	{
 		GotoGameState(GAME_STATE_MENU);
 	}
+	if ((point.x > 10 && point.x < 82) && (point.y > 475 && point.y < 555))
+	{
+		intro_bool = true;
+	}
+	if ((point.x > 165 && point.x < 257) && (point.y > 382 && point.y < 421))
+	{
+		intro_bool = false;
+		GotoGameState(GAME_STATE_RUN);
+	}
 	
 		// 切換至GAME_STATE_RUN
 }
@@ -147,6 +160,12 @@ void CGameStateInit::OnShow()
 	//
 	logo.SetTopLeft(0, 0);
 	logo.ShowBitmap();
+	intro.SetTopLeft(118, 135);
+	if (intro_bool)
+	{
+		intro.ShowBitmap();
+	}
+
 	//
 	// Demo螢幕字型的使用，不過開發時請盡量避免直接使用字型，改用CMovingBitmap比較好
 	//

@@ -415,5 +415,8 @@
     <Image Include="..\res\mood3.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\res\help.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

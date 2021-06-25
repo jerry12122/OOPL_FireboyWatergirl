@@ -198,6 +198,8 @@ MOOD_2                  BITMAP                  "..\\..\\res\\mood2.bmp"
 
 MOOD_3                  BITMAP                  "..\\..\\res\\mood3.bmp"
 
+IDB_INTRO               BITMAP                  "..\\..\\res\\help.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

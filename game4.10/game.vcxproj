@@ -378,6 +378,7 @@
     <Image Include="..\res\GOLD.bmp" />
     <Image Include="..\res\GOOD.bmp" />
     <Image Include="..\res\GREEN_RAKE.bmp" />
+    <Image Include="..\res\help.bmp" />
     <Image Include="..\res\ICE_DIAMOND.bmp" />
     <Image Include="..\res\ICE_DOOR_CLOSE.bmp" />
     <Image Include="..\res\ICE_FRONT.bmp" />
