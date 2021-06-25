@@ -849,7 +849,7 @@ void CGameStateRun::OnShow()
 	player2.OnShow();
 }
 CGameStateRun2::CGameStateRun2(CGame *g)
-	: CGameState(g), NUMRED(8), NUMICE(8), LAKERED(2), LAKEICE(2), LAKEGREEN(2), NUMMOD(1), NUMBUT(3), NUMBUT1(3)
+	: CGameState(g), NUMRED(8), NUMICE(8), LAKERED(2), LAKEICE(2), LAKEGREEN(2), NUMMOD(0), NUMBUT(3), NUMBUT1(3)
 {
 	diamond1 = new RedDiamond[NUMRED];
 	diamond2 = new IceDiamond[NUMICE];
@@ -1351,9 +1351,9 @@ void CGameStateRun2::OnShow()
 	button[0].OnShow();
 	button[1].OnShow2();
 	button[2].OnShow();
-	button[0].OnShow();
-	button[1].OnShow3();
-	button[2].OnShow();
+	button1[0].OnShow();
+	button1[1].OnShow3();
+	button1[2].OnShow();
 	for (int i = 0; i < LAKERED; i++)
 	{
 		Lake1[i].OnShow();				// 貼上第i號球
