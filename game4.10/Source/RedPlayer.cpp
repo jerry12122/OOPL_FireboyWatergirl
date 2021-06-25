@@ -159,7 +159,16 @@ namespace game_framework {
 		stage = stages;
 		gamemap.~CGameMap();
 		gamemap.ReadFile(stages);
-		const int INITIAL_VELOCITY = 15;	// 初始上升速度
+
+		int INITIAL_VELOCITY;	// 初始上升速度
+		if (stages == 1)
+		{
+			INITIAL_VELOCITY = 12;
+		}
+		else
+		{
+			INITIAL_VELOCITY = 15;
+		}
 		const int FLOOR = 579;
 		// 地板座標
 		const int X_POS = 42;

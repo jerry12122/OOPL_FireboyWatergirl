@@ -40,7 +40,15 @@ namespace game_framework {
 	{
 		stage = stages;
 		gamemap.ReadFile(stages);
-		const int INITIAL_VELOCITY = 13;	// 初始上升速度
+		int INITIAL_VELOCITY;	// 初始上升速度
+		if (stages == 1)
+		{
+			INITIAL_VELOCITY = 12;
+		}
+		else
+		{
+			INITIAL_VELOCITY = 15;
+		}
 		const int FLOOR = 462;
 		// 地板座標
 		const int X_POS = 42;
@@ -186,6 +194,10 @@ namespace game_framework {
 		}
 
 		return map[ycoord / 10][x_coord / 10];
+<<<<<<< HEAD
+=======
+
+>>>>>>> 195fadb273aea4ba93c43f022748dd7b570731cf
 	}
 	int IcePlayer::getCoordX(int x, int y)
 	{
@@ -326,6 +338,10 @@ namespace game_framework {
 
 		if (isMovingLeft)
 			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20 && isFrontBox == false) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 195fadb273aea4ba93c43f022748dd7b570731cf
 				x -= STEP_SIZE;
 				setfloor();
 			}
