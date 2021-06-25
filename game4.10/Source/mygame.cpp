@@ -1096,13 +1096,19 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 	if (button[0].IsAlive() && ((button[0].HitPlayer(&player2)) || button[0].HitPlayer(&player1))) {
 		button[0].SetIsAlive(false);
 		button[1].SetIsAlive(false);
+		player1.SetButton3(true);
+		player2.SetButton3(true);
 	}
 	if (button[2].IsAlive() && ((button[2].HitPlayer(&player2)) || button[2].HitPlayer(&player1))) {
 		button[2].SetIsAlive(false);
 		button[1].SetIsAlive(false);
+		player1.SetButton3(true);
+		player2.SetButton3(true);
 	}
 	if (!((button[0].IsAlive()) && (button[2].IsAlive())) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2)) && !(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
 		button[1].SetIsAlive(true);
+		player1.SetButton3(false);
+		player2.SetButton3(false);
 	}
 	if (!(button[0].IsAlive()) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2))) {
 		button[0].SetIsAlive(true);

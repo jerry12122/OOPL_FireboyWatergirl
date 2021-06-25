@@ -46,6 +46,7 @@ namespace game_framework {
 		void SetMovingUp(bool flag);	// 設定是否正在往上移動
 		void SetButton(bool flag);
 		void SetButton2(bool flag);
+		void SetButton3(bool flag);
 		void SetMood(bool flag);
 		void MoodY(int MY);
 		RedPlayer();
@@ -100,6 +101,7 @@ namespace game_framework {
 		bool isOnBox;
 		bool isButton;
 		bool isButton2;
+		bool isButton3;
 		bool isMood;
 		bool isBox;
 		int  MY, pot, dot;
