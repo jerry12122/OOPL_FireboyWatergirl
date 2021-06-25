@@ -196,6 +196,8 @@ IDB_MENU                BITMAP                  "..\\..\\res\\menu.bmp"
 
 MOOD_2                  BITMAP                  "..\\..\\res\\mood2.bmp"
 
+MOOD_3                  BITMAP                  "..\\..\\res\\mood3.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

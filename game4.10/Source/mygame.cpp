@@ -90,7 +90,7 @@ static int	stage2_diamond1[8][2] = { {161,550},{247,550},{484,487} ,{576,487}, {
 			stage2_Lake3_position[2][2] = { {164,310},{474,310} },
 			stage2_mood_position[2][2] = { {260,380} ,{300,300}  },
 			stage2_button_position[3][2] = { {140,390},{400,330},(500,300)},
-			stage2_button_position1[3][2] = { {140,290},{400,230},(200,300) };
+			stage2_button_position1[3][2] = { {200,100},{450,110},(200,300) };
 //NUMRED,NUMICE, LAKERED, LAKEICE, LAKEGREEN, NUMMOD, NUMBUT
 CGameStateInit::CGameStateInit(CGame *g)
 : CGameState(g)
@@ -956,7 +956,7 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 	button[1].OnMove2();
 	button[2].OnMove();
 	button1[0].OnMove();
-	button1[1].OnMove2();
+	button1[1].OnMove3();
 	button1[2].OnMove();
 	player1.MoodY(button[1].ReY());
 	player2.MoodY(button[1].ReY());

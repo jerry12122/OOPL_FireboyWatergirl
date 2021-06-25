@@ -51,7 +51,7 @@ namespace game_framework {
 		but.LoadBitmap(BUTTON_1, RGB(255, 255, 255));
 		mo.LoadBitmap(MOOD, RGB(255, 255, 255));
 		mo2.LoadBitmap(MOOD_2, RGB(255, 255, 255));
-		mo3.LoadBitmap(MOOD_2, RGB(255, 255, 255));
+		mo3.LoadBitmap(MOOD_3, RGB(255, 255, 255));
 	}
 	void Button::OnMove()
 	{
@@ -98,19 +98,20 @@ namespace game_framework {
 	}
 	void Button::OnMove3()
 	{
-		if (is_alive)
-			if (y >= 230) {
-				y -= 1;
+		if (!is_alive) {
+			if (x >= 350) {
+				x -= 1;
 			}
 			else {
-				y = y;
+				x = x;
 			}
+		}
 		else {
-			if (y <= 320) {
-				y += 1;
+			if (x <= 450) {
+				x += 1;
 			}
 			else {
-				y = y;
+				x = x;
 			}
 		}
 		return;
