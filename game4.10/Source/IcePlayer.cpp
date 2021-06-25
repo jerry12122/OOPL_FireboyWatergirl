@@ -186,6 +186,10 @@ namespace game_framework {
 		}
 
 		return map[ycoord / 10][x_coord / 10];
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9e6c342186404735009dd1d4fb2a17a37287dcab
 	}
 	int IcePlayer::getCoordX(int x, int y)
 	{
@@ -326,6 +330,10 @@ namespace game_framework {
 
 		if (isMovingLeft)
 			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20 && isFrontBox == false) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9e6c342186404735009dd1d4fb2a17a37287dcab
 				x -= STEP_SIZE;
 				setfloor();
 			}
