@@ -114,7 +114,6 @@ namespace game_framework {
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
 		bool JUMP, UP;
-		static CGameMap getMap();
 		
 		const int		NUMRED;	// 球的總數
 		const int		NUMICE;
@@ -160,7 +159,6 @@ namespace game_framework {
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
 		bool JUMP, UP;
-		static CGameMap getMap();
 
 		const int		NUMRED;	// 球的總數
 		const int		NUMICE;
