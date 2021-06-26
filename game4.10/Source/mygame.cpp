@@ -543,7 +543,7 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	}
 	for (i = 0; i < LAKEGREEN; i++)
 	{
-		if (Lake3[i].HitPlayer(&player1) && Lake3[i].hack == false) {
+		if ((Lake3[i].HitPlayer(&player1)|| Lake3[i].HitPlayer(&player2)) && Lake3[i].hack == false) {
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//
@@ -1104,7 +1104,7 @@ void CGameStateRun2::OnMove()							// 移動遊戲元素
 	}
 	for (i = 0; i < LAKEGREEN; i++)
 	{
-		if (Lake3[i].HitPlayer(&player1) && Lake3[i].hack == false) {
+		if ((Lake3[i].HitPlayer(&player1) || Lake3[i].HitPlayer(&player2)) && Lake3[i].hack == false) {
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_lake.Add(-1);
 			//

@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_00996378F95149909CE69D71439B6AD8"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_07D3F155469E42AE9C3EC88A33A7920C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -111,6 +105,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_3149A43DBFAE4820A7E44E40A690563D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3538EA78A72549D8A71D3940369B3AA0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -190,6 +190,12 @@
         "Entry"
         {
         "MsmKey" = "8:_6DCB882F86CA40A498D68C467C83E7F5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_6FA1C50107DF4C878E15DB0A1DF74ADA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -397,6 +403,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -454,26 +468,6 @@
             {
             "SourcePath" = "8:..\\res\\ICE_DIAMOND.bmp"
             "TargetName" = "8:ICE_DIAMOND.bmp"
-            "Tag" = "8:"
-            "Folder" = "8:_4BB56A55BEA24945AB2C28C2AE8EC7A7"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_00996378F95149909CE69D71439B6AD8"
-            {
-            "SourcePath" = "8:..\\res\\CONTINUE.bmp"
-            "TargetName" = "8:CONTINUE.bmp"
             "Tag" = "8:"
             "Folder" = "8:_4BB56A55BEA24945AB2C28C2AE8EC7A7"
             "Condition" = "8:"
@@ -770,6 +764,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3149A43DBFAE4820A7E44E40A690563D"
+            {
+            "SourcePath" = "8:..\\res\\CONTINUE2.bmp"
+            "TargetName" = "8:CONTINUE2.bmp"
+            "Tag" = "8:"
+            "Folder" = "8:_4BB56A55BEA24945AB2C28C2AE8EC7A7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3538EA78A72549D8A71D3940369B3AA0"
             {
             "SourcePath" = "8:..\\res\\leftmood.bmp"
@@ -1014,6 +1028,26 @@
             {
             "SourcePath" = "8:..\\res\\1.bmp"
             "TargetName" = "8:1.bmp"
+            "Tag" = "8:"
+            "Folder" = "8:_4BB56A55BEA24945AB2C28C2AE8EC7A7"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6FA1C50107DF4C878E15DB0A1DF74ADA"
+            {
+            "SourcePath" = "8:..\\game4.10\\RES\\continue.bmp"
+            "TargetName" = "8:continue.bmp"
             "Tag" = "8:"
             "Folder" = "8:_4BB56A55BEA24945AB2C28C2AE8EC7A7"
             "Condition" = "8:"
@@ -2286,7 +2320,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6DCB882F86CA40A498D68C467C83E7F5"
             {
-            "SourcePath" = "8:..\\game4.10\\Release\\game.exe"
+            "SourcePath" = "8:..\\game4.10\\Debug\\game.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_0AECD6F2F2AE40D0AFDCBD3DF7B17353"

@@ -188,7 +188,7 @@ BAD                     BITMAP                  "..\\..\\res\\bad.bmp"
 
 GOOD                    BITMAP                  "..\\..\\res\\GOOD.bmp"
 
-CONTI                   BITMAP                  "..\\..\\res\\CONTINUE.bmp"
+CONTI                   BITMAP                  "..\\..\\res\\CONTINUE2.bmp"
 
 DOT                     BITMAP                  "..\\..\\res\\dot.bmp"
 
