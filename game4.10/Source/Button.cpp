@@ -120,11 +120,11 @@ namespace game_framework {
 		x = nx; y = ny;
 	}
 
-	int Button::ReY()
+	int Button::GetY()
 	{
 		return y;
 	}
-	int Button::ReX()
+	int Button::GetX()
 	{
 		return x;
 	}

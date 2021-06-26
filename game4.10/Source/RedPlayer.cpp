@@ -6,7 +6,7 @@
 #include "gamelib.h"
 #include "RedPlayer.h"
 #include "box.h"
-#include <iostream>     // std::cout
+#include <iostream>   
 #include <fstream> 
 #include <string.h>
 #include <conio.h>

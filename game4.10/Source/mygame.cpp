@@ -420,8 +420,8 @@ void CGameStateRun::OnMove()
 	mood[1].OnMove1();
 	button[0].OnMove();
 	button[1].OnMove1();
-	player1.MoodY(button[1].ReY());
-	player2.MoodY(button[1].ReY());
+	player1.MoodY(button[1].GetY());
+	player2.MoodY(button[1].GetY());
 	player1.OnMove();
 	player2.OnMove();
 	player1.OnMove1();
@@ -545,10 +545,10 @@ void CGameStateRun::OnMove()
 	
 	if (player1.butin())
 	{
-		if (player1.GetY2() <= button[1].ReY()-1)
+		if (player1.GetY2() <= button[1].GetY()-1)
 		{
 			player1.isOnButton = true;
-			int tmp_y = button[1].ReY();
+			int tmp_y = button[1].GetY();
 			player1.SetFloor(tmp_y-2);
 			player1.OnMove1();
 		}
@@ -559,10 +559,10 @@ void CGameStateRun::OnMove()
 	}
 	if (player2.butin())
 	{
-		if (player2.GetY2() <= button[1].ReY() - 1)
+		if (player2.GetY2() <= button[1].GetY() - 1)
 		{
 			player2.isOnButton = true;
-			int tmp_y = button[1].ReY();
+			int tmp_y = button[1].GetY();
 			player2.SetFloor(tmp_y - 2);
 			player2.OnMove1();
 		}
@@ -867,8 +867,8 @@ void CGameStateRun2::OnMove()
 	button1[0].OnMove();
 	button1[1].OnMove3();
 	button1[2].OnMove();
-	player1.MoodY(button[1].ReY());
-	player2.MoodY(button[1].ReY());
+	player1.MoodY(button[1].GetY());
+	player2.MoodY(button[1].GetY());
 	player1.OnMove();
 	player2.OnMove();
 	reddoor.OnMove();

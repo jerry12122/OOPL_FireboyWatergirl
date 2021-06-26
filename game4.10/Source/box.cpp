@@ -25,7 +25,7 @@ namespace game_framework {
 		gamemap.~CGameMap();
 		gamemap.ReadFile(1);
 		const int INITIAL_VELOCITY = 6;
-		x = y = index = delay_counter = 0;
+		x = y =  0;
 		dx = dy = 35;
 		floor = 190;
 		initial_velocity = INITIAL_VELOCITY;

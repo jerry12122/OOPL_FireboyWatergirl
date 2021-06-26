@@ -31,10 +31,7 @@ namespace game_framework {
 		bool isMovingRight;			
 		bool isMovingUp;			
 		int dx, dy;					
-		int floor;
-		int index;					
-		int delay_counter;			
-		int delay;					
+		int floor;					
 		int map[60][80];
 		int x_edge[800];
 		int y_edge[600];

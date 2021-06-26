@@ -19,8 +19,8 @@ namespace game_framework {
 		void OnShow2();
 		void OnShow3();
 		void SetXY(int nx, int ny);								// 設定圓心的座標
-		int ReY();
-		int ReX();
+		int GetY();
+		int GetX();
 		void SetIsAlive(bool alive);							// 設定是否活著
 	protected:
 		CMovingBitmap but, mo ,mo2 ,mo3;			// 球的圖	

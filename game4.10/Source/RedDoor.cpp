@@ -16,11 +16,8 @@ namespace game_framework {
 		is_alive = true;
 		x = y = 0;
 	}
-
 	bool RedDoor::HitPlayer(RedPlayer *player)
 	{
-
-		// 檢測擦子所構成的矩形是否碰到球
 		return HitRectangle(player->GetX1(), player->GetY1(),
 			player->GetX2(), player->GetY2());
 	}
@@ -31,9 +28,6 @@ namespace game_framework {
 		int y1 = y ;				// 球的左上角y座標
 		int x2 = x1 + doors.Width();	// 球的右下角x座標
 		int y2 = y1 + doors.Height();	// 球的右下角y座標
-									//
-									// 檢測球的矩形與參數矩形是否有交集
-									//
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 
@@ -44,17 +38,12 @@ namespace game_framework {
 
 	void RedDoor::LoadBitmap()
 	{
-
-		doors.LoadBitmap(FIRE_DOOR_CLOSE, RGB(255, 255, 255));			// 載入球的圖形
-		bmp2.LoadBitmap(DOOR_OPEN, RGB(255, 255, 255));			// 載入球的圖形
-
-
+		doors.LoadBitmap(FIRE_DOOR_CLOSE, RGB(255, 255, 255));	
+		bmp2.LoadBitmap(DOOR_OPEN, RGB(255, 255, 255));			
 	}
 
 	void RedDoor::OnMove()
 	{
-		if (!is_alive)
-			return;
 	}
 
 	void RedDoor::SetIsAlive(bool alive)
