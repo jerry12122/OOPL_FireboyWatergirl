@@ -18,26 +18,13 @@
 #include <sstream>
 
 namespace game_framework {
-	/////////////////////////////////////////////////////////////////////////////
-	// RedPlayer: RedPlayer class
-	/////////////////////////////////////////////////////////////////////////////
 	CGameMap::CGameMap(int _stage) {
 
 	}
 
 	CGameMap::CGameMap() :X(10), Y(10), MW(10), MH(10) {
-		//map = (int**)malloc(sizeof(int*) * X);
 		sizeX = 600 / X;
 		sizeY = 800 / Y;
-		//int map_init[60][80];
-
-		/*  allocate storage for an array of pointers */
-		//map = (int**)malloc(sizeX * sizeof(int*));
-
-		/* for each pointer, allocate storage for an array of ints */
-		/*for (int i = 0; i < sizeX; i++) {
-			map[i] = (int*)malloc(sizeY * sizeof(int));
-		}*/
 		stage = 1;
 	}
 
@@ -54,22 +41,10 @@ namespace game_framework {
 		while (getline(is, line)) {
 			for (int j = 0; j < sizeY; j++) {
 				map[i][j] = line[j] - '0';
-				/*if (line[j] - '0' == 0)
-					map[i][j] = 0;
-				else
-					map[i][j] = 1;	*/
-					//*(*(map + i) + j) = line[j] - '0';
-					//cout << map_init[i][j];
 			}
 			i++;
 		}
 		is.close();
-		/*
-		for (i = 0; i < 60; i++) {
-			for (int j = 0; j < 80; j++) {
-				map[i][j] = map_init[i][j];
-			}
-		}*/
 	}
 
 	void CGameMap::LoadBitmap() {
@@ -168,56 +143,15 @@ namespace game_framework {
 		{
 			INITIAL_VELOCITY = 15;
 		}
-		const int FLOOR = 579;
-		// 地板座標
+		const int FLOOR = 579;// 地板座標
 		const int X_POS = 42;
 		const int Y_POS = 542;
 		MY = 230;
 		floor = FLOOR;
-		//x = X_POS;
-		//y = Y_POS;
 		isMovingLeft = isMovingRight = isMovingUp = isMovingDown=isOnBox=isFrontBox =isOnButton = false;
 		rising = false;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
-		/*
-		int map_init[18][14] = {
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,1,1,0,0,1,1,1,1,1,1,1,1,1},
-			{1,1,1,1,0,1,1,1,1,1,1,1,1,1},
-			{1,1,1,1,0,0,0,0,0,0,0,0,0,0},
-			{0,0,1,1,0,0,1,1,1,1,1,1,1,1},
-			{0,0,1,1,1,1,1,1,1,0,1,1,1,1},
-			{0,0,0,0,0,0,0,0,0,0,0,0,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,0,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,0,0,0,0,0,0,0,0,1,1,1,1,1},
-			{1,1,1,1,1,1,1,1,0,0,0,0,0,0},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,0,0,0,0,0,0,0,1,1,1,1,1,1},
-			{1,1,1,1,1,1,1,0,1,1,1,1,1,1},
-			{1,1,1,1,1,1,1,0,0,0,0,0,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,0,0,0,0,1,1,1,1,1,1,1,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,0}
-		};
-		for (int i = 0; i < 19; i++)
-		{
-			for (int j = 0; j < 15; j++)
-			{
-				map[i][j] = map_init[i][j];
-			}
-		}
-		int x_edge_init[15] = { 20,103,122,203,246,269,348,370,390,411,553,591,694,717,778 };
-		for (int j = 0; j < 15; j++)
-		{
-			x_edge[j] = x_edge_init[j];
-		}
-		int y_edge_init[19] = { 21,84,102,127,148,187,229,247,267,311,328,349,413,432,458,474,496,515,578 };
-		for (int j = 0; j < 19; j++)
-		{
-			y_edge[j] = y_edge_init[j];
-		}*/
 		for (int i = 0; i < 60; i++)
 		{
 			for (int j = 0; j < 80; j++)
@@ -392,72 +326,6 @@ namespace game_framework {
 		if (floor >= 580) {
 			floor = 579;
 		}
-		/*if ((x + 20 >= 20 && x + 20 < 266 && y + 40 < 578 && y + 40 >= 515) || \
-			(x + 20 >= 266 && x + 20 < 717 && y + 40 >= 474 && y + 40 < 578) || \
-			(x + 20 >= 266 && x + 20 < 370 && y + 40 >= 433 && y + 40 < 474) || \
-			(x + 20 >= 695 && x + 20 < 717 && y + 40 >= 350 && y + 40 < 517))
-		{
-			floor = 578 - 40;
-		}
-		else if (x + 20 >= 717 && x + 20 < 778 && y + 40 < 578 && y + 40 >= 350)
-		{
-			floor = 517 - 40;
-		}
-		else if ((x + 20 >= 20 && x + 20 < 266 && y + 40 >= 432 && y + 40 < 496))
-		{
-			floor = 496 - 40;
-		}
-		else if ((x + 20 >= 389 && x + 20 < 695 && y + 40 >= 350 && y + 40 < 458))
-		{
-			floor = 458 - 40;
-		}
-		else if ((x + 20 >= 20 && x + 20 < 392 && y + 40 >= 329 && y + 40 < 413) || \
-			(x + 20 >= 20 && x + 20 < 103 && y + 40 >= 247 && y + 40 < 329))
-		{
-			floor = 413 - 40;
-		}
-		else if ((x + 20 >= 103 && x + 20 < 414 && y + 40 >= 247 && y + 40 < 311))
-		{
-			floor = 311 - 40;
-		}
-		else if ((x + 20 >= 414 && x + 20 < 591 && y + 40 >= 247 && y + 40 < 331) || \
-			(x + 20 >= 591 && x + 20 < 778 && y + 40 >= 267 && y + 40 < 331) || \
-			(x + 20 >= 694 && x + 20 < 778 && y + 40 >= 144 && y + 40 < 267))
-		{
-			floor = 331 - 40;
-		}
-		else if ((x + 20 >= 553 && x + 20 < 591 && y + 40 >= 144 && y + 40 < 247) || \
-			(x + 20 >= 591 && x + 20 < 694 && y + 40 >= 144 && y + 40 < 267) || \
-			(x + 20 >= 348 && x + 20 < 411 && y + 40 >= 144 && y + 40 < 229) || \
-			(x + 20 >= 246 && x + 20 < 348 && y + 40 >= 186 && y + 40 < 229) || \
-			(x + 20 >= 122 && x + 20 < 246 && y + 40 >= 102 && y + 40 < 229) || \
-			(x + 20 >= 122 && x + 20 < 203 && y + 40 >= 21 && y + 40 < 102))
-		{
-			if (isOnBox)
-			{
-				floor = 229 - 40 - 35;
-			}
-			else
-			{
-				floor = 229 - 40;
-			}
-		}
-		else if ((x + 20 >= 411 && x + 20 < 553 && y + 40 >= 144 && y + 40 < 188))
-		{
-			floor = 188 - 40;
-		}
-		else if ((x + 20 >= 21 && x + 20 < 203 && y + 40 >= 21 && y + 40 < 229))
-		{
-			floor = 148 - 40;
-		}
-		else if ((x + 20 >= 203 && x + 20 < 269 && y + 40 >= 21 && y + 40 < 84))
-		{
-			floor = 84 - 40;
-		}
-		else if ((x + 20 >= 269 && x + 20 < 778 && y + 40 >= 21 && y + 40 < 102))
-		{
-			floor = 102 - 18;
-		}*/
 		if((x + 20 >= 122 && x + 20 < 157 && y + 40 >= 21 && y + 40 < 229)&&isOnBox)
 		{
 			floor = 194;
@@ -467,34 +335,7 @@ namespace game_framework {
 	void RedPlayer::OnMove1() {
 		if (!rising && velocity == initial_velocity) {
 			y = floor - 38;
-
 		}
-		/*
-		int a = MY / 10;
-		if (isButton) {
-			if (x > 710 && x < 780 && y >= 192 && y < 282) {
-				for (int j = 71; j <= 77; j++) {
-					map[a][j] = 0;
-					map[a - 1][j] = 1;
-				}
-				y = a * 10 - 38;
-				setfloor();
-			}
-		}
-		else {
-			if (x > 710 && x < 780 && y >= 192 && y < 282) {
-				for (int j = 71; j <= 77; j++) {
-					map[a][j] = 0;
-					if (a <= 31) {
-						map[a + 1][j] = 1;
-					}
-					y = a * 10 - 38;
-					setfloor();
-				}
-			}
-		}*/
-
-
 	}
 	void RedPlayer::OnMove()
 	{
@@ -541,24 +382,10 @@ namespace game_framework {
 				}
 			}
 		}
-		/*
-		if (isLeftRightEmpty(x, y+55)&&y+55<578)
-		{
-			int  ycoord = 0;
-			for (int i = 0; i < 19; i++)
-			{
-				if (y >= y_edge[i]) {
-					ycoord = i;
-				}
-			}
-			floor = y_edge[ycoord + 1]-50;
-		}
-		*/
 		if (!rising && velocity == initial_velocity) {
 			y = floor - 38;
 			
 		}
-
 		if (isMovingLeft)
 			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20 && isFrontBox == false) {
 				x -= STEP_SIZE;

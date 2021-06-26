@@ -16,7 +16,6 @@ namespace game_framework {
 		void setMap(int x, int y, int v);
 		void SetStage(int _stage);
 		void ReadFile(int stages);
-		int remap();
 		int mapCoordinate(int x, int y);
 		int GetX();
 		int GetY();
@@ -24,11 +23,8 @@ namespace game_framework {
 		int GetMH();
 		int GetSizeX();
 		int GetSizeY();
-		int GetStage();
 	protected:
 		CMovingBitmap blue, green;
-		//int **map;
-		//bool map[60][80];
 		int map[60][80];
 		int X, Y;
 		int MW, MH;
