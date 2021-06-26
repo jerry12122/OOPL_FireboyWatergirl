@@ -60,37 +60,34 @@ namespace game_framework {
 		void OnMove1();
 		void OnShow();					// 將擦子圖形貼到畫面
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
-		void SetFloor(int xx, int yy);
+		void SetFloor(int y);
 		void SetVelocity(int);
 		bool isLeftRightEmpty(int x, int y, int value);
 		int getCoordX(int x, int y);
 		int getCoordY(int x, int y);
 		void setfloor();
-		void setsetfloor(int y);
+
 		bool frontBox(int x, int y);
 		bool onBox(int x, int y);
 		bool butin();
+		bool isOnButton;
 		void setFront(bool a);
 		void setOnBox(bool a);
-		void SetBox(bool flag);
 		int map[60][80];
 		int x_edge[800];
 		int y_edge[600];
+		int floor;
 	protected:
 		CAnimation animation, animation1;		// 擦子的動畫
 		CMovingBitmap bit;
 		CGameMap gamemap;
-		static CGameMap getMap();
 		int x, y;					// 擦子左上角座標
 		int xxx, yyy;
 		int gem = 0;
-		void Addgem();
-		int getgem();
-		string Getcharacteristic();
 		string character;
 		bool upEnable;
 		bool setFloorEnable;
-		int floor;
+		
 		int ceil;
 		int velocity;			// 目前的速度(點/次)
 		int initial_velocity;	// 初始速度

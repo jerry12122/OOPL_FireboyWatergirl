@@ -29,17 +29,18 @@ namespace game_framework {
 		void OnMove1();
 		void OnShow();					// 將擦子圖形貼到畫面
 		void SetXY(int nx, int ny);		// 設定擦子左上角座標
-		void SetFloor(int xx, int yy);
+		void SetFloor(int y);
 		void SetVelocity(int);
 		bool isLeftRightEmpty(int x, int y, int value);
 		int getCoordX(int x, int y);
 		int getCoordY(int x, int y);
 		void setfloor();
+		bool isOnButton;
 		bool frontBox(int x, int y);
 		bool onBox(int x, int y);
 		void setFront(bool a);
 		void setOnBox(bool a);
-		void SetBox(bool flag);
+		bool butin();
 		int map[60][80];
 		int x_edge[800];
 		int y_edge[600];

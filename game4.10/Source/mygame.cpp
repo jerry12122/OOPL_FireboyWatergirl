@@ -167,25 +167,6 @@ void CGameStateInit::OnShow()
 		intro.ShowBitmap();
 	}
 
-	//
-	// Demo螢幕字型的使用，不過開發時請盡量避免直接使用字型，改用CMovingBitmap比較好
-	//
-	/*
-	CDC *pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC 
-	CFont f,*fp;
-	f.CreatePointFont(160,"Times New Roman");	// 產生 font f; 160表示16 point的字
-	fp=pDC->SelectObject(&f);					// 選用 font f
-	pDC->SetBkColor(RGB(0,0,0));
-	pDC->SetTextColor(RGB(255,255,0));
-	pDC->TextOut(120,220,"Please click mouse or press SPACE to begin.");
-	pDC->TextOut(5,395,"Press Ctrl-F to switch in between window mode and full screen mode.");
-	if (ENABLE_GAME_PAUSE)
-		pDC->TextOut(5,425,"Press Ctrl-Q to pause the Game.");
-	pDC->TextOut(5,455,"Press Alt-F4 or ESC to Quit.");
-	pDC->SelectObject(fp);						// 放掉 font f (千萬不要漏了放掉)
-	CDDraw::ReleaseBackCDC();
-	*/
-	// 放掉 Back Plain 的 CDC
 }								
 
 /////////////////////////////////////////////////////////////////////////////
@@ -576,9 +557,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		}
 	}
 	if (box.HitEraser(&player1)||box.HitEraser(&player2)) {
-		//player2.SetFloor(box.GetX1(), box.GetY1());
-		//player1.SetFloor(box.GetX1(), box.GetY1());
-		
 		box.SetMovingLeft(true);
 	}
 
@@ -587,14 +565,6 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	player1.setOnBox(player1.onBox(box.GetX1(), box.GetY1()));
 	player2.setOnBox(player2.onBox(box.GetX1(), box.GetY1()));
 
-	/*
-	if (box.OnBox(player1.GetX1(), player1.GetX2(), player1.GetY1(), player1.GetY2())) {
-		player1.SetFloor(box.GetY1() - 40);
-	}
-	if (box.OnBox(player2.GetX1(), player2.GetX2(), player2.GetY1(), player2.GetY2())) {
-		player2.SetFloor(box.GetY1() - 40);
-	}
-	*/
 	if (reddoor.IsAlive() && (reddoor.HitPlayer(&player1))) {
 		reddoor.SetIsAlive(false);
 	}
@@ -644,7 +614,10 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 		player1.SetButton(true);
 		player2.SetButton(true);
 	}
-	if (!((button[0].IsAlive()) && (button[2].IsAlive())) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2)) && !(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
+	if (!((button[0].IsAlive()) && (button[2].IsAlive())) &&\
+		!(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2)) &&\
+		!(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) 
+	{
 		button[1].SetIsAlive(true);
 		player1.SetButton(false);
 		player2.SetButton(false);
@@ -655,7 +628,38 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 	if (!(button[2].IsAlive()) && !(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
 		button[2].SetIsAlive(true);
 	}
-
+	
+	if (player1.butin())
+	{
+		if (player1.GetY2() <= button[1].ReY()-1)
+		{
+			player1.isOnButton = true;
+			int tmp_y = button[1].ReY();
+			player1.SetFloor(tmp_y-2);
+			player1.OnMove1();
+			//TRACE("%d,%d\n", player1.floor,player1.GetY2());
+		}
+	}
+	else
+	{
+		player1.isOnButton = false;
+	}
+	if (player2.butin())
+	{
+		if (player2.GetY2() <= button[1].ReY() - 1)
+		{
+			player2.isOnButton = true;
+			int tmp_y = button[1].ReY();
+			player2.SetFloor(tmp_y - 2);
+			player2.OnMove1();
+			//TRACE("%d,%d\n", player1.floor, player1.GetY2());
+		}
+	}
+	else
+	{
+		player2.isOnButton = false;
+	}
+	/*
 	if (!button[1].IsAlive()) {
 		if (button[1].ReY() <= 320) {
 			button[1].SetXY(button[1].ReX(), button[1].ReY() + 1);
@@ -683,7 +687,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 				player1.setsetfloor(button[1].ReY());
 			}
 		}
-	}
+	}*/
+
 	if (!(icedoor.IsAlive()) && !(reddoor.IsAlive())) {
 		GotoGameState(GAME_STATE_WIN);
 	}

@@ -176,7 +176,7 @@ namespace game_framework {
 		floor = FLOOR;
 		//x = X_POS;
 		//y = Y_POS;
-		isMovingLeft = isMovingRight = isMovingUp = isMovingDown=isOnBox=isFrontBox = false;
+		isMovingLeft = isMovingRight = isMovingUp = isMovingDown=isOnBox=isFrontBox =isOnButton = false;
 		rising = false;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
@@ -338,53 +338,57 @@ namespace game_framework {
 	}
 	void RedPlayer::setfloor()
 	{
-		if ((map[(y + 38) / 10][(x ) / 10]) || (map[(y + 38) / 10][(x + 30) / 10]) == 1) {
-			if ((map[(y + 48) / 10][(x) / 10]) || (map[(y + 48) / 10][(x + 30) / 10]) == 1) {
-				if ((map[(y + 58) / 10][(x) / 10]) || (map[(y + 58) / 10][(x + 30) / 10]) == 1) {
-					if ((map[(y + 68) / 10][(x) / 10]) || (map[(y + 68) / 10][(x + 30) / 10]) == 1) {
-						if ((map[(y + 78) / 10][(x) / 10]) || (map[(y + 78) / 10][(x + 30) / 10]) == 1) {
-							if ((map[(y + 88) / 10][(x) / 10]) || (map[(y + 88) / 10][(x + 30) / 10]) == 1) {
-								if ((map[(y + 98) / 10][(x) / 10]) || (map[(y + 98) / 10][(x + 30) / 10]) == 1) {
-									if ((map[(y + 108) / 10][(x) / 10]) || (map[(y + 108) / 10][(x + 30) / 10]) == 1) {
-										if ((map[(y + 118) / 10][(x) / 10]) || (map[(y + 118) / 10][(x + 30) / 10]) == 1) {
-											
-											floor = (((y + 38) / 10) + 9) * 10;
+		if (!isOnButton)
+		{
+			if ((map[(y + 38) / 10][(x) / 10]) || (map[(y + 38) / 10][(x + 30) / 10]) == 1) {
+				if ((map[(y + 48) / 10][(x) / 10]) || (map[(y + 48) / 10][(x + 30) / 10]) == 1) {
+					if ((map[(y + 58) / 10][(x) / 10]) || (map[(y + 58) / 10][(x + 30) / 10]) == 1) {
+						if ((map[(y + 68) / 10][(x) / 10]) || (map[(y + 68) / 10][(x + 30) / 10]) == 1) {
+							if ((map[(y + 78) / 10][(x) / 10]) || (map[(y + 78) / 10][(x + 30) / 10]) == 1) {
+								if ((map[(y + 88) / 10][(x) / 10]) || (map[(y + 88) / 10][(x + 30) / 10]) == 1) {
+									if ((map[(y + 98) / 10][(x) / 10]) || (map[(y + 98) / 10][(x + 30) / 10]) == 1) {
+										if ((map[(y + 108) / 10][(x) / 10]) || (map[(y + 108) / 10][(x + 30) / 10]) == 1) {
+											if ((map[(y + 118) / 10][(x) / 10]) || (map[(y + 118) / 10][(x + 30) / 10]) == 1) {
+
+												floor = (((y + 38) / 10) + 9) * 10;
+											}
+											else {
+												floor = (((y + 38) / 10) + 8) * 10;
+											}
 										}
 										else {
-											floor = (((y + 38) / 10) + 8) * 10;
+											floor = (((y + 38) / 10) + 7) * 10;
 										}
 									}
 									else {
-										floor = (((y + 38) / 10) + 7) * 10;
+										floor = (((y + 38) / 10) + 6) * 10;
 									}
 								}
 								else {
-									floor = (((y + 38) / 10) + 6) * 10;
+									floor = (((y + 38) / 10) + 5) * 10;
 								}
 							}
 							else {
-								floor = (((y + 38) / 10) + 5) * 10;
+								floor = (((y + 38) / 10) + 4) * 10;
 							}
 						}
 						else {
-							floor = (((y + 38) / 10) + 4) * 10;
+							floor = (((y + 38) / 10) + 3) * 10;
 						}
 					}
 					else {
-						floor = (((y + 38) / 10) + 3) * 10;
+						floor = (((y + 38) / 10) + 2) * 10;
 					}
 				}
 				else {
-					floor = (((y + 38) / 10) + 2) * 10;
+					floor = (((y + 38) / 10) + 1) * 10;
 				}
 			}
 			else {
-				floor = (((y + 38) / 10) + 1) * 10;
+				floor = ((y + 38) / 10) * 10;
 			}
 		}
-		else {
-			floor = ((y + 38) / 10) * 10;
-		}
+		
 		if (floor >= 580) {
 			floor = 579;
 		}
@@ -459,10 +463,13 @@ namespace game_framework {
 			floor = 194;
 		}
 	}
-	void RedPlayer::setsetfloor(int y) {
-		floor = y;
-	}
+
 	void RedPlayer::OnMove1() {
+		if (!rising && velocity == initial_velocity) {
+			y = floor - 38;
+
+		}
+		/*
 		int a = MY / 10;
 		if (isButton) {
 			if (x > 710 && x < 780 && y >= 192 && y < 282) {
@@ -485,7 +492,9 @@ namespace game_framework {
 					setfloor();
 				}
 			}
-		}
+		}*/
+
+
 	}
 	void RedPlayer::OnMove()
 	{
@@ -626,7 +635,11 @@ namespace game_framework {
 		MY = MY;
 	}
 	bool RedPlayer::butin() {
-		if (x > 710 && x < 780 && y >= 192 && y <= 292) {
+		int x1 = x;
+		int y1 = y;
+		int x2 = x1 + bit.Width();
+		int y2 = y1 + bit.Height();
+		if (x2 > 710 && x1 < 780 && y2 >= 192 && y1 <= 292) {
 			return 1;
 		}
 		else {
@@ -634,21 +647,8 @@ namespace game_framework {
 		}
 	}
 
-	void RedPlayer::SetFloor(int xx, int yy) {
-		int pot = xx;
-		int dot = yy;
-		for (int i = pot; i < (pot + 4); i++) {
-			if (i > pot + 1) {
-				map[dot][i] = 1;
-				map[dot + 1][i] = 1;
-				map[dot + 2][i] = 1;
-			}
-			else {
-				map[dot][i] = 0;
-				map[dot + 1][i] = 0;
-				map[dot + 2][i] = 0;
-			}
-		}
+	void RedPlayer::SetFloor(int y) {
+		floor = y;
 	}
 	void RedPlayer::SetMovingDown(bool flag)
 	{
