@@ -1,4 +1,3 @@
-
 #include "RedPlayer.h"
 #include "IcePlayer.h"
 #include "stdafx.h"
@@ -8,7 +7,6 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "Button.h"
-
 
 namespace game_framework {
 	Button::Button()
@@ -27,16 +25,6 @@ namespace game_framework {
 		return HitRectangle(player->GetX1(), player->GetY1(),
 			player->GetX2(), player->GetY2());
 	}
-	bool Button::HitHitPlayer(IcePlayer *player)
-	{
-		return HitHitRectangle(player->GetX1(), player->GetY2(),
-			player->GetX2(), player->GetY2());
-	}
-	bool Button::HitHitPlayer(RedPlayer *player)
-	{
-		return HitHitRectangle(player->GetX1(), player->GetY2(),
-			player->GetX2(), player->GetY2());
-	}
 
 	bool Button::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
@@ -44,20 +32,6 @@ namespace game_framework {
 		int y1 = y;				// 球的左上角y座標
 		int x2 = x1 + but.Width();	// 球的右下角x座標
 		int y2 = y1 + but.Height();	// 球的右下角y座標
-									//
-									// 檢測球的矩形與參數矩形是否有交集
-									//
-		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
-	}
-	bool Button::HitHitRectangle(int tx1, int ty1, int tx2, int ty2)
-	{
-		int x1 = x;				// 球的左上角x座標
-		int y1 = y;				// 球的左上角y座標
-		int x2 = x1 + but.Width();	// 球的右下角x座標
-		int y2 = y1 + but.Height();	// 球的右下角y座標
-									//
-									// 檢測球的矩形與參數矩形是否有交集
-									//
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 
@@ -65,10 +39,8 @@ namespace game_framework {
 	{
 		return is_alive;
 	}
-
 	void Button::LoadBitmap()
 	{
-
 		but.LoadBitmap(BUTTON_1, RGB(255, 255, 255));
 		mo.LoadBitmap(MOOD, RGB(255, 255, 255));
 		mo2.LoadBitmap(MOOD_2, RGB(255, 255, 255));
@@ -141,7 +113,6 @@ namespace game_framework {
 	void Button::SetIsAlive(bool alive)
 	{
 		is_alive = alive;
-
 	}
 
 	void Button::SetXY(int nx, int ny)
@@ -157,7 +128,6 @@ namespace game_framework {
 	{
 		return x;
 	}
-
 	void Button::OnShow()
 	{
 		if (is_alive) {

@@ -6,17 +6,17 @@ namespace game_framework {
 	{
 	public:
 		Greenlake();
-		bool HitPlayer(RedPlayer *player);							// 是否碰到擦子
+		bool HitPlayer(RedPlayer *player);							
 		bool HitPlayer(IcePlayer *player);
-		void LoadBitmap();										// 載入圖形
-		void OnMove();											// 移動
-		void OnShow();											// 將圖形貼到畫面
+		void LoadBitmap();										
+		void OnMove();											
+		void OnShow();											
 		void SetXY(int nx, int ny);
-		bool hack;// 設定圓心的座標
+		bool hack;											
 	protected:
-		CMovingBitmap LAKE;			// 球的圖	
-		int x, y;					// 圓心的座標
+		CMovingBitmap LAKE;			
+		int x, y;					
 	private:
-		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	// 是否碰到參數範圍的矩形
+		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	
 	};
 }

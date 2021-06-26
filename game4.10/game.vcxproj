@@ -273,9 +273,6 @@
     <ClCompile Include="Source\IceDiamond.cpp" />
     <ClCompile Include="Source\RedDiamond.cpp" />
     <ClCompile Include="Source\audio.cpp" />
-    <ClCompile Include="Source\CBall.cpp" />
-    <ClCompile Include="Source\CBouncingBall.cpp" />
-    <ClCompile Include="Source\CEraser.cpp" />
     <ClCompile Include="Source\game.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -331,9 +328,6 @@
     <ClInclude Include="Source\IceDiamond.h" />
     <ClInclude Include="Source\RedDiamond.h" />
     <ClInclude Include="Source\audio.h" />
-    <ClInclude Include="Source\CBall.h" />
-    <ClInclude Include="Source\CBouncingBall.h" />
-    <ClInclude Include="Source\CEraser.h" />
     <ClInclude Include="Source\game.h" />
     <ClInclude Include="Source\gameDoc.h" />
     <ClInclude Include="Source\gameView.h" />

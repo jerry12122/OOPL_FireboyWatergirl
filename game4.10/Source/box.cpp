@@ -5,7 +5,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "box.h"
-#include <iostream>     // std::cout
+#include <iostream>    
 #include <fstream> 
 #include <string.h>
 #include <conio.h>
@@ -50,13 +50,13 @@ namespace game_framework {
 	}
 	bool box::HitEraser(RedPlayer *redplayer)
 	{
-		// 檢測擦子所構成的矩形是否碰到球
+		
 		return HitRectangle(redplayer->GetX1(), redplayer->GetY1(),
 			redplayer->GetX2(), redplayer->GetY2());
 	}
 	bool box::HitEraser(IcePlayer *iceplayer)
 	{
-		// 檢測擦子所構成的矩形是否碰到球
+		
 		return HitRectangle(iceplayer->GetX1(), iceplayer->GetY1(),
 			iceplayer->GetX2(), iceplayer->GetY2());
 	}
@@ -115,7 +115,7 @@ namespace game_framework {
 	}
 	void box::LoadBitmap()
 	{
-		bmp.LoadBitmap(IDB_BOX, RGB(0, 0, 0));			// 載入球的圖形
+		bmp.LoadBitmap(IDB_BOX, RGB(0, 0, 0));			
 	}
 	bool box::isLeftRightEmpty(int x, int y, int value)
 	{
@@ -187,8 +187,6 @@ namespace game_framework {
 					x -= velocity;
 					velocity--;
 					setfloor();
-
-					// 重設上升初始速度
 				}
 			}
 			else {

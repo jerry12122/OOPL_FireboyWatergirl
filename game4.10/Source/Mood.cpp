@@ -16,7 +16,6 @@ namespace game_framework {
 		is_alive = true;
 		x = y = 0;
 	}
-
 	bool Mood::HitPlayer(RedPlayer *player)
 	{
 		return HitRectangle(player->GetX1(), player->GetY1(),
@@ -27,16 +26,6 @@ namespace game_framework {
 		return HitRectangle(player->GetX1(), player->GetY1(),
 			player->GetX2(), player->GetY2());
 	}
-	bool Mood::HitHitPlayer(RedPlayer *player)
-	{
-		return HitHitRectangle(player->GetX1(), player->GetY1(),
-			player->GetX2(), player->GetY2());
-	}
-	bool Mood::HitHitPlayer(IcePlayer *player)
-	{
-		return HitHitRectangle(player->GetX1(), player->GetY1(),
-			player->GetX2(), player->GetY2());
-	}
 
 	bool Mood::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
@@ -44,20 +33,6 @@ namespace game_framework {
 		int y1 = y;				// 球的左上角y座標
 		int x2 = x + rm.Width();	// 球的右下角x座標
 		int y2 = y1 + rm.Height();	// 球的右下角y座標
-									//
-									// 檢測球的矩形與參數矩形是否有交集
-									//
-		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
-	}
-	bool Mood::HitHitRectangle(int tx1, int ty1, int tx2, int ty2)
-	{
-		int x1 = x;				// 球的左上角x座標
-		int y1 = y;				// 球的左上角y座標
-		int x2 = x1;	// 球的右下角x座標
-		int y2 = y1 + lm.Height();	// 球的右下角y座標
-									//
-									// 檢測球的矩形與參數矩形是否有交集
-									//
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 
@@ -68,7 +43,6 @@ namespace game_framework {
 
 	void Mood::LoadBitmap()
 	{
-
 		rm.LoadBitmap(RIGHT_MOOD, RGB(255, 255, 255));
 		mm.LoadBitmap(MID_MOOD, RGB(255, 255, 255));
 		lm.LoadBitmap(LEFT_MOOD, RGB(255, 255, 255));
@@ -102,7 +76,6 @@ namespace game_framework {
 	void Mood::SetIsAlive(bool alive)
 	{
 		is_alive = alive;
-
 	}
 
 	void Mood::SetXY(int nx, int ny)

@@ -8,8 +8,6 @@ namespace game_framework {
 			Mood();
 			bool HitPlayer(RedPlayer *player);							// 是否碰到擦子
 			bool HitPlayer(IcePlayer *player);
-			bool HitHitPlayer(RedPlayer *player);
-			bool HitHitPlayer(IcePlayer *player);
 			bool IsAlive();											// 是否活著
 			void LoadBitmap();										// 載入圖形
 			void OnMove();											// 移動
@@ -25,6 +23,6 @@ namespace game_framework {
 			bool is_alive;				// 是否活著
 		private:
 			bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	// 是否碰到參數範圍的矩形
-			bool HitHitRectangle(int tx1, int ty1, int tx2, int ty2);
+
 	};
 }
