@@ -450,7 +450,7 @@ namespace game_framework {
 		int y1 = y;
 		int x2 = x1 + bit.Width();
 		int y2 = y1 + bit.Height();
-		if (x1 > 700 && x2 < 790 && y2 >= 192 && y1 <= 292) {
+		if (x2 >= 709 && x1 < 790 && y2 >= 192 && y1 <= 292) {
 			return 1;
 		}
 		else {
