@@ -66,7 +66,6 @@ namespace game_framework {
 		int getCoordX(int x, int y);
 		int getCoordY(int x, int y);
 		void setfloor();
-
 		bool frontBox(int x, int y);
 		bool onBox(int x, int y);
 		bool butin();
@@ -87,7 +86,6 @@ namespace game_framework {
 		string character;
 		bool upEnable;
 		bool setFloorEnable;
-		
 		int ceil;
 		int velocity;			// 目前的速度(點/次)
 		int initial_velocity;	// 初始速度

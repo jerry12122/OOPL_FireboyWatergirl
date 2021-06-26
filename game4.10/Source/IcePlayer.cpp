@@ -7,11 +7,6 @@
 #include "IcePlayer.h"
 
 namespace game_framework {
-	/////////////////////////////////////////////////////////////////////////////
-	// IcePlayer: IcePlayer class
-	/////////////////////////////////////////////////////////////////////////////
-
-
 	IcePlayer::IcePlayer()
 	{
 		Initialize(stage);
@@ -55,50 +50,10 @@ namespace game_framework {
 		const int Y_POS = 542;
 		MY = 230;
 		floor = FLOOR;
-		//x = X_POS;
-		//y = Y_POS;
 		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = isOnBox = isFrontBox = isOnButton= false;
 		rising = false;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
-		/*
-		int map_init[18][14] = {
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,1,1,0,0,1,1,1,1,1,1,1,1,1},
-			{1,1,1,1,0,1,1,1,1,1,1,1,1,1},
-			{1,1,1,1,0,0,0,0,0,0,0,0,0,0},
-			{0,0,1,1,0,0,1,1,1,1,1,1,1,1},
-			{0,0,1,1,1,1,1,1,1,0,1,1,1,1},
-			{0,0,0,0,0,0,0,0,0,0,0,0,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,0,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{1,0,0,0,0,0,0,0,0,1,1,1,1,1},
-			{1,1,1,1,1,1,1,1,0,0,0,0,0,0},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,0,0,0,0,0,0,0,1,1,1,1,1,1},
-			{1,1,1,1,1,1,1,0,1,1,1,1,1,1},
-			{1,1,1,1,1,1,1,0,0,0,0,0,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-			{0,0,0,0,0,1,1,1,1,1,1,1,1,1},
-			{1,1,1,1,1,1,1,1,1,1,1,1,1,0}
-		};
-		for (int i = 0; i < 19; i++)
-		{
-			for (int j = 0; j < 15; j++)
-			{
-				map[i][j] = map_init[i][j];
-			}
-		}
-		int x_edge_init[15] = { 20,103,122,203,246,269,348,370,390,411,553,591,694,717,778 };
-		for (int j = 0; j < 15; j++)
-		{
-			x_edge[j] = x_edge_init[j];
-		}
-		int y_edge_init[19] = { 21,84,102,127,148,187,229,247,267,311,328,349,413,432,458,474,496,515,578 };
-		for (int j = 0; j < 19; j++)
-		{
-			y_edge[j] = y_edge_init[j];
-		}*/
 		for (int i = 0; i < 60; i++)
 		{
 			for (int j = 0; j < 80; j++)
@@ -282,30 +237,6 @@ namespace game_framework {
 			y = floor - 38;
 
 		}
-		/*
-		int a = MY / 10;
-		if (isButton) {
-			if (x > 710 && x < 780 && y >= 192 && y < 282) {
-				for (int j = 71; j <= 77; j++) {
-					map[a][j] = 0;
-					map[a - 1][j] = 1;
-				}
-				y = a * 10 - 38;
-				setfloor();
-			}
-		}
-		else {
-			if (x > 710 && x < 780 && y >= 192 && y < 282) {
-				for (int j = 71; j <= 77; j++) {
-					map[a][j] = 0;
-					if (a <= 31) {
-						map[a + 1][j] = 1;
-					}
-					y = a * 10 - 38;
-					setfloor();
-				}
-			}
-		}*/
 	}
 	void IcePlayer::OnMove()
 	{
@@ -352,19 +283,6 @@ namespace game_framework {
 				}
 			}
 		}
-		/*
-		if (isLeftRightEmpty(x, y+55)&&y+55<578)
-		{
-			int  ycoord = 0;
-			for (int i = 0; i < 19; i++)
-			{
-				if (y >= y_edge[i]) {
-					ycoord = i;
-				}
-			}
-			floor = y_edge[ycoord + 1]-50;
-		}
-		*/
 		if (!rising && velocity == initial_velocity) {
 			y = floor - 38;
 

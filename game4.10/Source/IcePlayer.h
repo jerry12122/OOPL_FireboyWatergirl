@@ -48,13 +48,9 @@ namespace game_framework {
 		CAnimation animation, animation1;		// 擦子的動畫
 		CMovingBitmap bit;
 		CGameMap gamemap;
-		static CGameMap getMap();
 		int x, y;					// 擦子左上角座標
 		int xxx, yyy;
 		int gem = 0;
-		void Addgem();
-		int getgem();
-		string Getcharacteristic();
 		string character;
 		bool upEnable;
 		bool setFloorEnable;
