@@ -353,6 +353,7 @@
     <Image Include="..\res\BOYGIRL.bmp" />
     <Image Include="..\res\BUTTON.bmp" />
     <Image Include="..\res\CONTINUE.bmp" />
+    <Image Include="..\res\CONTINUE2.bmp" />
     <Image Include="..\res\demo_map.bmp" />
     <Image Include="..\res\DIM.bmp" />
     <Image Include="..\res\DOOR_OPEN.bmp" />
@@ -386,6 +387,7 @@
     <Image Include="..\res\ICE_RIGHT_RUN_1.bmp" />
     <Image Include="..\res\ICE_RIGHT_RUN_2.bmp" />
     <Image Include="..\res\ICE_RIGHT_RUN_3.bmp" />
+    <Image Include="..\res\intro.bmp" />
     <Image Include="..\res\leftmood.bmp" />
     <Image Include="..\res\menu.bmp" />
     <Image Include="..\res\midmood.bmp" />

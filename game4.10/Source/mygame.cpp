@@ -69,15 +69,14 @@
 #include <stdio.h>
 #include <sstream>
 namespace game_framework {
-/////////////////////////////////////////////////////////////////////////////
-// 這個class為遊戲的遊戲開頭畫面物件
-/////////////////////////////////////////////////////////////////////////////
 static int stage = 0;
 static int findim = 0;
 //NUMRED,NUMICE, LAKERED, LAKEICE, LAKEGREEN, NUMMOD, NUMBUT
+//設定各個關卡各種物件數量
 static int count[2][7] = { {3,4,1,1,1,2,3},
 					{8,8,2,2,2,1,2}};
 static bool corr;
+//第一關各種物件座標
 static int	stage1_diamond1[3][2] = { {405,535},{140,260},{223,41} },
 			stage1_diamond2[4][2] = { {570,535},{470,290},{475,87},{35,109} },
 			stage1_Lake1_position[1][2] = { {360,579} },
@@ -85,6 +84,7 @@ static int	stage1_diamond1[3][2] = { {405,535},{140,260},{223,41} },
 			stage1_Lake3_position[1][2] = { {460,455} },
 			stage1_mood_position[2][2] = { {260,380},{20,310} },
 			stage1_button_position[3][2] = { {270,295},{710,230} ,{640,215} };
+//第二關各種物件座標
 static int	stage2_diamond1[8][2] = { {161,550},{247,550},{484,487} ,{576,487}, {304,373},{576,373},{376,243} ,{366,67} },
 			stage2_diamond2[8][2] = { {484,550},{576,550},{161,487} ,{247,487}, {202,373},{484,373},{419,243} ,{409,67} },
 			stage2_Lake1_position[2][2] = { {125,579} ,{454,517} },
@@ -93,7 +93,9 @@ static int	stage2_diamond1[8][2] = { {161,550},{247,550},{484,487} ,{576,487}, {
 			stage2_mood_position[2][2] = { {260,380} ,{300,300}  },
 			stage2_button_position[3][2] = { {140,390},{400,330},{600,390}},
 			stage2_button_position1[3][2] = { {200,100},{450,110},{560,100} };
-
+/////////////////////////////////////////////////////////////////////////////
+// 這個class為遊戲的遊戲開頭畫面物件
+/////////////////////////////////////////////////////////////////////////////
 CGameStateInit::CGameStateInit(CGame *g)
 : CGameState(g)
 {
@@ -102,9 +104,10 @@ CGameStateInit::CGameStateInit(CGame *g)
 
 void CGameStateInit::OnInit()
 {
-	ShowInitProgress(0);	// 一開始的loading進度為0%
+	ShowInitProgress(0);
 	logo.LoadBitmap(IDB_GAME_MENU);
 	intro.LoadBitmap(IDB_INTRO);
+	intro2.LoadBitmap(INTRO);
 }
 void CGameStateInit::OnBeginState()
 {
@@ -119,14 +122,17 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
+	//點擊Play的位置後跳轉到GameStateMenu
 	if ((point.x > 303 && point.x < 485) && (point.y > 311 && point.y < 375))
 	{
 		GotoGameState(GAME_STATE_MENU);
 	}
+	//點擊齒輪後顯示Help
 	if ((point.x > 10 && point.x < 82) && (point.y > 475 && point.y < 555))
 	{
 		intro_bool = true;
 	}
+	//點擊Back後回到主畫面
 	if ((point.x > 165 && point.x < 257) && (point.y > 382 && point.y < 421))
 	{
 		intro_bool = false;
@@ -138,6 +144,8 @@ void CGameStateInit::OnShow()
 {
 	logo.SetTopLeft(0, 0);
 	logo.ShowBitmap();
+	intro2.SetTopLeft(0, 0);
+	intro2.ShowBitmap();
 	intro.SetTopLeft(118, 135);
 	if (intro_bool)
 	{
@@ -357,7 +365,9 @@ void CGameStateRun::OnBeginState()
 	const int HITS_DOOR = 1;
 	const int HITS_LEFT_X = 590;
 	const int HITS_LEFT_Y = 0;
+	//載入地圖
 	gamemap.ReadFile(stage+1);
+	//設置各種物件位置地圖
 	for (int i = 0; i < NUMRED; i++) {		
 		diamond1[i].SetXY(stage1_diamond1[i][0], stage1_diamond1[i][1]);
 		diamond1[i].SetIsAlive(true);
@@ -383,7 +393,6 @@ void CGameStateRun::OnBeginState()
 		button[i].SetXY(stage1_button_position[i][0], stage1_button_position[i][1]);
 		button[i].SetIsAlive(true);
 	}
-
 	player1.Initialize(stage+1);
 	player2.Initialize(stage+1);
 	player1.SetXY(42, 542);
@@ -395,11 +404,8 @@ void CGameStateRun::OnBeginState()
 	icedoor.SetXY(600, 60);
 	box.init();
 	box.SetXY(500, 160);
-
 	background.SetTopLeft(0,0);				
 	hits_left.SetInteger(HITS_LEFT);
-
-
 	hits_lake.SetInteger(HITS_LAKE);
 	hits_door.SetInteger(HITS_DOOR);
 	hits_left.SetTopLeft(HITS_LEFT_X,HITS_LEFT_Y);		
@@ -964,7 +970,9 @@ void CGameStateRun2::OnMove()
 		player1.SetButton3(true);
 		player2.SetButton3(true);
 	}
-	if (!((button[0].IsAlive()) && (button[2].IsAlive())) && !(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2)) && !(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
+	if (!((button[0].IsAlive()) && (button[2].IsAlive())) &&\
+		!(button[0].HitPlayer(&player1)) && !(button[0].HitPlayer(&player2)) &&\
+		!(button[2].HitPlayer(&player1)) && !(button[2].HitPlayer(&player2))) {
 		button[1].SetIsAlive(true);
 		player1.SetButton3(false);
 		player2.SetButton3(false);
@@ -988,7 +996,9 @@ void CGameStateRun2::OnMove()
 		player1.SetButton2(true);
 		player2.SetButton2(true);
 	}
-	if (!((button1[0].IsAlive()) && (button1[2].IsAlive())) && !(button1[0].HitPlayer(&player1)) && !(button1[0].HitPlayer(&player2)) && !(button1[2].HitPlayer(&player1)) && !(button1[2].HitPlayer(&player2))) {
+	if (!((button1[0].IsAlive()) && (button1[2].IsAlive())) &&\
+		!(button1[0].HitPlayer(&player1)) && !(button1[0].HitPlayer(&player2)) &&\
+		!(button1[2].HitPlayer(&player1)) && !(button1[2].HitPlayer(&player2))) {
 		button1[1].SetIsAlive(true);
 		player1.SetButton2(false);
 		player2.SetButton2(false);
