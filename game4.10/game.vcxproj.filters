@@ -318,7 +318,6 @@
     <Image Include="..\res\ICE_DOOR_CLOSE.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\res\1.png" />
     <Image Include="res\bitmap7.bmp">
       <Filter>Resource Files</Filter>
     </Image>

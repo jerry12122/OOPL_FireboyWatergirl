@@ -22,10 +22,10 @@ namespace game_framework {
 
 	bool IceDoor::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
-		int x1 = x ;				// 球的左上角x座標
-		int y1 = y ;				// 球的左上角y座標
-		int x2 = x1 + door.Width();	// 球的右下角x座標
-		int y2 = y1 + door.Height();	// 球的右下角y座標
+		int x1 = x ;				// 玩家的左上角x座標
+		int y1 = y ;				// 玩家的左上角y座標
+		int x2 = x1 + door.Width();	// 玩家的右下角x座標
+		int y2 = y1 + door.Height();	// 玩家的右下角y座標
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 

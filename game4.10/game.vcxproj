@@ -346,7 +346,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\res\1.bmp" />
-    <Image Include="..\res\1.png" />
     <Image Include="..\res\bad.bmp" />
     <Image Include="..\res\bitmap7.bmp" />
     <Image Include="..\res\box.bmp" />

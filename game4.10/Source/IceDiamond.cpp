@@ -22,10 +22,10 @@ namespace game_framework {
 
 	bool IceDiamond::HitRectangle(int tx1, int ty1, int tx2, int ty2)
 	{
-		int x1 = x;				// 球的左上角x座標
-		int y1 = y;				// 球的左上角y座標
-		int x2 = x1 + bmp.Width();	// 球的右下角x座標
-		int y2 = y1 + bmp.Height();	// 球的右下角y座標
+		int x1 = x;				// 玩家的左上角x座標
+		int y1 = y;				// 玩家的左上角y座標
+		int x2 = x1 + bmp.Width();	// 玩家的右下角x座標
+		int y2 = y1 + bmp.Height();	// 玩家的右下角y座標
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
 
@@ -36,7 +36,7 @@ namespace game_framework {
 
 	void IceDiamond::LoadBitmap()
 	{
-		bmp.LoadBitmap(ICE_DIAMOND, RGB(255, 255, 255));			// 載入球的圖形
+		bmp.LoadBitmap(ICE_DIAMOND, RGB(255, 255, 255));			// 載入圖形
 	}
 	void IceDiamond::OnMove()
 	{

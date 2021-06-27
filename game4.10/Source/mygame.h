@@ -53,8 +53,6 @@
 #include <fstream> 
 extern bool current_rank;
 
-
-
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -68,7 +66,6 @@ namespace game_framework {
 
 	/////////////////////////////////////////////////////////////////////////////
 	// 這個class為遊戲的遊戲開頭畫面物件
-	// 每個Member function的Implementation都要弄懂
 	/////////////////////////////////////////////////////////////////////////////
 
 	class CGameStateInit : public CGameState {
@@ -81,16 +78,13 @@ namespace game_framework {
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		CMovingBitmap logo,intro,intro2;								// csie的logo
+		CMovingBitmap logo,intro,intro2;				
 		bool intro_bool;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
-	// 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
-	// 每個Member function的Implementation都要弄懂
+	// 這個class為遊戲第一關的狀態(Game Run 1)
 	/////////////////////////////////////////////////////////////////////////////
-
-
 
 	class CGameStateRun : public CGameState {
 	public:
@@ -107,19 +101,19 @@ namespace game_framework {
 	private:
 		bool JUMP, UP;
 		
-		const int		NUMRED;	// 球的總數
-		const int		NUMICE;
-		const int		LAKERED;	// 水的總數
-		const int		LAKEICE;
-		const int		LAKEGREEN;
-		const int		NUMMOD;
-		const int		NUMBUT;
+		const int		NUMRED;		// 火鑽的總數
+		const int		NUMICE;		// 冰鑽的總數
+		const int		LAKERED;	// 紅水的總數
+		const int		LAKEICE;	// 藍水的總數
+		const int		LAKEGREEN;	// 綠水的總數
+		const int		NUMMOD;		// 拉桿的總數
+		const int		NUMBUT;		// 按鈕的總數
 		CMovingBitmap	background;	// 背景圖
 
-		RedDiamond		*diamond1;	// 鑽石的陣列
+		RedDiamond		*diamond1;	
 		IceDiamond		*diamond2;
 		CInteger		hits_left;
-		CInteger		hits_lake;// 剩下的撞擊數
+		CInteger		hits_lake;	
 		CInteger		hits_door;
 		RedPlayer		player1;
 		IcePlayer		player2;
@@ -132,6 +126,10 @@ namespace game_framework {
 		box				box;
 		Button			*button;
 	};
+
+	/////////////////////////////////////////////////////////////////////////////
+	// 這個class為遊戲第二關的狀態(Game Run 2)
+	/////////////////////////////////////////////////////////////////////////////
 	class CGameStateRun2 : public CGameState {
 	public:
 		CGameStateRun2(CGame *g);
@@ -147,20 +145,20 @@ namespace game_framework {
 	private:
 		bool JUMP, UP;
 
-		const int		NUMRED;	// 球的總數
-		const int		NUMICE;
-		const int		LAKERED;	// 水的總數
-		const int		LAKEICE;
-		const int		LAKEGREEN;
-		const int		NUMMOD;
-		const int		NUMBUT;
-		const int		NUMBUT1;
+		const int		NUMRED;		  // 火鑽的總數
+		const int		NUMICE;		  // 冰鑽的總數
+		const int		LAKERED;	  // 紅水的總數
+		const int		LAKEICE;	  // 藍水的總數
+		const int		LAKEGREEN;	  // 綠水的總數
+		const int		NUMMOD;		  // 拉桿的總數
+		const int		NUMBUT;		  // 按鈕的總數
+		const int		NUMBUT1;		
 		CMovingBitmap	background;	// 背景圖
 
-		RedDiamond		*diamond1;	// 鑽石的陣列
+		RedDiamond		*diamond1;	
 		IceDiamond		*diamond2;
 		CInteger		hits_left;
-		CInteger		hits_lake;// 剩下的撞擊數
+		CInteger		hits_lake;
 		CInteger		hits_door;
 		RedPlayer		player1;
 		IcePlayer		player2;
@@ -170,7 +168,6 @@ namespace game_framework {
 		RedDoor			reddoor;
 		IceDoor			icedoor;
 		Mood			*mood;
-		//box				box;
 		Button			*button;
 		Button			*button1;
 	};
@@ -178,7 +175,6 @@ namespace game_framework {
 
 	/////////////////////////////////////////////////////////////////////////////
 	// 這個class為遊戲的結束狀態(Game Over)
-	// 每個Member function的Implementation都要弄懂
 	/////////////////////////////////////////////////////////////////////////////
 
 	class CGameStateOver : public CGameState {
@@ -191,9 +187,12 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		int counter;	// 倒數之計數器
+		int counter;	
 		CMovingBitmap gameover;
 	};
+	/////////////////////////////////////////////////////////////////////////////
+	// 這個class為遊戲贏的狀態(Game Win)
+	/////////////////////////////////////////////////////////////////////////////
 	class CGameStateWin : public CGameState {
 	public:
 		CGameStateWin(CGame *g);
@@ -204,7 +203,7 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		int counter;	// 倒數之計數器
+		int counter;	
 		CMovingBitmap gamewinspace;
 		CMovingBitmap alarm;
 		CMovingBitmap boygirl;
@@ -219,6 +218,10 @@ namespace game_framework {
 		CMovingBitmap fin3;
 		CMovingBitmap fin4;
 	};
+
+	/////////////////////////////////////////////////////////////////////////////
+	// 這個class為遊戲的選關狀態(Game Menu)
+	/////////////////////////////////////////////////////////////////////////////
 	class CGameStateMenu : public CGameState {
 	public:
 		CGameStateMenu(CGame *g);
@@ -229,7 +232,7 @@ namespace game_framework {
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		int counter;	// 倒數之計數器
+		int counter;	
 		CMovingBitmap bg;
 	};
 	

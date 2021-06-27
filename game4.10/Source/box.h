@@ -3,7 +3,9 @@
 #include <fstream> 
 extern bool current_rank;
 namespace game_framework {
-
+/////////////////////////////////////////////////////////////////////////////
+// 這個class是箱子的Class
+/////////////////////////////////////////////////////////////////////////////
 	class box
 	{
 	public:
@@ -38,7 +40,7 @@ namespace game_framework {
 		bool is_alive;				
 	private:
 		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	
-		bool inertia;
+		bool inertia;											//慣性
 		int initial_velocity;	
 		int velocity;			
 	};

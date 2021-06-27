@@ -20,6 +20,7 @@ namespace game_framework {
 	{
 		init();
 	}
+	//設置初始值，讀取地圖檔案轉換成陣列
 	void box::init()
 	{
 		gamemap.~CGameMap();
@@ -81,6 +82,7 @@ namespace game_framework {
 
 		return (tx2 >= x1 && tx1 <= x2 && ty2 >= y1 && ty1 <= y2);
 	}
+	//依據地圖陣列設置重力世界地板
 	void box::setfloor()
 	{
 		if ((map[(y + 30) / 10][(x) / 10]) && (map[(y + 30) / 10][(x + 30) / 10]) == 1) {
@@ -117,6 +119,7 @@ namespace game_framework {
 	{
 		bmp.LoadBitmap(IDB_BOX, RGB(0, 0, 0));			
 	}
+	//依據地圖陣列檢測牆壁、天花板
 	bool box::isLeftRightEmpty(int x, int y, int value)
 	{
 		int x_coord = 0, ycoord = 0;
@@ -164,6 +167,7 @@ namespace game_framework {
 
 		return map[ycoord / 10][x_coord / 10];
 	}
+	//移動包含慣性
 	void box::OnMove()
 	{
 		y = floor - 30;

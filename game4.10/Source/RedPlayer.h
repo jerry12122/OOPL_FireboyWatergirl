@@ -3,8 +3,7 @@
 extern bool current_rank;
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
-	// 這個class提供可以用鍵盤或滑鼠控制的擦子
-	// 看懂就可以改寫成自己的程式了
+	// 這個class是火人和CGameMap的Class
 	/////////////////////////////////////////////////////////////////////////////
 	class CGameMap {
 	public:
@@ -50,12 +49,12 @@ namespace game_framework {
 		int GetY1();
 		int GetX2();
 		int GetY2();
-		void Initialize(int stages);				// 設定擦子為初始值
+		void Initialize(int stages);				// 設定玩家為初始值
 		void LoadBitmap();				// 載入圖形
-		void OnMove();					// 移動擦子
+		void OnMove();					// 移動玩家
 		void OnMove1();
-		void OnShow();					// 將擦子圖形貼到畫面
-		void SetXY(int nx, int ny);		// 設定擦子左上角座標
+		void OnShow();					// 將玩家圖形貼到畫面
+		void SetXY(int nx, int ny);		// 設定玩家左上角座標
 		void SetFloor(int y);
 		void SetVelocity(int);
 		bool isLeftRightEmpty(int x, int y, int value);
@@ -73,16 +72,10 @@ namespace game_framework {
 		int y_edge[600];
 		int floor;
 	protected:
-		CAnimation animation, animation1;		// 擦子的動畫
+		CAnimation animation, animation1;		// 玩家的動畫
 		CMovingBitmap bit;
 		CGameMap gamemap;
-		int x, y;					// 擦子左上角座標
-		int xxx, yyy;
-		int gem = 0;
-		string character;
-		bool upEnable;
-		bool setFloorEnable;
-		int ceil;
+		int x, y;					// 玩家左上角座標
 		int velocity;			// 目前的速度(點/次)
 		int initial_velocity;	// 初始速度
 		bool rising;				// true表上升、false表下降		
@@ -97,7 +90,6 @@ namespace game_framework {
 		bool isButton3;
 		bool isMood;
 		bool isBox;
-		int  MY, pot, dot;
 		int stage;
 	};
 }

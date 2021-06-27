@@ -148,7 +148,7 @@ namespace game_framework {
 		const int Y_POS = 542;
 		MY = 230;
 		floor = FLOOR;
-		isMovingLeft = isMovingRight = isMovingUp = isMovingDown=isOnBox=isFrontBox =isOnButton = false;
+		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = isOnBox = isFrontBox = isOnButton = false;
 		rising = false;
 		initial_velocity = INITIAL_VELOCITY;
 		velocity = initial_velocity;
@@ -322,11 +322,11 @@ namespace game_framework {
 				floor = ((y + 38) / 10) * 10;
 			}
 		}
-		
+
 		if (floor >= 580) {
 			floor = 579;
 		}
-		if((x + 20 >= 122 && x + 20 < 157 && y + 40 >= 21 && y + 40 < 229)&&isOnBox)
+		if ((x + 20 >= 122 && x + 20 < 157 && y + 40 >= 21 && y + 40 < 229) && isOnBox)
 		{
 			floor = 194;
 		}
@@ -384,7 +384,7 @@ namespace game_framework {
 		}
 		if (!rising && velocity == initial_velocity) {
 			y = floor - 38;
-			
+
 		}
 		if (isMovingLeft)
 			if (isLeftRightEmpty(x - STEP_SIZE, y, 1) && x > 20 && isFrontBox == false) {

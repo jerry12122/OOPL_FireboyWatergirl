@@ -35,7 +35,7 @@ namespace game_framework {
 	{
 		stage = stages;
 		gamemap.ReadFile(stages);
-		int INITIAL_VELOCITY;	// 初始上升速度
+		int INITIAL_VELOCITY;
 		if (stages == 1)
 		{
 			INITIAL_VELOCITY = 11;
@@ -45,10 +45,8 @@ namespace game_framework {
 			INITIAL_VELOCITY = 15;
 		}
 		const int FLOOR = 462;
-		// 地板座標
 		const int X_POS = 42;
 		const int Y_POS = 542;
-		MY = 230;
 		floor = FLOOR;
 		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = isOnBox = isFrontBox = isOnButton= false;
 		rising = false;
@@ -340,8 +338,8 @@ namespace game_framework {
 				setfloor();
 				y = floor - 38;  // 當y座標低於地板，更正為地板上
 				rising = false;	// 探底反彈，下次改為上升
-				velocity = initial_velocity;
-				// 重設上升初始速度
+				velocity = initial_velocity; // 重設上升初始速度
+				
 			}
 			isMovingUp = false;
 		};
