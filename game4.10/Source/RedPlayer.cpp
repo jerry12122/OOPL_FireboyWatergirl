@@ -146,7 +146,6 @@ namespace game_framework {
 		const int FLOOR = 579;// ¦aªO®y¼Ð
 		const int X_POS = 42;
 		const int Y_POS = 542;
-		MY = 230;
 		floor = FLOOR;
 		isMovingLeft = isMovingRight = isMovingUp = isMovingDown = isOnBox = isFrontBox = isOnButton = false;
 		rising = false;
