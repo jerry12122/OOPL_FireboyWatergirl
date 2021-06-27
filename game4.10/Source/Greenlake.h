@@ -5,21 +5,21 @@ namespace game_framework {
 /////////////////////////////////////////////////////////////////////////////
 // 這個class是綠水的Class
 /////////////////////////////////////////////////////////////////////////////
-	class Greenlake
-	{
-	public:
-		Greenlake();
-		bool HitPlayer(RedPlayer *player);							
-		bool HitPlayer(IcePlayer *player);
-		void LoadBitmap();										
-		void OnMove();											
-		void OnShow();											
-		void SetXY(int nx, int ny);
-		bool hack;											
-	protected:
-		CMovingBitmap LAKE;			
-		int x, y;					
-	private:
-		bool HitRectangle(int tx1, int ty1, int tx2, int ty2);	
-	};
+    class Greenlake
+    {
+    public:
+        Greenlake();
+        bool HitPlayer(RedPlayer *player);                            
+        bool HitPlayer(IcePlayer *player);
+        void LoadBitmap();                                        
+        void OnMove();                                            
+        void OnShow();                                            
+        void SetXY(int nx, int ny);
+        bool hack;                                            
+    protected:
+        CMovingBitmap LAKE;            
+        int x, y;                    
+    private:
+        bool HitRectangle(int tx1, int ty1, int tx2, int ty2);    
+    };
 }
